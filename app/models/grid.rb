@@ -5,7 +5,7 @@ class Grid < ActiveRecord::Base
 
 	def starting_block
 		block = Block.new
-		grid.blocks<< block
+		blocks<< block
 	end
 
 end
