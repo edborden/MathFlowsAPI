@@ -8,7 +8,6 @@ ActiveRecord::Schema.define(version: 20141218005706) do
     t.integer  "col", default: 1
     t.integer  "width", default: 1
     t.integer  "height", default: 1
-    t.text  "content", default: "+"
     t.integer "layout_id"
   end 
 
@@ -19,12 +18,18 @@ ActiveRecord::Schema.define(version: 20141218005706) do
   end 
 
   create_table "sessions", force: true do |t|
-    t.string  "token"
+    t.text  "token"
     t.string "token_source",        default: "issued", null: false
     t.integer "user_id"
   end
 
   add_index "sessions", ["token"], name: "index_sessions_on_token", using: :btree
+
+  create_table "snippets", force: true do |t|
+    t.text  "content", default: "+"
+    t.boolean "equation", default: false, null:false
+    t.integer "block_id"
+  end
 
   create_table "users", force: true do |t|
     t.boolean  "guest",                        default: true, null: false
