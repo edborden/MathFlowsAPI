@@ -3,8 +3,8 @@ class GuestHandler
 	def setup
 		user = User.create
 		user.create_session.issue_token
-		grid = Grid.create
-		user.grids<< grid
+		layout = Layout.create
+		user.layouts<< layout
 		return user
 	end
 

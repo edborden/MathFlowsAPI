@@ -17,7 +17,7 @@ class BlocksController < ApplicationController
 	end
 
 	def block_params
-		params.require(:block).permit :row,:col,:height,:width,:content,:grid_id
+		params.require(:block).permit :row,:col,:height,:width,:content,:layout_id
 	end
 
 end

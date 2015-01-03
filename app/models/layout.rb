@@ -1,4 +1,4 @@
-class Grid < ActiveRecord::Base
+class Layout < ActiveRecord::Base
 	after_create :starting_block
 
 	has_many :blocks

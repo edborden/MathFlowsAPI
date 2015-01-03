@@ -1,5 +1,5 @@
 class BlockSerializer < ApplicationSerializer
 	attributes :row, :col, :height, :width, :content
-	has_one :grid
+	has_one :layout
 		
 end

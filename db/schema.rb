@@ -9,10 +9,10 @@ ActiveRecord::Schema.define(version: 20141218005706) do
     t.integer  "width", default: 1
     t.integer  "height", default: 1
     t.text  "content", default: "+"
-    t.integer "grid_id"
+    t.integer "layout_id"
   end 
 
-  create_table "grids", force: true do |t|
+  create_table "layouts", force: true do |t|
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer "user_id"    
