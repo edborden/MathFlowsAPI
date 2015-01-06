@@ -27,7 +27,7 @@ ActiveRecord::Schema.define(version: 20141218005706) do
 
   create_table "snippets", force: true do |t|
     t.text  "content", default: "+"
-    t.boolean "equation", default: false, null:false
+    t.binary "equation"
     t.integer "block_id"
   end
 

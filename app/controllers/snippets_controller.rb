@@ -1,7 +1,16 @@
+require 'open-uri'
+require 'base64'
+
 class SnippetsController < ApplicationController
 
 	def create
-		snippet = Snippet.create snippet_params
+		snippet = Snippet.new snippet_params
+		if snippet.equation
+			file = open params[:snippet][:equation]
+			enc = Base64.encode64 file.read
+			snippet.equation = enc
+		end
+		snippet.save
 		render json: snippet
 	end
 
@@ -13,11 +22,11 @@ class SnippetsController < ApplicationController
 	def destroy
 		snippet = Snippet.find params[:id]
 		snippet.destroy
-		head :ok
+		head :no_content
 	end
 
 	def snippet_params
-		params.require(:snippet).permit :content,:block_id
+		params.require(:snippet).permit :content,:block_id,:equation
 	end
 
 end

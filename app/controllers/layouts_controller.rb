@@ -13,7 +13,7 @@ class LayoutsController < ApplicationController
 	def destroy
 		layout = Layout.find params[:id]
 		layout.destroy
-		head :ok
+		head :no_content
 	end
 
 end

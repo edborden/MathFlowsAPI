@@ -1,5 +1,5 @@
 class SnippetSerializer < ApplicationSerializer
-	attributes :content
+	attributes :content,:equation
 	has_one :block
 		
 end
