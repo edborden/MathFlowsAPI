@@ -1,4 +1,5 @@
 class LayoutsController < ApplicationController
+	include ActionController::MimeResponds
 
 	def create
 		layout = Layout.create
@@ -7,7 +8,17 @@ class LayoutsController < ApplicationController
 
 	def show
 		layout = Layout.find params[:id]
-		render json: layout
+		respond_to do |format|
+
+			format.html do
+				pdf = Pdf.new(layout)
+				send_data pdf.render, filename: "layout_#{layout.created_at.strftime("%d/%m/%Y")}.pdf", type: "application/pdf"
+			end
+
+			#format.json do
+			#	render json: layout
+			#end
+		end
 	end
 
 	def destroy

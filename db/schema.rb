@@ -11,10 +11,26 @@ ActiveRecord::Schema.define(version: 20141218005706) do
     t.integer "layout_id"
   end 
 
+   create_table "equations", force: true do |t|
+    t.integer  "snippet_id"
+    t.string "latex"
+  end  
+
+  create_table "images", force: true do |t|
+    t.integer  "imageable_id"
+    t.string   "imageable_type"    
+    t.binary "data"
+    t.integer "height"
+    t.integer "width"
+    t.string "ext"
+  end 
+
   create_table "layouts", force: true do |t|
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer "user_id"    
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end 
 
   create_table "sessions", force: true do |t|
@@ -27,8 +43,9 @@ ActiveRecord::Schema.define(version: 20141218005706) do
 
   create_table "snippets", force: true do |t|
     t.text  "content", default: "+"
-    t.binary "equation"
     t.integer "block_id"
+    t.boolean "has_image", default: false, null: false
+    t.boolean "has_equation", default: false, null: false
   end
 
   create_table "users", force: true do |t|

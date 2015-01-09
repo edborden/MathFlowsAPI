@@ -6,6 +6,8 @@ gem 'rails-api', "0.2.1"
 gem 'active_model_serializers', git: "https://github.com/rails-api/active_model_serializers.git", ref: 'b9d216d'
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw]
 gem 'pg'
+gem 'prawn'
+gem 'data_uri'
 #gem "pusher"
 #gem "mailboxer"
 #gem "koala", "~> 1.10.0rc"

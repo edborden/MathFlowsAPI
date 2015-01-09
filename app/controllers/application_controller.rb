@@ -15,7 +15,13 @@ class ApplicationController < ActionController::API
 	def token
 		bearer = request.headers["HTTP_AUTHORIZATION"]
 		bearer ||= request.headers["rack.session"].try(:[], 'Authorization')
-		bearer.present? ? bearer.split.last : nil
+		if bearer.present?
+			bearer.split.last
+		elsif params[:token]
+			params[:token]
+		else
+			nil
+		end
 	end
 
 end

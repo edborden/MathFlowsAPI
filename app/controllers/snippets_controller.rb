@@ -1,16 +1,17 @@
-require 'open-uri'
-require 'base64'
-
 class SnippetsController < ApplicationController
 
 	def create
 		snippet = Snippet.new snippet_params
-		if snippet.equation
-			file = open params[:snippet][:equation]
-			enc = Base64.encode64 file.read
-			snippet.equation = enc
+
+		if params[:snippet][:equation]
+			snippet.has_equation = true
+			snippet.save
+			equation = snippet.create_equation latex: params[:snippet][:equation]
+			equation.create_image url: params[:snippet][:image]
+		else
+			snippet.save
 		end
-		snippet.save
+		
 		render json: snippet
 	end
 
@@ -26,7 +27,7 @@ class SnippetsController < ApplicationController
 	end
 
 	def snippet_params
-		params.require(:snippet).permit :content,:block_id,:equation
+		params.require(:snippet).permit :content,:block_id
 	end
 
 end
