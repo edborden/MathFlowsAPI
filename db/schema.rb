@@ -29,8 +29,10 @@ ActiveRecord::Schema.define(version: 20141218005706) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer "user_id"    
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.integer  "rows", default: 8
+    t.integer  "cols", default: 4
+    t.string  "page_width", default: "8.5",null: false
+    t.string  "page_height", default: "11.5",null: false
   end 
 
   create_table "sessions", force: true do |t|
@@ -46,6 +48,10 @@ ActiveRecord::Schema.define(version: 20141218005706) do
     t.integer "block_id"
     t.boolean "has_image", default: false, null: false
     t.boolean "has_equation", default: false, null: false
+    t.integer  "row", default: 1
+    t.integer  "col", default: 1
+    t.integer  "width", default: 1
+    t.integer  "height", default: 1    
   end
 
   create_table "users", force: true do |t|
