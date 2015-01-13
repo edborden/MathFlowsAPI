@@ -1,13 +1,13 @@
 class Block < ActiveRecord::Base
+	has_many :positions, as: :positionable
+	has_many :child_positions, class_name: "Position", as: :owner
 
-	after_create :starting_snippet
-
-	belongs_to :layout
-	has_many :snippets
-
-	def starting_snippet
-		snippet = Snippet.new
-		snippets<< snippet
+	def self.create_default position
+		block = Block.create
+		block.positions<<position
+		position = Position.create_default block
+		block.child_positions<<position
+		return block
 	end
 
 	def pdf_row

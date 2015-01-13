@@ -6,16 +6,24 @@ class SessionsController < ApplicationController
 			user = GuestHandler.new.setup
 			session = user.session
 		else
-			return
+			return #create session from facebook
 		end
-		render json: session
+		if user.guest
+			render json: session, serializer: GuestSessionSerializer, root: "session"
+		else
+			return #render non-guest user
+		end
 	end
 
 	def index
 		session = Session.find_by_token params[:token]
 		if session
 			user = session.user
-			render json: [session]
+			if user.guest
+				render json: [session], serializer: GuestSessionSerializer, root: "session"
+			else
+				return #render non-guest user
+			end
 		else
 			head :unauthorized
 		end

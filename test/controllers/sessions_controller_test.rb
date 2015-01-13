@@ -11,6 +11,7 @@ class SessionsControllerTest < ActionController::TestCase
 	#end
 
 	test "index existing user" do
+		skip
 		get(:index, {token: fbuser.token})
 		assert_equal json_response["sessions"][0]["id"], fbuser.session.id
 		assert_equal 200,@response.status

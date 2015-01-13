@@ -1,6 +1,6 @@
 class SnippetSerializer < ApplicationSerializer
-	attributes :content,:image,:row, :col, :height, :width
-	has_one :block
+	attributes :content,:image
+	has_one :position
 	
 	def image
 		if object.has_equation

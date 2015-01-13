@@ -1,6 +1,3 @@
 class LayoutSerializer < ApplicationSerializer
-	attributes :rows, :cols, :page_height, :page_width
-
-	has_many :blocks, embed_in_root: true
-		
+	attributes :rows, :cols, :base_height, :base_width
 end
