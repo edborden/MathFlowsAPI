@@ -18,8 +18,6 @@ ActiveRecord::Schema.define(version: 20141218005706) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "user_id"
-    t.string  "page_width", default: "8.5",null: false
-    t.string  "page_height", default: "11.5",null: false
   end 
 
   create_table "documents", force: true do |t|
@@ -37,8 +35,8 @@ ActiveRecord::Schema.define(version: 20141218005706) do
     t.string   "owner_type"  
     t.integer  "row"
     t.integer  "col"
-    t.integer  "width", default: 1
-    t.integer  "height", default: 1
+    t.integer  "row_span", default: 1
+    t.integer  "col_span", default: 1
   end
 
   create_table "blocks", force: true do |t|
@@ -67,10 +65,15 @@ ActiveRecord::Schema.define(version: 20141218005706) do
   create_table "layouts", force: true do |t|
     t.integer  "layoutable_id"
     t.string   "layoutable_type" 
-    t.integer  "rows", default: 8, null: false
-    t.integer  "cols", default: 4, null: false
-    t.integer "base_height",default: 1, null: false
-    t.integer "base_width",default: 1, null: false    
+    t.integer  "rows"
+    t.integer  "cols"
+    t.float "row_height"
+    t.float "col_width"  
+    t.float  "width"
+    t.float  "height"
+    t.integer "outside_margin"
+    t.integer "inside_margin"
+    t.string "type"
   end 
 
   create_table "sessions", force: true do |t|

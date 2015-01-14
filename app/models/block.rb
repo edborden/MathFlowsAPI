@@ -1,9 +1,12 @@
 class Block < ActiveRecord::Base
 	has_many :positions, as: :positionable
 	has_many :child_positions, class_name: "Position", as: :owner
+	has_one :layout, as: :layoutable, class_name: "BlockLayout"
 
-	def self.create_default position
+	def self.create_default position,owner_layout
 		block = Block.create
+		layout = BlockLayout.default owner_layout.width,owner_layout.height
+		block.layout = layout
 		block.positions<<position
 		position = Position.create_default block
 		block.child_positions<<position

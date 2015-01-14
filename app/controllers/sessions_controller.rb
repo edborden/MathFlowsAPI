@@ -20,7 +20,7 @@ class SessionsController < ApplicationController
 		if session
 			user = session.user
 			if user.guest
-				render json: [session], serializer: GuestSessionSerializer, root: "session"
+				render json: [session], each_serializer: GuestSessionSerializer, root: "sessions"
 			else
 				return #render non-guest user
 			end

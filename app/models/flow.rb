@@ -1,13 +1,14 @@
 class Flow < ActiveRecord::Base
 	has_many :documents
-	has_one :layout, as: :layoutable
+	has_one :layout, as: :layoutable, class_name: "FlowLayout"
 	belongs_to :user
 
 	def self.create_default
 		flow = Flow.create
-		document = Document.create_default
+		layout = FlowLayout.default
+		flow.layout = layout
+		document = Document.create_default layout
 		flow.documents<<document
-		flow.create_layout
-		flow
+		return flow
 	end
 end
