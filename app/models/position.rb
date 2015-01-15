@@ -1,6 +1,6 @@
 class Position < ActiveRecord::Base
 	belongs_to :owner, polymorphic:true
-	belongs_to :positionable, polymorphic:true
+	belongs_to :positionable, polymorphic:true, dependent: :destroy
 
 	def self.create_default source
 		position = Position.new

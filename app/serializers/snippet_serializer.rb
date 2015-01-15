@@ -1,6 +1,6 @@
-class SnippetSerializer < ApplicationSerializer
+class SnippetSerializer < PositionableSerializer
 	attributes :content,:image
-	has_one :position
+	has_one :block
 	
 	def image
 		if object.has_equation
@@ -8,6 +8,10 @@ class SnippetSerializer < ApplicationSerializer
 		else
 			nil
 		end
+	end
+
+	def block
+		object.position.owner
 	end
 
 end

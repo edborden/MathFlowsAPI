@@ -14,9 +14,7 @@ class Pdf
 	def generate_pdf
 	
 		@doc.pages.each do |page|
-
 			page.child_positions.each do |block_position|
-
 				bounding_box([block_position.x, bounds.top - block_position.y], width: block_position.positionable.layout.width, height:block_position.positionable.layout.height) do
 
 					block_position.positionable.child_positions.each do |snippet_position|
@@ -24,7 +22,7 @@ class Pdf
 						bounding_box([snippet_position.x, bounds.top - snippet_position.y], width: snippet_position.positionable.width, height:snippet_position.positionable.height) do
 							snippet = snippet_position.positionable
 							if snippet.has_equation
-								image(snippet.equation.image.file,scale:0.65)
+								image(snippet.equation.image.file,scale:0.75)
 							else
 								text(snippet.content)
 							end

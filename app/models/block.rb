@@ -1,7 +1,8 @@
 class Block < ActiveRecord::Base
 	has_one :position, as: :positionable
-	has_many :child_positions, class_name: "Position", as: :owner
-	has_one :layout, as: :layoutable, class_name: "BlockLayout"
+	has_many :child_positions, class_name: "Position", as: :owner, dependent: :destroy
+	has_one :layout, as: :layoutable, class_name: "BlockLayout", dependent: :destroy
+	has_many :positionables, through: :child_positions, source_type: "Snippet"
 
 	def self.create_default position
 		block = Block.create

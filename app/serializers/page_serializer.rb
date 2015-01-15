@@ -1,5 +1,9 @@
 class PageSerializer < ApplicationSerializer
-	has_many :child_positions, embed_in_root: true, each_serializer:PositionSerializer, root:'positions'
+	has_many :blocks, embed_in_root: true
 	has_one :document
 	has_one :layout
+
+	def blocks
+		object.positionables
+	end
 end
