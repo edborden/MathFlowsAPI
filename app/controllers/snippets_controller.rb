@@ -27,7 +27,7 @@ class SnippetsController < ApplicationController
 	end
 
 	def snippet_params
-		params.require(:snippet).permit :content,:block_id,:row, :col, :height, :width
+		params.require(:snippet).permit :content,:row, :col, :height, :width
 	end
 
 end

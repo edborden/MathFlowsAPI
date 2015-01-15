@@ -7,7 +7,7 @@ class DocumentsController < ApplicationController
 
 			format.html do
 				pdf = Pdf.new(document)
-				send_data pdf.render, filename: "document_#{document.created_at.strftime("%d/%m/%Y")}.pdf", type: "application/pdf"
+				send_data pdf.render, filename: "document_#{document.flow.created_at.strftime("%d/%m/%Y")}.pdf", type: "application/pdf"
 			end
 
 			#format.json do

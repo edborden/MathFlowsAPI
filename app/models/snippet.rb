@@ -9,4 +9,12 @@ class Snippet < ActiveRecord::Base
 		snippet.save
 		return snippet
 	end
+
+	def width
+		position.owner.layout.col_width * position.col_span
+	end
+
+	def height
+		position.owner.layout.row_height * position.row_span
+	end
 end
