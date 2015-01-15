@@ -7,7 +7,7 @@ class Flow < ActiveRecord::Base
 		flow = Flow.create
 		layout = FlowLayout.default
 		flow.layout = layout
-		document = Document.create_default layout
+		document = Document.create_default
 		flow.documents<<document
 		return flow
 	end

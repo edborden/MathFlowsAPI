@@ -1,3 +1,3 @@
 class LayoutSerializer < ApplicationSerializer
-	attributes :rows, :cols, :row_height, :col_width,:width,:height,:outside_margin,:inside_margin
+	attributes :cols, :row_height, :width,:height,:outside_margin,:inside_margin,:col_width
 end

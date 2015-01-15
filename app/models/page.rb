@@ -3,9 +3,9 @@ class Page < ActiveRecord::Base
 	belongs_to :document
 	has_one :layout
 
-	def self.create_default layout
+	def self.create_default
 		page = Page.create
-		position = Position.create_default page,layout
+		position = Position.create_default page
 		page.child_positions<<position
 		return page
 	end

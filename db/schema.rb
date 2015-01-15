@@ -33,8 +33,8 @@ ActiveRecord::Schema.define(version: 20141218005706) do
     t.string   "positionable_type"  
     t.integer  "owner_id"
     t.string   "owner_type"  
-    t.integer  "row"
-    t.integer  "col"
+    t.integer  "row", default: 1
+    t.integer  "col", default: 1
     t.integer  "row_span", default: 1
     t.integer  "col_span", default: 1
   end
@@ -65,7 +65,6 @@ ActiveRecord::Schema.define(version: 20141218005706) do
   create_table "layouts", force: true do |t|
     t.integer  "layoutable_id"
     t.string   "layoutable_type" 
-    t.integer  "rows"
     t.integer  "cols"
     t.float "row_height"
     t.float "col_width"  
