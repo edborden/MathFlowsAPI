@@ -18,11 +18,11 @@ class Position < ActiveRecord::Base
 	end
 
 	def x
-		pdf_col*owner.layout.col_width + pdf_col*owner.layout.inside_margin*2
+		pdf_col*owner.layout.col_width + pdf_col*owner.layout.inside_margin
 	end
 
 	def y
-		pdf_row*owner.layout.row_height + pdf_row*owner.layout.inside_margin*2
+		pdf_row*owner.layout.row_height + pdf_row*owner.layout.inside_margin
 	end
 
 	def pdf_row
