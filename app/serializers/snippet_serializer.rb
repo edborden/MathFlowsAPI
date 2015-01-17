@@ -5,6 +5,8 @@ class SnippetSerializer < PositionableSerializer
 	def image
 		if object.has_equation
 			object.equation.image.data
+		elsif object.has_image
+			object.image.data
 		else
 			nil
 		end

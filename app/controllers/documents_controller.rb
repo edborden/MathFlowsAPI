@@ -6,7 +6,7 @@ class DocumentsController < ApplicationController
 		respond_to do |format|
 
 			format.html do
-				pdf = Pdf.new(document)
+				pdf = Pdf.new document 
 				send_data pdf.render, filename: "document_#{document.flow.created_at.strftime("%d/%m/%Y")}.pdf", type: "application/pdf"
 			end
 

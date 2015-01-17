@@ -8,6 +8,10 @@ class SnippetsController < ApplicationController
 			snippet.save
 			equation = snippet.create_equation latex: params[:snippet][:equation]
 			equation.create_image url: params[:snippet][:image]
+		elsif params[:snippet][:image]
+			snippet.has_image = true
+			snippet.save
+			snippet.create_image data: params[:snippet][:image]
 		else
 			snippet.save
 		end
