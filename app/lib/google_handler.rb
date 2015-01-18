@@ -17,7 +17,7 @@ class GoogleHandler
 		@authorization ||= client.authorization = client_secrets.to_authorization
 	end
 
-	def user_authorized code,redirect_uri="http://localhost:4200"
+	def user_authorized code,redirect_uri
 		authorization.code = code
 		authorization.grant_type = "authorization_code"
 		authorization.redirect_uri = redirect_uri

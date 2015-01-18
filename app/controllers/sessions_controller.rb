@@ -6,7 +6,7 @@ class SessionsController < ApplicationController
 			user = GuestHandler.new.setup
 			session = user.session
 		else 
-			google = GoogleHandler.new.user_authorized(params[:session][:token])
+			google = GoogleHandler.new.user_authorized(params[:session][:token],params[:session][:redirect_uri])
 			user = User.find_by google_id: google.userinfo.id
 			user = User.create_from_google google unless user
 			user.session.destroy if user.session.present?
