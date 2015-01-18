@@ -7,9 +7,11 @@ ActiveRecord::Schema.define(version: 20141218005706) do
     t.boolean  "guest",                        default: true, null: false
     t.string   "email"
     t.string   "name"
-    t.string   "smallpic"
-    t.string   "mediumpic"
-    t.string   "largepic"
+    t.string   "pic"
+    t.string   "google_id"
+    t.string   "gender"
+    t.string   "google_link"
+    t.string   "google_refresh"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -77,7 +79,6 @@ ActiveRecord::Schema.define(version: 20141218005706) do
 
   create_table "sessions", force: true do |t|
     t.text  "token"
-    t.string "token_source",        default: "issued", null: false
     t.integer "user_id"
   end
 

@@ -5,13 +5,17 @@ class SessionsController < ApplicationController
 		if params[:session][:token] == "issue"
 			user = GuestHandler.new.setup
 			session = user.session
-		else
-			return #create session from facebook
+		else 
+			google = GoogleHandler.new.user_authorized(params[:session][:token])
+			user = User.find_by google_id: google.userinfo.id
+			user = User.create_from_google google unless user
+			user.session.destroy if user.session.present?
+			session = user.create_session
 		end
 		if user.guest
 			render json: session, serializer: GuestSessionSerializer, root: "session"
 		else
-			return #render non-guest user
+			render json: session
 		end
 	end
 

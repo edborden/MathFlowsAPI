@@ -2,7 +2,6 @@ class FlowLayout < Layout
 
 	def self.default
 		default = FlowLayout.new
-		default.rows = 9
 		default.cols = 4
 		default.width = 8.5 * 72 #8.5 inches
 		default.height = 11 * 72 #11 inches
@@ -11,6 +10,10 @@ class FlowLayout < Layout
 		default.row_height = 18 # line height of 12pt font
 		default.col_width = 128.25
 		return default
+	end
+
+	def rows
+		9
 	end
 
 	#def set_row_height
