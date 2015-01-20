@@ -26,7 +26,7 @@ class SessionsController < ApplicationController
 			if user.guest
 				render json: [session], each_serializer: GuestSessionSerializer, root: "sessions"
 			else
-				return #render non-guest user
+				render json: [session]
 			end
 		else
 			head :unauthorized

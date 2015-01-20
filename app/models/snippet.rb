@@ -11,10 +11,10 @@ class Snippet < ActiveRecord::Base
 	end
 
 	def width
-		position.owner.layout.col_width * position.col_span
+		position.owner.col_width * position.col_span
 	end
 
 	def height
-		position.owner.layout.row_height * position.row_span
+		position.owner.layout.block_row_height * position.row_span
 	end
 end

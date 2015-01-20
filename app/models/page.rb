@@ -1,7 +1,6 @@
 class Page < ActiveRecord::Base
 	has_many :child_positions, class_name: "Position", as: :owner, dependent: :destroy
 	belongs_to :document
-	has_one :layout
 	has_many :positionables, through: :child_positions, source_type: "Block"
 
 	def self.create_default

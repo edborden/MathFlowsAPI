@@ -65,16 +65,16 @@ ActiveRecord::Schema.define(version: 20141218005706) do
   end 
 
   create_table "layouts", force: true do |t|
-    t.integer  "layoutable_id"
-    t.string   "layoutable_type" 
+    t.integer  "flow_id"
     t.integer  "cols"
     t.float "row_height"
     t.float "col_width"  
     t.float  "width"
     t.float  "height"
-    t.integer "outside_margin"
-    t.integer "inside_margin"
-    t.string "type"
+    t.float "outside_margin"
+    t.float "inside_margin"
+    t.integer "block_cols"
+    t.float "block_row_height"
   end 
 
   create_table "sessions", force: true do |t|

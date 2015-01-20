@@ -1,7 +1,6 @@
 class BlockSerializer < PositionableSerializer
-
+	attributes :width,:height,:col_width
 	has_many :snippets, embed_in_root: true
-	has_one :layout, embed_in_root: true, serializer: LayoutSerializer
 
 	def snippets
 		object.positionables
