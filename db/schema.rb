@@ -16,10 +16,16 @@ ActiveRecord::Schema.define(version: 20141218005706) do
     t.datetime "updated_at"
   end
 
+  create_table "folders", force: true do |t|
+    t.integer  "user_id"
+    t.string "name", default: "My Folder"
+  end 
+
   create_table "flows", force: true do |t|
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "user_id"
+    t.integer  "folder_id"
+    t.string "name"
   end 
 
   create_table "documents", force: true do |t|

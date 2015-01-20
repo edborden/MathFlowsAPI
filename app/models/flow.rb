@@ -1,7 +1,7 @@
 class Flow < ActiveRecord::Base
 	has_many :documents
 	has_one :layout
-	belongs_to :user
+	belongs_to :folder
 
 	def self.create_default
 		flow = Flow.create

@@ -1,4 +1,4 @@
 class MeSerializer < ApplicationSerializer
 	attributes :name,:pic
-	has_many :flows
+	has_many :folders
 end

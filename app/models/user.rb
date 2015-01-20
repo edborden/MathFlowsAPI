@@ -1,7 +1,7 @@
 class User < ActiveRecord::Base
 
 	has_one :session
-	has_many :flows
+	has_many :folders
 
 	def token
 		try(:session).try(:token)
