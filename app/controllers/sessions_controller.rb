@@ -3,7 +3,7 @@ class SessionsController < ApplicationController
 
 	def create
 		if params[:session][:token] == "issue"
-			user = GuestHandler.new.setup
+			user = User.create
 			session = user.session
 		else 
 			google = GoogleHandler.new.user_authorized(params[:session][:token],params[:session][:redirect_uri])

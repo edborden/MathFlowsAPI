@@ -3,12 +3,9 @@ class Flow < ActiveRecord::Base
 	has_one :layout
 	belongs_to :folder
 
-	def self.create_default
-		flow = Flow.create
-		layout = Layout.default
-		flow.layout = layout
-		document = Document.create_default
-		flow.documents<<document
-		return flow
+	after_create do 
+		create_layout
+		documents<<Document.create
 	end
+
 end

@@ -2,19 +2,12 @@ class Position < ActiveRecord::Base
 	belongs_to :owner, polymorphic:true
 	belongs_to :positionable, polymorphic:true, dependent: :destroy
 
-	def self.create_default source
-		position = Position.new
-		if source.is_a? Page
-			position.save
-			Block.create_default position
-		end
-		if source.is_a? Block
-			position.row = 1
-			position.col = 1
-			position.save
-			Snippet.create_default position
-		end
-		return position
+	def create_block
+		Block.create.position = self
+	end
+
+	def create_snippet
+		Snippet.create.position = self
 	end
 
 	def x

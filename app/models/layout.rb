@@ -2,20 +2,6 @@ class Layout < ActiveRecord::Base
 
 	belongs_to :flow
 
-	def self.default
-		default = Layout.new
-		default.cols = 4
-		default.width = 8.5 * 72 #8.5 inches
-		default.height = 11 * 72 #11 inches
-		default.outside_margin = 0.5 * 72 #1/2 inch
-		default.inside_margin = 9 #1/2 line height of 12pt font
-		default.row_height = 18 # line height of 12pt font
-		default.col_width = 128.25
-		default.block_cols = 16
-		default.block_row_height = 18
-		return default
-	end
-
 	def page_rows
 		9
 	end

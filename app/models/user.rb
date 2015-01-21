@@ -3,6 +3,11 @@ class User < ActiveRecord::Base
 	has_one :session
 	has_many :folders
 
+	after_create do 
+		create_session
+		folders<<Folder.create
+	end
+
 	def token
 		try(:session).try(:token)
 	end

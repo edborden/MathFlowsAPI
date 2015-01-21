@@ -3,11 +3,10 @@ class Page < ActiveRecord::Base
 	belongs_to :document
 	has_many :positionables, through: :child_positions, source_type: "Block"
 
-	def self.create_default
-		page = Page.create
-		position = Position.create_default page
-		page.child_positions<<position
-		return page
+	after_create do
+		position = Position.create
+		child_positions<<position
+		position.create_block
 	end
 
 	def layout

@@ -3,12 +3,10 @@ class Block < ActiveRecord::Base
 	has_many :child_positions, class_name: "Position", as: :owner, dependent: :destroy
 	has_many :positionables, through: :child_positions, source_type: "Snippet"
 
-	def self.create_default position
-		block = Block.create
-		block.position = position
-		position = Position.create_default block
-		block.child_positions<<position
-		return block
+	after_create do
+		position = Position.create
+		child_positions<<position
+		position.create_snippet
 	end
 
 	def layout
