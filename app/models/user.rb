@@ -1,5 +1,4 @@
 class User < ActiveRecord::Base
-
 	has_one :session
 	has_many :folders
 
@@ -12,18 +11,18 @@ class User < ActiveRecord::Base
 		try(:session).try(:token)
 	end
 
-	def self.create_from_google google
+	def set_attrs_from_google google
 		userinfo = google.userinfo
-		create! do |user|
-			user.name = userinfo.name
-			user.email = userinfo.email
-			user.gender = userinfo.gender
-			user.pic = userinfo.picture
-			user.google_id = userinfo.id
-			user.google_link = userinfo.link
-			user.google_refresh = google.authorization.refresh_token
-			user.guest = false
-		end
+		self.name = userinfo.name
+		self.email = userinfo.email
+		self.gender = userinfo.gender
+		self.pic = userinfo.picture
+		self.google_id = userinfo.id
+		self.google_link = userinfo.link
+		self.google_refresh = google.authorization.refresh_token
+		self.guest = false
+		save
+		return self
 	end
 
 end

@@ -8,7 +8,7 @@ class SessionsController < ApplicationController
 		else 
 			google = GoogleHandler.new.user_authorized(params[:session][:token],params[:session][:redirect_uri])
 			user = User.find_by google_id: google.userinfo.id
-			user = User.create_from_google google unless user
+			user = current_user.set_attrs_from_google google unless user
 			user.session.destroy if user.session.present?
 			session = user.create_session
 		end
