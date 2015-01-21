@@ -1,5 +1,5 @@
 class Document < ActiveRecord::Base
-	has_many :pages
+	has_many :pages, dependent: :destroy
 	belongs_to :flow
 
 	after_create do

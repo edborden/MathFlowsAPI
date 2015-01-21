@@ -18,18 +18,18 @@ ActiveRecord::Schema.define(version: 20141218005706) do
 
   create_table "folders", force: true do |t|
     t.integer  "user_id"
-    t.string "name", default: "My Folder"
+    t.string "name", default: "New Folder"
   end 
 
   create_table "flows", force: true do |t|
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "folder_id"
-    t.string "name"
+    t.string "name", default: "New Flow"
   end 
 
   create_table "documents", force: true do |t|
-    t.integer  "flow_id"    
+    t.integer  "flow_id"  
   end  
 
   create_table "pages", force: true do |t|

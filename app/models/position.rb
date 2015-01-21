@@ -10,12 +10,40 @@ class Position < ActiveRecord::Base
 		Snippet.create.position = self
 	end
 
+	def page_position?
+		true if owner_type == "Page"
+	end
+
+	def col_width
+		if page_position?
+			owner.layout.col_width
+		else
+			owner.col_width
+		end
+	end
+
+	def row_height
+		if page_position?
+			owner.layout.row_height
+		else
+			owner.layout.block_row_height
+		end
+	end
+
+	def inside_margin
+		if page_position?
+			owner.layout.inside_margin
+		else
+			0
+		end
+	end
+
 	def x
-		pdf_col*owner.layout.col_width + pdf_col*owner.layout.inside_margin
+		pdf_col*col_width + pdf_col*inside_margin
 	end
 
 	def y
-		pdf_row*owner.layout.row_height + pdf_row*owner.layout.inside_margin
+		pdf_row*row_height + pdf_row*inside_margin
 	end
 
 	def pdf_row
