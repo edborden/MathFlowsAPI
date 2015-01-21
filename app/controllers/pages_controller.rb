@@ -7,6 +7,11 @@ class PagesController < ApplicationController
 		render json: page.reload
 	end
 
+	def show
+		page = Page.find params[:id]
+		render json: page
+	end
+
 	def destroy
 		page = Page.find params[:id]
 		page.destroy

@@ -12,22 +12,14 @@ class SessionsController < ApplicationController
 			user.session.destroy if user.session.present?
 			session = user.create_session
 		end
-		if user.guest
-			render json: session, serializer: GuestSessionSerializer, root: "session"
-		else
-			render json: session
-		end
+		render json: session
 	end
 
 	def index
 		session = Session.find_by_token params[:token]
 		if session
 			user = session.user
-			if user.guest
-				render json: [session], each_serializer: GuestSessionSerializer, root: "sessions"
-			else
-				render json: [session]
-			end
+			render json: [session]
 		else
 			head :unauthorized
 		end
