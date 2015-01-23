@@ -2,12 +2,14 @@ class Position < ActiveRecord::Base
 	belongs_to :owner, polymorphic:true
 	belongs_to :positionable, polymorphic:true, dependent: :destroy
 
-	def create_block
-		Block.create.position = self
+	def create_block params=nil
+		block = Block.create params
+		block.position = self
 	end
 
-	def create_snippet
-		Snippet.create.position = self
+	def create_snippet params=nil
+		snippet = Snippet.create params
+		snippet.position = self
 	end
 
 	def page_position?

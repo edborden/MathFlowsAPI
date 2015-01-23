@@ -6,7 +6,12 @@ class Block < ActiveRecord::Base
 	after_create do
 		position = Position.create
 		child_positions<<position
-		position.create_snippet
+		if question
+			params = {question_number:true}
+		else
+			params = {question_number:false}
+		end
+		position.create_snippet params
 	end
 
 	def layout

@@ -36,7 +36,7 @@ class Pdf
 								image snippet.equation.image.file,scale:0.75
 							elsif snippet.has_image
 								image snippet.image.file, fit: [snippet.width,snippet.height]
-							elsif snippet.question_number
+							elsif snippet.question_number and block_position.positionable.question
 								text snippet.formatted_question_number(page)
 							else
 								text snippet.content
