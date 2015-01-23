@@ -1,5 +1,5 @@
 class SnippetSerializer < PositionableSerializer
-	attributes :content,:image,:width,:height,:x,:y
+	attributes :content,:image,:width,:height,:x,:y,:question_number
 	has_one :block
 	
 	def image

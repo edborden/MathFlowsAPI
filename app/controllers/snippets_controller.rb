@@ -2,6 +2,7 @@ class SnippetsController < ApplicationController
 
 	def create
 		snippet = Snippet.new snippet_params
+		snippet.question_number = false
 
 		if params[:snippet][:equation]
 			snippet.has_equation = true

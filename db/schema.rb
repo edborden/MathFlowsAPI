@@ -43,17 +43,19 @@ ActiveRecord::Schema.define(version: 20141218005706) do
     t.string   "owner_type"  
     t.integer  "row", default: 1
     t.integer  "col", default: 1
-    t.integer  "row_span", default: 1
-    t.integer  "col_span", default: 1
+    t.integer  "row_span", default: 2
+    t.integer  "col_span", default: 2
   end
 
   create_table "blocks", force: true do |t|
+    t.boolean "question", default: true,null:false
   end 
 
   create_table "snippets", force: true do |t|
     t.text  "content", default: "+"
-    t.boolean "has_image", default: false, null: false
-    t.boolean "has_equation", default: false, null: false   
+    t.boolean "has_image"
+    t.boolean "has_equation"
+    t.boolean "question_number", default: true
   end
 
   create_table "equations", force: true do |t|

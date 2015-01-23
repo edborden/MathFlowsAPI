@@ -33,4 +33,12 @@ class Block < ActiveRecord::Base
 		width / layout.block_cols
 	end
 
+	def question_number page
+		sorted_question_blocks = []
+		page.question_positions.each do |pos|
+			sorted_question_blocks.push pos.positionable
+		end
+		sorted_question_blocks.index(self) + 1
+	end
+
 end

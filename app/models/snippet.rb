@@ -10,4 +10,9 @@ class Snippet < ActiveRecord::Base
 	def height
 		position.owner.layout.block_row_height * position.row_span
 	end
+
+	def formatted_question_number page
+		question_number = position.owner.question_number page
+		formatted = question_number.to_s + "."
+	end
 end

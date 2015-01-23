@@ -2,11 +2,15 @@ class BlocksController < ApplicationController
 
 	def create
 		page = Page.find params[:block][:page_id]
-		position = Position.create
+		position = Position.create position_params
 		page.child_positions<<position
 		position.create_block
-		Position.update position.id,position_params
 		render json: position.positionable.reload
+	end
+
+	def show
+		block = Block.find params[:id]
+		render json: block
 	end
 
 	def update

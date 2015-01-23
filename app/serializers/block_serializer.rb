@@ -1,5 +1,5 @@
 class BlockSerializer < PositionableSerializer
-	attributes :width,:height,:col_width
+	attributes :width,:height,:col_width,:question
 	has_many :snippets, embed_in_root: true
 
 	def snippets
