@@ -13,16 +13,4 @@ class Page < ActiveRecord::Base
 		try(:document).try(:flow).try(:layout)
 	end
 
-	def question_blocks
-		positionables.where(question:true)
-	end
-
-	def question_positions
-		question_positions = []
-		question_blocks.each do |block|
-			question_positions.push(block.position)
-		end
-		question_positions.sort_by! {|x| [x.row, x.col] }
-	end
-
 end

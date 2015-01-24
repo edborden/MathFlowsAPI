@@ -4,7 +4,7 @@ class Position < ActiveRecord::Base
 
 	def create_block params=nil
 		block = Block.create params
-		block.position = self
+		block.positions<<self
 	end
 
 	def create_snippet params=nil
@@ -20,7 +20,7 @@ class Position < ActiveRecord::Base
 		if page_position?
 			owner.layout.col_width
 		else
-			owner.col_width
+			width / layout.block_cols
 		end
 	end
 
@@ -54,6 +54,26 @@ class Position < ActiveRecord::Base
 
 	def pdf_col
 		col - 1
+	end
+
+	def layout
+		owner.layout
+	end
+
+	def width
+		col_span * layout.col_width + total_inside_margin_width
+	end
+
+	def height
+		row_span * layout.row_height + total_inside_margin_height
+	end
+
+	def total_inside_margin_height
+		(row_span-1) * layout.inside_margin
+	end
+
+	def total_inside_margin_width
+		(col_span-1) * layout.inside_margin
 	end
 
 end

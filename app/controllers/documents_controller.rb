@@ -11,14 +11,14 @@ class DocumentsController < ApplicationController
 		document = Document.find params[:id]
 		respond_to do |format|
 
-			format.html do
+			format.pdf do
 				pdf = Pdf.new document 
 				send_data pdf.render, filename: "document_#{document.flow.created_at.strftime("%d/%m/%Y")}.pdf", type: "application/pdf"
 			end
 
-			#format.json do
-			#	render json: document
-			#end
+			format.html do
+				render json: document
+			end
 		end
 	end
 

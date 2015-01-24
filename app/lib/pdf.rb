@@ -37,7 +37,7 @@ class Pdf
 							elsif snippet.has_image
 								image snippet.image.file, fit: [snippet.width,snippet.height]
 							elsif snippet.question_number and block_position.positionable.question
-								text snippet.formatted_question_number(page)
+								text QuestionNumber.new(snippet,@doc).formatted
 							else
 								text snippet.content
 							end
