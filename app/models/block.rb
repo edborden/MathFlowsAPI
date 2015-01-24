@@ -3,17 +3,6 @@ class Block < ActiveRecord::Base
 	has_many :child_positions, class_name: "Position", as: :owner, dependent: :destroy
 	has_many :positionables, through: :child_positions, source_type: "Snippet"
 
-	after_create do
-		position = Position.create
-		child_positions<<position
-		if question
-			params = {question_number:true}
-		else
-			params = {question_number:false}
-		end
-		position.create_snippet params
-	end
-
 	def snippets
 		positionables
 	end

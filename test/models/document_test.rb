@@ -12,4 +12,7 @@ class DocumentTest < ActiveSupport::TestCase
 		assert_equal 1,d.pages.count
 	end
 
+	test "amoeba_dup" do
+	end
+
 end

@@ -2,8 +2,9 @@ class FlowsController < ApplicationController
 
 	def create
 		folder = Folder.find params[:flow][:folder_id]
-		flow = folder.flows.create
-		render json: flow
+		flow = Waterfall.new.flow
+		folder.flows<<flow
+		render json: flow.reload
 	end
 
 	def update

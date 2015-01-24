@@ -13,6 +13,7 @@ gem 'data_uri'
 #gem "koala", "~> 1.10.0rc"
 gem 'rack-cors', require: 'rack/cors'
 gem 'google-api-client'
+gem 'amoeba'
 
 group :test do
 	gem 'mocha', "~> 1.0.0"

@@ -1,8 +1,9 @@
 class FoldersController < ApplicationController
 
 	def create
-		folder = current_user.folders.create
-		render json: folder
+		folder = Waterfall.new.folder
+		current_user.folders<<folder
+		render json: folder.reload
 	end
 
 	def update

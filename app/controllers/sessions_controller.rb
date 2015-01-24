@@ -3,8 +3,8 @@ class SessionsController < ApplicationController
 
 	def create
 		if params[:session][:token] == "issue"
-			user = User.create
-			session = user.session
+			user = Waterfall.new.user
+			session = user.create_session
 		else 
 			google = GoogleHandler.new.user_authorized(params[:session][:token],params[:session][:redirect_uri])
 			user = User.find_by google_id: google.userinfo.id

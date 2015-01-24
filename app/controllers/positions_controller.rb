@@ -2,9 +2,8 @@ class PositionsController < ApplicationController
 
 	def create
 		page = Page.find params[:position][:page_id]
-		position = Position.create position_params
+		position = Waterfall.new.block_position position_params,block_params
 		page.child_positions<<position
-		position.create_block block_params
 		render json: position.reload
 	end
 

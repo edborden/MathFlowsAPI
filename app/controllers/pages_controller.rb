@@ -1,9 +1,9 @@
 class PagesController < ApplicationController
 
 	def create
-		doc = Document.find params[:page][:document_id]
-		page = Page.create
-		doc.pages<<page
+		document = Document.find params[:page][:document_id]
+		page = Waterfall.new.page
+		document.pages<<page
 		render json: page.reload
 	end
 
