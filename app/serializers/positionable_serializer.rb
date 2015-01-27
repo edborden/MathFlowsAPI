@@ -1,20 +1,28 @@
 class PositionableSerializer < ApplicationSerializer
-	attributes :row,:col,:row_span,:col_span
+	attributes :row,:col,:row_span,:col_span,:height,:y
 	
 	def row
-		object.position.row
+		position.row
 	end
 
 	def col
-		object.position.col
+		position.col
 	end
 
 	def row_span
-		object.position.row_span
+		position.row_span
 	end
 
 	def col_span
-		object.position.col_span
+		position.col_span
+	end
+
+	def y
+		position.y
+	end
+
+	def height
+		position.height
 	end
 
 end

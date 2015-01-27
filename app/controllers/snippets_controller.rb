@@ -18,7 +18,7 @@ class SnippetsController < ApplicationController
 		end
 
 		block = Block.find params[:snippet][:block_id]
-		position = Position.new position_params
+		position = SnippetPosition.new position_params
 
 		position.positionable = snippet
 		block.child_positions<<position

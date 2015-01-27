@@ -25,11 +25,11 @@ class Pdf
 
 			page.child_positions.each do |block_position|
 
-				bounding_box([block_position.x, bounds.top - block_position.y], width: block_position.positionable.width, height:block_position.positionable.height) do
+				bounding_box([block_position.x, bounds.top - block_position.y], width: block_position.width, height:block_position.height) do
 					
 					block_position.positionable.child_positions.each do |snippet_position|
 
-						bounding_box([snippet_position.x, bounds.top - snippet_position.y], width: snippet_position.positionable.width, height:snippet_position.positionable.height) do
+						bounding_box([snippet_position.x(block_position), bounds.top - snippet_position.y], width: snippet_position.width(block_position), height:snippet_position.height) do
 							
 							snippet = snippet_position.positionable
 							if snippet.has_equation

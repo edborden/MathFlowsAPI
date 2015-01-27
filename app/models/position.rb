@@ -1,37 +1,14 @@
 class Position < ActiveRecord::Base
 	belongs_to :owner, polymorphic:true
-	belongs_to :positionable, polymorphic:true, dependent: :destroy
+	belongs_to :positionable, polymorphic:true
 
-	def page_position?
-		true if owner_type == "Page"
-	end
+	# inheritors need to define
+	## inside_margin
+	## col_width
+	## row_height
 
-	def col_width
-		if page_position?
-			owner.layout.col_width
-		else
-			width / layout.block_cols
-		end
-	end
-
-	def row_height
-		if page_position?
-			owner.layout.row_height
-		else
-			owner.layout.block_row_height
-		end
-	end
-
-	def inside_margin
-		if page_position?
-			owner.layout.inside_margin
-		else
-			0
-		end
-	end
-
-	def x
-		pdf_col*col_width + pdf_col*inside_margin
+	def x position=nil
+		pdf_col*col_width(position) + pdf_col*inside_margin
 	end
 
 	def y
@@ -46,24 +23,20 @@ class Position < ActiveRecord::Base
 		col - 1
 	end
 
-	def layout
-		owner.layout
-	end
-
-	def width
-		col_span * layout.col_width + total_inside_margin_width
+	def width position=nil
+		col_span * col_width(position) + total_inside_margin_width
 	end
 
 	def height
-		row_span * layout.row_height + total_inside_margin_height
+		row_span * row_height + total_inside_margin_height
 	end
 
 	def total_inside_margin_height
-		(row_span-1) * layout.inside_margin
+		(row_span-1) * inside_margin
 	end
 
 	def total_inside_margin_width
-		(col_span-1) * layout.inside_margin
+		(col_span-1) * inside_margin
 	end
 
 end

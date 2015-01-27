@@ -2,15 +2,19 @@ class PositionsController < ApplicationController
 
 	def create
 		page = Page.find params[:position][:page_id]
-		position = Waterfall.new.block_position position_params,block_params
-		page.child_positions<<position
-		render json: position.reload
+		position = BlockBuilder.new(page,position_params,block_params).page_position
+		render json: position.reload, serializer: PositionSerializer, root:"position"
+	end
+
+	def show #async:true in client block model
+		position = Position.find params[:id]
+		render json: position
 	end
 
 	def update
 		position = Position.find params[:id]
 		Position.update position.id,position_params
-		render json: position.reload
+		render json: position.reload, serializer: PositionSerializer, root:"position"
 	end
 
 	def position_params

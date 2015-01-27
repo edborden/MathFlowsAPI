@@ -7,7 +7,7 @@ class BlocksController < ApplicationController
 
 	def destroy
 		block = Block.find params[:id]
-		block.position.destroy
+		block.destroy
 		head :no_content
 	end
 

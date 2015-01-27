@@ -1,7 +1,12 @@
 class SnippetSerializer < PositionableSerializer
-	attributes :content,:image,:width,:height,:x,:y,:question_number
+	attributes :content,:image,:question_number
 	has_one :block
 	
+	##define for positionableserializer
+	def position
+		object.position
+	end
+
 	def image
 		if object.has_equation
 			object.equation.image.data
@@ -14,14 +19,6 @@ class SnippetSerializer < PositionableSerializer
 
 	def block
 		object.position.owner
-	end
-
-	def x
-		object.position.x
-	end
-
-	def y
-		object.position.y
 	end
 
 end

@@ -2,8 +2,9 @@ class DocumentsController < ApplicationController
 	include ActionController::MimeResponds
 
 	def create
-		flow = Flow.find params[:document][:flow_id]
-		document = flow.documents.create
+		copy_from = Document.find params[:document][:copy_from_id]
+		document = copy_from.amoeba_dup
+		document.save
 		render json: document
 	end
 

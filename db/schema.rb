@@ -41,10 +41,11 @@ ActiveRecord::Schema.define(version: 20141218005706) do
     t.string   "positionable_type"  
     t.integer  "owner_id"
     t.string   "owner_type"  
-    t.integer  "row", default: 1
-    t.integer  "col", default: 1
-    t.integer  "row_span", default: 2
-    t.integer  "col_span", default: 2
+    t.integer  "row",default:1
+    t.integer  "col",default:1
+    t.integer  "row_span"
+    t.integer  "col_span"
+    t.string "type"
   end
 
   create_table "blocks", force: true do |t|
@@ -74,13 +75,13 @@ ActiveRecord::Schema.define(version: 20141218005706) do
 
   create_table "layouts", force: true do |t|
     t.integer  "flow_id"
-    t.integer  "cols", default: 4
-    t.float "row_height", default: 18 # line height of 12pt font
-    t.float "col_width", default: 128.25
-    t.float  "width", default: 8.5 * 72 #8.5 inches
-    t.float  "height", default: 11 * 72 #11 inches
-    t.float "outside_margin", default: 0.5 * 72 #1/2 inch
-    t.float "inside_margin", default: 9 #1/2 line height of 12pt font
+    t.integer  "page_cols", default: 4
+    t.float "page_row_height", default: 18 # line height of 12pt font
+    t.float "page_col_width", default: 128.25
+    t.float  "page_width", default: 8.5 * 72 #8.5 inches
+    t.float  "page_height", default: 11 * 72 #11 inches
+    t.float "page_outside_margin", default: 0.5 * 72 #1/2 inch
+    t.float "page_inside_margin", default: 9 #1/2 line height of 12pt font
     t.integer "block_cols", default: 16
     t.float "block_row_height", default: 18
   end 
