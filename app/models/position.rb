@@ -7,20 +7,24 @@ class Position < ActiveRecord::Base
 	## col_width
 	## row_height
 
+	def attrs_set?
+		row and col
+	end
+
 	def x position=nil
-		pdf_col*col_width(position) + pdf_col*inside_margin
+		pdf_col*col_width(position) + pdf_col*inside_margin if attrs_set?
 	end
 
 	def y
-		pdf_row*row_height + pdf_row*inside_margin
+		pdf_row*row_height + pdf_row*inside_margin if attrs_set?
 	end
 
 	def pdf_row
-		row - 1
+		row - 1 if attrs_set?
 	end
 
 	def pdf_col
-		col - 1
+		col - 1 if attrs_set?
 	end
 
 	def width position=nil

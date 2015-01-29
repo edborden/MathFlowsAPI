@@ -1,6 +1,9 @@
 class User < ActiveRecord::Base
 	has_one :session
 	has_many :folders
+	belongs_to :header, class_name: "Block"
+	has_one :layout
+
 
 	def set_attrs_from_google google
 		userinfo = google.userinfo

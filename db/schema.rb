@@ -14,6 +14,7 @@ ActiveRecord::Schema.define(version: 20141218005706) do
     t.string   "google_refresh"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer "header_id"
   end
 
   create_table "folders", force: true do |t|
@@ -41,8 +42,8 @@ ActiveRecord::Schema.define(version: 20141218005706) do
     t.string   "positionable_type"  
     t.integer  "owner_id"
     t.string   "owner_type"  
-    t.integer  "row",default:1
-    t.integer  "col",default:1
+    t.integer  "row"
+    t.integer  "col"
     t.integer  "row_span"
     t.integer  "col_span"
     t.string "type"
@@ -56,7 +57,7 @@ ActiveRecord::Schema.define(version: 20141218005706) do
     t.text  "content", default: "+"
     t.boolean "has_image"
     t.boolean "has_equation"
-    t.boolean "question_number", default: true
+    t.boolean "question_number", default: false
   end
 
   create_table "equations", force: true do |t|
@@ -74,7 +75,7 @@ ActiveRecord::Schema.define(version: 20141218005706) do
   end 
 
   create_table "layouts", force: true do |t|
-    t.integer  "flow_id"
+    t.integer  "user_id"
     t.integer  "page_cols", default: 4
     t.float "page_row_height", default: 18 # line height of 12pt font
     t.float "page_col_width", default: 128.25

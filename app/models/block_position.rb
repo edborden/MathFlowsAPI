@@ -1,7 +1,7 @@
 class BlockPosition < Position
 
 	def layout
-		owner.layout
+		try(:owner).try(:layout) || positionable.try(:user).try(:layout)
 	end
 
 	def col_width position=nil

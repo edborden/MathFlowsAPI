@@ -2,7 +2,7 @@ class PositionsController < ApplicationController
 
 	def create
 		page = Page.find params[:position][:page_id]
-		position = BlockBuilder.new(page,position_params,block_params).page_position
+		position = BlockBuilder.new(page,position_params,block_params).block_position
 		render json: position.reload, serializer: PositionSerializer, root:"position"
 	end
 

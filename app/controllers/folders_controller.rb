@@ -1,8 +1,9 @@
 class FoldersController < ApplicationController
 
 	def create
-		folder = Waterfall.new.folder
+		folder = Waterfall.new.folder(MasterMold.new.fresh_folder)
 		current_user.folders<<folder
+		AddHeader::to_this folder.flows.first.documents.first.pages.first
 		render json: folder.reload
 	end
 

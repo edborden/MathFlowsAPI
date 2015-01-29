@@ -1,82 +1,62 @@
 class Waterfall
+	include AddHeader
 
-	def user
-		user = User.create
-		user.folders<<folder
+	def user mold
+		user = User.create mold[:params]
+		user.create_layout
+		user.header = header(mold[:header_block])
+		user.save
+		mold[:folders].each { |folder_mold| user.folders<<folder(folder_mold) }
 		return user
 	end
 
-	def folder
-		folder = Folder.create
-		folder.flows<<flow
+	def header mold
+		header = block(mold)
+		AddHeader.add_position_to header
+		return header
+	end
+
+	def folder mold
+		folder = Folder.create mold[:params]
+		mold[:flows].each { |flow_mold| folder.flows<<flow(flow_mold) }
 		return folder
 	end
 
-	def flow
-		flow = Flow.create 
-		flow.create_layout
-		flow.documents<<document
+	def flow mold
+		flow = Flow.create mold[:params]
+		mold[:documents].each { |document_mold| flow.documents<<document(document_mold) }
 		return flow
 	end
 
-	def document
-		document = Document.create
-		document.pages<<page
+	def document mold
+		document = Document.create mold[:params]
+		mold[:pages].each { |page_mold| document.pages<<page(page_mold) }
 		return document
 	end
 
-	def page
-		page = Page.create
-		page.child_positions<<block_position({row_span:3,col_span:2})
+	def page mold
+		page = Page.create mold[:params]
+		mold[:block_positions].each { |block_position| page.child_positions<<block_position(block_position) }
 		return page
 	end
 
-	def block_position position_params=nil,block_params=nil
-		position = BlockPosition.create position_params
-		block = block block_params
+	def block_position mold
+		position = BlockPosition.create mold[:params]
+		block = block mold[:block]
 		block.positions<<position
 		return position
 	end
 
-	def block block_params=nil
-		block = Block.create block_params
-		if block.question
-			block.child_positions<<snippet_position(question_snippet_1_params,question_snippet_1_position_params)
-			block.child_positions<<snippet_position(question_snippet_2_params,question_snippet_2_position_params)
-		else
-			block.child_positions<<snippet_position(directions_snippet_params,directions_snippet_position_params) 
-		end
+	def block mold
+		block = Block.create mold[:params]
+		mold[:snippet_positions].each { |snippet_position_mold| block.child_positions<<snippet_position(snippet_position_mold) }
 		return block
 	end
 
-	def snippet_position snippet_params,position_params
-		position = SnippetPosition.create(position_params)
-		snippet = Snippet.create(snippet_params)
+	def snippet_position mold
+		position = SnippetPosition.create(mold[:params])
+		snippet = Snippet.create(mold[:snippet][:params])
 		snippet.position = position
 		return position
-	end
-
-	def question_snippet_1_params
-		{question_number:true}
-	end
-
-	def question_snippet_1_position_params
-		{row_span:1,col_span:3}
-	end
-
-	def question_snippet_2_params
-		{question_number:false,content:"[Add question here.]"}
-	end
-
-	def question_snippet_2_position_params
-		{row_span:1,col_span:10,col:4,row:1}
-	end
-
-	def directions_snippet_params
-		{question_number:false,content:"[Add directions here.]"}
-	end
-
-	def directions_snippet_position_params
-		{row_span:1,col_span:15,row:1,col:2}
 	end
 end

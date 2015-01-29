@@ -9,6 +9,8 @@ class DocumentsController < ApplicationController
 	end
 
 	def show
+		puts current_user.id
+		puts current_user.header
 		document = Document.find params[:id]
 		respond_to do |format|
 
@@ -21,6 +23,7 @@ class DocumentsController < ApplicationController
 				render json: document
 			end
 		end
+		puts current_user.header
 	end
 
 	def destroy

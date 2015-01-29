@@ -1,7 +1,12 @@
 class SnippetPosition < Position
 
+	amoeba do
+		enable
+		customize ->(orig, copy) { copy.positionable = orig.positionable.amoeba_dup }
+	end
+
 	def layout
-		owner.positions.first.layout
+		owner.try(:positions).try(:first).try(:layout) || owner.try(:user).try(:layout)
 	end
 
 	#block_col_width

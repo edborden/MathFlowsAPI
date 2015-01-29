@@ -4,7 +4,7 @@ class Page < ActiveRecord::Base
 	has_many :positionables, through: :child_positions, source_type: "Block"
 
 	def layout
-		try(:document).try(:flow).try(:layout)
+		document.flow.folder.user.layout
 	end
 
 	amoeba do
