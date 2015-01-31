@@ -55,8 +55,30 @@ class Waterfall
 
 	def snippet_position mold
 		position = SnippetPosition.create(mold[:params])
-		snippet = Snippet.create(mold[:snippet][:params])
+		snippet = snippet(mold[:snippet])
 		snippet.position = position
 		return position
+	end
+
+	def snippet mold
+		snippet = Snippet.create(mold[:params])
+		if snippet.has_image
+			snippet.image = image(mold[:image])
+		end
+		if snippet.has_equation
+			snippet.equation = equation(mold[:equation])
+		end
+		return snippet
+	end
+
+	def image mold
+		image = Image.create(mold[:params])
+		return image
+	end
+
+	def equation mold
+		equation = Equation.create(mold[:params])
+		equation.image = image(mold[:image])
+		return equation
 	end
 end
