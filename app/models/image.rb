@@ -1,4 +1,5 @@
 require 'open-uri'
+require 'data_uri/open_uri'
 require 'base64'
 
 class Image < ActiveRecord::Base
@@ -8,8 +9,7 @@ class Image < ActiveRecord::Base
 	def initialize source
 		super()
 		if source[:data]
-			@data = source[:data]
-			self.data = @data
+			self.data = source[:data]
 		end
 
 		if source[:url]
@@ -18,6 +18,8 @@ class Image < ActiveRecord::Base
 			binary = Base64.encode64 file
 			self.data = "data:image/png;base64," + binary
 		end
+
+		set_dimensions
 
 	end
 
@@ -32,9 +34,15 @@ class Image < ActiveRecord::Base
 		end
 	end
 
+	def set_dimensions
+		size = ImageSize.new(file).size
+		self.width = size[0]
+		self.height = size[1]
+		save
+	end
+
 	def file
 		uri = URI::Data.new data
 		open uri
 	end
-
 end

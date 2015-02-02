@@ -69,8 +69,8 @@ ActiveRecord::Schema.define(version: 20141218005706) do
     t.integer  "imageable_id"
     t.string   "imageable_type"    
     t.binary "data"
-    t.integer "height"
     t.integer "width"
+    t.integer "height"
     t.string "ext"
   end 
 

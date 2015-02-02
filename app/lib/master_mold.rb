@@ -215,7 +215,7 @@ class MasterMold
 														}
 													},
 													{
-														params: {row_span:5,col_span:10,col:3,row:2},
+														params: {row_span:9,col_span:10,col:3,row:2},
 														snippet: {
 															params: {question_number:false,has_image:true},													
 															image: {
@@ -229,7 +229,7 @@ class MasterMold
 											}
 										},
 										{
-											params: {col:1,row:10,col_span:4,row_span:2},
+											params: {col:1,row:13,col_span:4,row_span:2},
 											block: {
 												params: {question:false},
 												snippet_positions: [								
@@ -243,7 +243,7 @@ class MasterMold
 											}
 										},
 										{
-											params: {row_span:3,col_span:2,row:12,col:1},
+											params: {row_span:3,col_span:2,row:15,col:1},
 											block: {
 												params: {question:true},
 												snippet_positions: [								
@@ -258,7 +258,7 @@ class MasterMold
 											}
 										},
 										{
-											params: {row_span:3,col_span:2,row:12,col:3},
+											params: {row_span:3,col_span:2,row:15,col:3},
 											block: {
 												params: {question:true},
 												snippet_positions: [								
@@ -273,7 +273,7 @@ class MasterMold
 											}
 										},
 										{
-											params: {row_span:2,col_span:4,row:15,col:1},
+											params: {row_span:2,col_span:4,row:18,col:1},
 											block: {
 												params: {question:true},
 												snippet_positions: [								

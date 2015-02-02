@@ -33,7 +33,7 @@ class Pdf
 							
 							snippet = snippet_position.positionable
 							if snippet.has_equation
-								image snippet.equation.image.file,scale:0.75
+								image snippet.equation.image.file, fit: [snippet_position.width(block_position),snippet_position.height]
 							elsif snippet.has_image
 								image snippet.image.file, fit: [snippet_position.width(block_position),snippet_position.height]
 							elsif snippet.question_number and block_position.positionable.question

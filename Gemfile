@@ -8,12 +8,10 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw]
 gem 'pg'
 gem 'prawn'
 gem 'data_uri'
-#gem "pusher"
-#gem "mailboxer"
-#gem "koala", "~> 1.10.0rc"
 gem 'rack-cors', require: 'rack/cors'
 gem 'google-api-client'
 gem 'amoeba'
+gem 'image_size'
 
 group :test do
 	gem 'mocha', "~> 1.0.0"

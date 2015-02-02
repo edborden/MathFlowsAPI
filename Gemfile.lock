@@ -64,6 +64,7 @@ GEM
       signet (~> 0.6)
     hike (1.2.3)
     i18n (0.6.11)
+    image_size (1.4.1)
     json (1.8.1)
     jwt (1.2.0)
     launchy (2.4.3)
@@ -147,6 +148,7 @@ DEPENDENCIES
   fabrication
   faker
   google-api-client
+  image_size
   mocha (~> 1.0.0)
   pg
   prawn
