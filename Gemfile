@@ -12,6 +12,7 @@ gem 'rack-cors', require: 'rack/cors'
 gem 'google-api-client'
 gem 'amoeba'
 gem 'image_size'
+gem 'newrelic_rpm'
 
 group :test do
 	gem 'mocha', "~> 1.0.0"
