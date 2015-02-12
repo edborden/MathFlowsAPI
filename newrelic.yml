@@ -17,53 +17,12 @@ common: &default_settings
   # New Relic service.
   license_key: '148294256db85514620e4c76be9dcc1918455be6'
 
-  # Agent Enabled (Ruby/Rails Only)
-  # Use this setting to force the agent to run or not run.
-  # Default is 'auto' which means the agent will install and run only
-  # if a valid dispatcher such as Mongrel is running.  This prevents
-  # it from running with Rake or the console.  Set to false to
-  # completely turn the agent off regardless of the other settings.
-  # Valid values are true, false and auto.
-  #
-  # agent_enabled: auto
+  app_name: MathFlows
 
-  # Application Name Set this to be the name of your application as
-  # you'd like it show up in New Relic. The service will then auto-map
-  # instances of your application into an "application" on your
-  # dashboard page. If you want to map this instance into multiple
-  # apps, like "AJAX Requests" and "All UI" then specify a semicolon
-  # separated list of up to three distinct names, or a yaml list.
-  # Defaults to the capitalized RAILS_ENV or RACK_ENV (i.e.,
-  # Production, Staging, etc)
-  #
-  # Example:
-  #
-  #   app_name:
-  #       - Ajax Service
-  #       - All Services
-  #
-  # Caution: If you change this name, a new application will appear in the New
-  # Relic user interface with the new name, and data will stop reporting to the
-  # app with the old name.
-  #
-  # See https://newrelic.com/docs/site/renaming-applications for more details
-  # on renaming your New Relic applications.
-  #
-  app_name: My Application
-
-  # When "true", the agent collects performance data about your
-  # application and reports this data to the New Relic service at
-  # newrelic.com. This global switch is normally overridden for each
-  # environment below. (formerly called 'enabled')
   monitor_mode: true
 
-  # Developer mode should be off in every environment but
-  # development as it has very high overhead in memory.
   developer_mode: false
 
-  # The newrelic agent generates its own log file to keep its logging
-  # information separate from that of your application. Specify its
-  # log level here.
   log_level: info
 
   # Optionally set the path to the log file This is expanded from the
@@ -192,7 +151,7 @@ development:
   <<: *default_settings
   # Turn on communication to New Relic service in development mode
   monitor_mode: true
-  app_name: My Application (Development)
+  app_name: MathFlows (Development)
 
   # Rails Only - when running in Developer Mode, the New Relic Agent will
   # present performance information on the last 100 transactions you have
@@ -221,4 +180,4 @@ production:
 staging:
   <<: *default_settings
   monitor_mode: true
-  app_name: My Application (Staging)
+  app_name: MathFlows (Staging)
