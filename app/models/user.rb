@@ -3,7 +3,7 @@ class User < ActiveRecord::Base
 	has_many :folders
 	belongs_to :header, class_name: "Block"
 	has_one :layout
-
+	belongs_to :group
 
 	def set_attrs_from_google google
 		userinfo = google.userinfo

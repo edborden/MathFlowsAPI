@@ -15,7 +15,12 @@ ActiveRecord::Schema.define(version: 20141218005706) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer "header_id"
+    t.integer "group_id"
   end
+
+  create_table "groups", force: true do |t|
+    t.string "name", default: "My Group"
+  end 
 
   create_table "folders", force: true do |t|
     t.integer  "user_id"
