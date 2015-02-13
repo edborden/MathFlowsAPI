@@ -7,12 +7,17 @@ gem 'active_model_serializers', git: "https://github.com/rails-api/active_model_
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw]
 gem 'pg'
 gem 'prawn'
-gem 'data_uri'
 gem 'rack-cors', require: 'rack/cors'
 gem 'google-api-client'
 gem 'amoeba'
+
+## IMAGE UTILS
+gem 'data_uri'
 gem 'image_size'
-gem 'newrelic_rpm'
+
+## EMAIL
+gem 'mandrill_mailer'
+gem 'mailchimp-api', require: 'mailchimp'
 
 group :test do
 	gem 'mocha', "~> 1.0.0"
@@ -22,6 +27,6 @@ end
 
 group :production do
 	gem 'rails_12factor'
-	#gem 'newrelic_rpm'
+	gem 'newrelic_rpm'
 	gem 'unicorn', platforms: :ruby
 end
