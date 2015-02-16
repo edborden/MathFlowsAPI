@@ -17,18 +17,8 @@ module MathFlows
 				origins '*'
 				resource '*', :headers => :any, :methods => [:get, :post, :put, :patch, :options, :delete]
 			end
-    	end
-
-		#config.action_mailer.delivery_method = :smtp
-		#config.action_mailer.smtp_settings = {
-		#	address:              'smtp.gmail.com',
-		#	port:                 587,
-		#	domain:               'example.com',
-		#	user_name:            'borden.edward@gmail.com',
-		#	password:             'K3tchup15',
-		#	authentication:       'plain',
-		#	enable_starttls_auto: true  }
-
+		end
+		
 		MandrillMailer.configure do |config|
 			config.api_key = "05AGnHwxdAK5OVfFd6Ev_g"
 		end

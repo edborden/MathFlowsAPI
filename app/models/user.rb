@@ -5,6 +5,11 @@ class User < ActiveRecord::Base
 	has_one :layout
 	belongs_to :group
 
+	has_many :invitations_sent, class_name: "Invitation", foreign_key: "referrer_id"
+	has_many :referrals, through: :invitations_sent, source: :referral
+	has_many :invitations_received, class_name: "Invitation", foreign_key: "referral_id"
+	has_many :referrers, through: :invitations_received, source: :referrer
+
 	def set_attrs_from_google google
 		userinfo = google.userinfo
 		self.name = userinfo.name

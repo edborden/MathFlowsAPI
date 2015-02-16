@@ -22,6 +22,12 @@ ActiveRecord::Schema.define(version: 20141218005706) do
     t.string "name", default: "My Group"
   end 
 
+  create_table "invitations", force: true do |t|
+    t.integer "referrer_id"
+    t.integer "referral_id"
+    t.string "referral_email"
+  end  
+
   create_table "folders", force: true do |t|
     t.integer  "user_id"
     t.string "name", default: "New Folder"

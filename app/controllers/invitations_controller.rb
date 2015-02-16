@@ -1,8 +1,8 @@
 class InvitationsController < ApplicationController
 
 	def create
-		Mailer.new.invitation params[:invitation][:email],current_user
-		head :no_content
+		invitation = Invitation.create referrer_id:current_user.id,referral_email:params[:invitation][:referral_email]
+		render json: invitation
 	end
 
 end

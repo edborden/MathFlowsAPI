@@ -68,6 +68,9 @@ GEM
     image_size (1.4.1)
     json (1.8.1)
     jwt (1.2.0)
+    keen (0.8.8)
+      addressable (~> 2.3.5)
+      multi_json (~> 1.3)
     launchy (2.4.3)
       addressable (~> 2.3)
     mail (2.6.1)
@@ -161,6 +164,7 @@ DEPENDENCIES
   faker
   google-api-client
   image_size
+  keen
   mailchimp-api
   mandrill_mailer
   mocha (~> 1.0.0)

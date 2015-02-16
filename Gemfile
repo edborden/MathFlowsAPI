@@ -11,6 +11,9 @@ gem 'rack-cors', require: 'rack/cors'
 gem 'google-api-client'
 gem 'amoeba'
 
+## ANALYTICS
+gem 'keen'
+
 ## IMAGE UTILS
 gem 'data_uri'
 gem 'image_size'
