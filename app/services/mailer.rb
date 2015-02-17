@@ -12,13 +12,13 @@ class Mailer < MandrillMailer::TemplateMailer
 		).deliver
 	end
 
-	def invitation email,referrer
+	def invitation invitation
 		mandrill_mail( template: 'invitation',
-			subject: "#{referrer.name} invited you to MathFlows",
-			to: email,
+			subject: "#{invitation.referrer.name} invited you to MathFlows",
+			to: invitation.referral_email,
 			important: true,
 			inline_css: true,
-			vars: {'REFERRER_NAME' => referrer.name, 'REFERRER_ID' => referrer.id},
+			vars: {'REFERRER_NAME' => invitation.referrer.name, 'INVITATION_ID' => invitation.id},
 			async: true
 		).deliver
 	end

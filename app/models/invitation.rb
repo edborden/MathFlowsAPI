@@ -5,7 +5,7 @@ class Invitation < ActiveRecord::Base
 	after_create :send_invitation_email
 
 	def send_invitation_email
-		Mailer.new.invitation referral_email,referrer
+		Mailer.new.invitation self
 		KeenHandler.new.invitation self		
 	end
 

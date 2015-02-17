@@ -8,5 +8,5 @@ Rails.application.routes.draw do
 	resources :flows, only: [:create,:update,:destroy]
 	resources :positions, only: [:create,:update]
 	resources :groups, only: [:create,:update,:destroy]
-	resources :invitations, only: :create
+	resources :invitations, only: [:create,:show,:update]
 end
