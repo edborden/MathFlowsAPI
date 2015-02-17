@@ -26,6 +26,7 @@ ActiveRecord::Schema.define(version: 20141218005706) do
     t.integer "referrer_id"
     t.integer "referral_id"
     t.string "referral_email"
+    t.boolean "signup", default:false
   end  
 
   create_table "folders", force: true do |t|

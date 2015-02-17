@@ -13,7 +13,9 @@ class SessionsController < ApplicationController
 			unless user
 				user = current_user.set_attrs_from_google google 
 				MailchimpHandler.new.subscribe user
-				Mailer.new.welcome(user)
+				Mailer.new.welcome user
+				user.invitation.try :set_signup
+				KeenHandler.new.signup user
 			end
 			user.session.try :destroy
 			session = user.create_session

@@ -9,4 +9,10 @@ class Invitation < ActiveRecord::Base
 		KeenHandler.new.invitation self		
 	end
 
+	def set_signup
+		self.signup = true
+		save
+		KeenHandler.new.invitation_signup self
+	end
+
 end
