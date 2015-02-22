@@ -1,20 +1,19 @@
 class BlockBuilder
 
-	def initialize page,position_params,block_params
+	def initialize page,position_params
 		@page = page
 		@position_params = position_params
-		@block_params = block_params
-		@size_params = {row_span:@position_params[:row_span],col_span:@position_params[:col_span]}
+		@size_params = position_params.except :col,:row
 		
 		run
 	end
 
 	def run
-		@page.child_positions<<block_position
+		@page.positions<<position
 		other_documents.each do |document|
-			position = BlockPosition.create @size_params
-			position.positionable = block
-			document.pages.last.child_positions<<position
+			position = Position.create @size_params
+			position.block = block
+			document.pages.last.positions<<position
 		end
 	end
 
@@ -22,20 +21,12 @@ class BlockBuilder
 		@page.document.flow.documents.where.not id:@page.document.id
 	end
 
-	def block_position_mold
-		if @block_params[:question]
-			MasterMold.new.block_position_question @position_params
-		else
-			MasterMold.new.block_position_directions @position_params
-		end
-	end
-
-	def block_position
-		@block_position ||= Waterfall.new.block_position block_position_mold
+	def position
+		@position ||= Waterfall.new.position({params:@position_params,block:MasterMold.new.default_block})
 	end
 
 	def block
-		@block ||= block_position.positionable
+		@block ||= position.block
 	end
 
 end

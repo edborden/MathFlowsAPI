@@ -1,18 +1,29 @@
 class Position < ActiveRecord::Base
-	belongs_to :owner, polymorphic:true
-	belongs_to :positionable, polymorphic:true
+	belongs_to :page
+	belongs_to :block
 
-	# inheritors need to define
-	## inside_margin
-	## col_width
-	## row_height
+	def layout
+		page.layout
+	end
+
+	def col_width
+		layout.col_width
+	end
+
+	def row_height
+		layout.row_height
+	end
+
+	def inside_margin
+		layout.inside_margin
+	end
 
 	def attrs_set?
 		row and col
 	end
 
-	def x position=nil
-		pdf_col*col_width(position) + pdf_col*inside_margin if attrs_set?
+	def x
+		pdf_col*col_width + pdf_col*inside_margin if attrs_set?
 	end
 
 	def y
@@ -27,8 +38,8 @@ class Position < ActiveRecord::Base
 		col - 1 if attrs_set?
 	end
 
-	def width position=nil
-		col_span * col_width(position) + total_inside_margin_width
+	def width
+		col_span * col_width + total_inside_margin_width
 	end
 
 	def height

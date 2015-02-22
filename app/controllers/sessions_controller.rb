@@ -5,7 +5,7 @@ class SessionsController < ApplicationController
 	def create
 		if params[:session][:token] == "issue"
 			user = Waterfall.new.user(MasterMold.new.fresh_user)
-			AddHeader::to_this user.folders.first.flows.first.documents.first.pages.first
+			#AddHeader::to_this user.folders.first.flows.first.documents.first.pages.first
 			session = user.create_session
 		else 
 			google = GoogleHandler.new.user_authorized(params[:session][:token],params[:session][:redirect_uri])

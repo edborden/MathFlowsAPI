@@ -4,7 +4,7 @@ class Waterfall
 	def user mold
 		user = User.create mold[:params]
 		user.create_layout
-		user.header = header(mold[:header_block])
+		#user.header = header(mold[:header_block])
 		user.save
 		mold[:folders].each { |folder_mold| user.folders<<folder(folder_mold) }
 		return user
@@ -36,12 +36,12 @@ class Waterfall
 
 	def page mold
 		page = Page.create mold[:params]
-		mold[:block_positions].each { |block_position| page.child_positions<<block_position(block_position) }
+		mold[:positions].each { |position_mold| page.positions<<position(position_mold) }
 		return page
 	end
 
-	def block_position mold
-		position = BlockPosition.create mold[:params]
+	def position mold
+		position = Position.create mold[:params]
 		block = block mold[:block]
 		block.positions<<position
 		return position
@@ -49,26 +49,10 @@ class Waterfall
 
 	def block mold
 		block = Block.create mold[:params]
-		mold[:snippet_positions].each { |snippet_position_mold| block.child_positions<<snippet_position(snippet_position_mold) }
+		if mold[:images]
+			mold[:images].each { |image_mold| block.images<<image(image_mold) }
+		end
 		return block
-	end
-
-	def snippet_position mold
-		position = SnippetPosition.create(mold[:params])
-		snippet = snippet(mold[:snippet])
-		snippet.position = position
-		return position
-	end
-
-	def snippet mold
-		snippet = Snippet.create(mold[:params])
-		if snippet.has_image
-			snippet.image = image(mold[:image])
-		end
-		if snippet.has_equation
-			snippet.equation = equation(mold[:equation])
-		end
-		return snippet
 	end
 
 	def image mold
@@ -76,9 +60,4 @@ class Waterfall
 		return image
 	end
 
-	def equation mold
-		equation = Equation.create(mold[:params])
-		equation.image = image(mold[:image])
-		return equation
-	end
 end

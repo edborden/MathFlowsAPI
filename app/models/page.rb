@@ -1,7 +1,7 @@
 class Page < ActiveRecord::Base
-	has_many :child_positions, class_name: "Position", as: :owner, dependent: :destroy
+	has_many :positions, dependent: :destroy
 	belongs_to :document
-	has_many :positionables, through: :child_positions, source_type: "Block"
+	has_many :blocks, through: :positions
 
 	def layout
 		document.flow.folder.user.layout
