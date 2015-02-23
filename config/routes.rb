@@ -2,6 +2,7 @@ Rails.application.routes.draw do
 	resources :documents, only: [:create,:show,:destroy]
 	resources :sessions, only: [:create, :index, :destroy]
 	resources :blocks, only: [:show, :update, :destroy]
+	resources :images, only: [:create, :update, :destroy]
 	resources :pages, only: [:create,:destroy]
 	resources :folders, only: [:create,:update,:destroy]
 	resources :flows, only: [:create,:update,:destroy]

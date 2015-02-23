@@ -72,7 +72,7 @@ ActiveRecord::Schema.define(version: 20141218005706) do
 
   create_table "images", force: true do |t|
     t.integer  "block_id"    
-    t.binary "data"
+    t.binary "binary"
     t.integer "width"
     t.integer "height"
     t.string "ext"

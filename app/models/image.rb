@@ -4,21 +4,22 @@ require 'base64'
 
 class Image < ActiveRecord::Base
 
-	belongs_to :imageable, polymorphic:true
+	belongs_to :block
 
 	def initialize source
 		super()
-		if source[:data]
-			self.data = source[:data]
+		if source[:binary]
+			self.binary = source[:binary]
 		end
 
 		if source[:url]
 			io = open source[:url]
 			file = io.read
 			binary = Base64.encode64 file
-			self.data = "data:image/png;base64," + binary
+			self.binary = "data:image/png;base64," + binary
 		end
 
+		self.block_id = source[:block_id]
 		set_dimensions
 
 	end
@@ -38,11 +39,10 @@ class Image < ActiveRecord::Base
 		size = ImageSize.new(file).size
 		self.width = size[0]
 		self.height = size[1]
-		save
 	end
 
 	def file
-		uri = URI::Data.new data
+		uri = URI::Data.new binary
 		open uri
 	end
 end
