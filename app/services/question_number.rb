@@ -1,21 +1,21 @@
 class QuestionNumber
 
-	def initialize snippet, document
-		@index = question_blocks_sorted(document).index(snippet.position.owner) + 1
+	def initialize position
+		@index = question_positions_sorted(position.page.document).index(position) + 1
 	end
 
 	def formatted
-		@index.to_s + "."
+		@index.to_s + ".  "
 	end
 
-	def question_blocks page
-		page.positionables.where(question:true).order("row ASC, col ASC")
+	def question_positions page
+		page.positions.order("row ASC, col ASC").select {|position| position.block.question}
 	end
 
-	def question_blocks_sorted document
+	def question_positions_sorted document
 		ar = []
 		document.pages.each do |page|
-			ar.push question_blocks(page)
+			ar.push question_positions(page)
 		end
 		ar.flatten
 	end

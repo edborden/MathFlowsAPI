@@ -8,8 +8,9 @@ class Image < ActiveRecord::Base
 
 	def initialize source
 		super()
-		if source[:binary]
-			self.binary = source[:binary]
+
+		if source[:latex]
+			source[:url] = URI.encode("http://latex.codecogs.com/png.latex?\\dpi{300}" + source[:latex])
 		end
 
 		if source[:url]
@@ -17,6 +18,10 @@ class Image < ActiveRecord::Base
 			file = io.read
 			binary = Base64.encode64 file
 			self.binary = "data:image/png;base64," + binary
+		end
+
+		if source[:binary]
+			self.binary = source[:binary]
 		end
 
 		self.block_id = source[:block_id]

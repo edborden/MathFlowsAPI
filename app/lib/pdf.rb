@@ -23,27 +23,50 @@ class Pdf
 				start_new_page
 			end
 
-			page.child_positions.each do |block_position|
+			page.positions.each do |position|
 
-				bounding_box([block_position.x, bounds.top - block_position.y], width: block_position.width, height:block_position.height) do
+				bounding_box([position.x, bounds.top - position.y], width: position.width, height:position.height) do
 					
-					block_position.positionable.child_positions.each do |snippet_position|
+					block = position.block
 
-						bounding_box([snippet_position.x(block_position), bounds.top - snippet_position.y], width: snippet_position.width(block_position), height:snippet_position.height) do
-							
-							snippet = snippet_position.positionable
-							if snippet.has_equation
-								image snippet.equation.image.file, fit: [snippet_position.width(block_position),snippet_position.height]
-							elsif snippet.has_image
-								image snippet.image.file, fit: [snippet_position.width(block_position),snippet_position.height]
-							elsif snippet.question_number and block_position.positionable.question
-								text QuestionNumber.new(snippet,@doc).formatted
-							else
-								text snippet.content
+					content_box = bounding_box([0,bounds.top],width:bounds.right) do
+						content_padding = 0
+						if block.question
+							question_number = QuestionNumber.new(position).formatted
+							float do
+								text question_number
 							end
+							content_padding = width_of question_number
+						end
 
+						indent content_padding do
+							processed_content = EquationExtractor.new(block.content)
+							if processed_content.contains_equations?
+								processed_content.array.each do |content|
+									if content.is_a? Image
+										image content.file, scale:0.25
+									else
+										text content
+									end
+								end
+							else
+								text block.content
+							end
 						end
 					end
+
+					if block.images.exists?
+						image block.images.first.file, fit: [bounds.right,bounds.top - content_box.height], position: :right, vposition: :bottom
+					end
+
+
+						
+						#if snippet.has_equation
+						#	image snippet.equation.image.file, fit: [snippet_position.width(block_position),snippet_position.height]
+						#elsif snippet.has_image
+						#	image snippet.image.file, fit: [snippet_position.width(block_position),snippet_position.height]
+
+
 				end
 			end
 		end
