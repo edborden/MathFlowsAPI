@@ -1,7 +1,3 @@
-require 'data_uri'
-require 'open-uri'
-require 'data_uri/open_uri'
-
 class Pdf
 	include Prawn::View
 
@@ -30,42 +26,68 @@ class Pdf
 					block = position.block
 
 					content_box = bounding_box([0,bounds.top],width:bounds.right) do
-						content_padding = 0
+
+						## BLOCK QUESTION NUMBER
+
+						number_indentation = 0
 						if block.question
-							question_number = QuestionNumber.new(position).formatted
+							question_number = QuestionNumber.new(position)
 							float do
-								text question_number
+								text question_number.formatted
 							end
-							content_padding = width_of question_number
+							number_indentation = question_number.width
 						end
 
-						indent content_padding do
+						## BLOCK CONTENT
+
+						indent number_indentation do
+
+							## PROCESS CONTENT
 							processed_content = EquationExtractor.new(block.content)
+
+							## CONTENT WITH EQUATIONS
 							if processed_content.contains_equations?
-								processed_content.array.each do |content|
-									if content.is_a? Image
-										image content.file, scale:0.25
-									else
-										text content
-									end
+
+								## PROCESS CONTENT LINES
+								element_width = bounds.right
+								content_lines = []
+								unused_content = processed_content.array
+								until unused_content.empty?
+									content_line = ContentLine.new(unused_content,element_width)
+									content_lines << content_line
+									unused_content = content_line.unused_content_array
 								end
+
+								## EACH LINE
+								content_lines.each do |content_line|
+									content_line.line_items.each do |item|
+										float do										
+											## RENDER TO PDF
+											if item[:item].try :image?
+												image item[:item].file, scale:0.25, position: item[:indentation]
+											else
+												indent item[:indentation] do
+													text item[:item].text, height:content_line.height
+												end
+											end										
+										end
+									end
+									move_down content_line.height
+								end
+
+							## JUST TEXT
 							else
 								text block.content
 							end
 						end
+
 					end
+
+					## BLOCK IMAGE
 
 					if block.images.exists?
 						image block.images.first.file, fit: [bounds.right,bounds.top - content_box.height], position: :right, vposition: :bottom
 					end
-
-
-						
-						#if snippet.has_equation
-						#	image snippet.equation.image.file, fit: [snippet_position.width(block_position),snippet_position.height]
-						#elsif snippet.has_image
-						#	image snippet.image.file, fit: [snippet_position.width(block_position),snippet_position.height]
-
 
 				end
 			end

@@ -29,6 +29,18 @@ class Image < ActiveRecord::Base
 
 	end
 
+	def image?
+		true
+	end
+
+	def line_width
+		width * 0.25
+	end
+
+	def line_height
+		height * 0.25
+	end
+
 	def split_base64(uri_str)
 		if uri_str.match(%r{^data:(.*?);(.*?),(.*)$})
 			uri = Hash.new

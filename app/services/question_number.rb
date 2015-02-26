@@ -1,11 +1,11 @@
 class QuestionNumber
+	include Prawn::View
+	attr_reader :formatted,:width
 
 	def initialize position
 		@index = question_positions_sorted(position.page.document).index(position) + 1
-	end
-
-	def formatted
-		@index.to_s + ".  "
+		@formatted = @index.to_s + ".  "
+		@width = width_of @formatted
 	end
 
 	def question_positions page
