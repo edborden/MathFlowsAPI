@@ -4,7 +4,7 @@ class MasterMold
 		{
 			params:nil,
 			folders: [intro_test],
-			header_blocks: header_block
+			headers: default_headers
 		}
 	end
 
@@ -49,42 +49,63 @@ class MasterMold
 		}		
 	end
 
-	def header_block
-		{
-			params: {question:false},
-			snippet_positions: [
-				{
-					params: {col:1,row:1,row_span:1,col_span:8},
-					snippet: {
-						params: {content:"Date: _________________________"}
-					}
-				},
-				{
-					params: {col:9,row:1,row_span:1,col_span:8},
-					snippet: {
-						params: {content:"Name: ____________________"}
-					}
-				},
-				{
-					params: {col:1,row:2,row_span:1,col_span:12},
-					snippet: {
-						params: {content:"Chapter 3 Test----------------"}
-					}
-				},
-				{
-					params: {col:9,row:2,row_span:1,col_span:12},
-					snippet: {
-						params: {content:"Ms. Smith---------------------"}
-					}
-				},
-				{
-					params: {col:1,row:3,row_span:1,col_span:12},
-					snippet: {
-						params: {content:"Algebra 2----------------------"}
+	def default_headers
+		[
+			{
+				params: {col:1,row:1,row_span:1,col_span:2},
+				block: {
+					params: {
+						question: false,
+						content:"Date: _________________________"					
 					}
 				}
-			]
-		}
+			},
+			{
+				params: {col:3,row:1,row_span:1,col_span:2},
+				block: {
+					params: {
+						question: false,
+						content:"Name: ____________________"					
+					}
+				}
+			},
+			{
+				params: {col:1,row:2,row_span:1,col_span:2},
+				block: {
+					params: {
+						question: false,
+						content:"Chapter 3 Test"					
+					}
+				}
+			},
+			{
+				params: {col:3,row:2,row_span:1,col_span:2},
+				block: {
+					params: {
+						question: false,
+						content:"Ms. Smith"					
+					}
+				}
+			},
+			{
+				params: {col:1,row:3,row_span:1,col_span:2},
+				block: {
+					params: {
+						question: false,
+						content:"Algebra 2"					
+					}
+				}
+			},
+			{
+				params: {col:3,row:3,row_span:1,col_span:2},
+				block: {
+					params: {
+						question: false,
+						content:"Period 5"					
+					}
+				}
+			}
+		]
 	end
 
 	def intro_test
@@ -99,7 +120,7 @@ class MasterMold
 							pages: [
 								{
 									params: nil,
-									positions: [
+									positions: default_headers + [
 										{
 											params: {row_span:2,col_span:2,row:4,col:1},
 											block: {

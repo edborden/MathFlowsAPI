@@ -1,9 +1,19 @@
 class Position < ActiveRecord::Base
 	belongs_to :page
 	belongs_to :block
+	belongs_to :user #if it's a header
+
+	amoeba do
+		enable
+		customize ->(orig, copy) { copy.block = orig.block.amoeba_dup }
+	end
 
 	def layout
-		page.layout
+		if self.user_id
+			user.layout
+		else
+			page.layout
+		end
 	end
 
 	def col_width

@@ -1,18 +1,15 @@
 class Waterfall
-	include AddHeader
 
 	def user mold
 		user = User.create mold[:params]
 		user.create_layout
-		#user.header = header(mold[:header_block])
-		user.save
+		mold[:headers].each { |header_mold| user.headers<<header(header_mold) }
 		mold[:folders].each { |folder_mold| user.folders<<folder(folder_mold) }
 		return user
 	end
 
 	def header mold
-		header = block(mold)
-		AddHeader.add_position_to header
+		header = position(mold)
 		return header
 	end
 

@@ -1,7 +1,7 @@
 class User < ActiveRecord::Base
 	has_one :session
 	has_many :folders
-	has_many :header_blocks, class_name: "Block"
+	has_many :headers, class_name: "Position"
 	has_one :layout
 	belongs_to :group
 

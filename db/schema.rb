@@ -61,13 +61,13 @@ ActiveRecord::Schema.define(version: 20141218005706) do
     t.integer  "col"
     t.integer  "row_span"
     t.integer  "col_span"
+    t.integer "user_id"
   end
   add_index "positions", ["page_id","block_id"], using: :btree
 
   create_table "blocks", force: true do |t|
     t.boolean "question", default: true,null:false
     t.text  "content"
-    t.integer "user_id"
   end 
 
   create_table "images", force: true do |t|
