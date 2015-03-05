@@ -122,49 +122,49 @@ class MasterMold
 									params: nil,
 									positions: default_headers + [
 										{
-											params: {row_span:2,col_span:2,row:4,col:1},
+											params: {row_span:3,col_span:2,row:4,col:1},
 											block: {
 												params: {question:true,content:"Drag around and resize any block."}
 											}
 										},
 										{
-											params: {row_span:2,col_span:2,row:4,col:3},
+											params: {row_span:3,col_span:2,row:4,col:3},
 											block: {
-												params: {question:true,content:"Double click any block to edit it."}
+												params: {question:true,content:"Edit text by clicking on it. Switch to math mode and insert equations with the '\\$' key. $f\\left(x\\right)=\\sqrt[3]{4}x+12$"}
 											}
 										},
 										{
-											params: {col:1,row:6,col_span:2,row_span:7},
+											params: {col:1,row:7,col_span:2,row_span:7},
 											block: {
-												params: {question:true,content:"You can add equations..."}
+												params: {question:true,content:"Double click on any block to access its menu, which will allow you to add images..."}
 											}
 										},
 										{
-											params: {col:3,row:6,col_span:2,row_span:7},
+											params: {col:3,row:7,col_span:2,row_span:7},
 											block: {
-												params: {question:true,content:"...and images."}
+												params: {question:true,content:"...or create graphs."}
 											}
 										},
 										{
-											params: {col:1,row:13,col_span:4,row_span:2},
+											params: {col:1,row:14,col_span:4,row_span:2},
 											block: {
-												params: {question:false,content:"This is a directions block with no number. You can add it on the left menu of this page."}
+												params: {question:false,content:"This block isn't numbered, like you might use for a block containing only test directions. The option for this is also in the block's menu."}
 											}
 										},
 										{
-											params: {row_span:3,col_span:2,row:15,col:1},
+											params: {row_span:3,col_span:2,row:16,col:1},
 											block: {
-												params: {question:true,content:"Question blocks are automatically numbered for you, even across pages (you can also add pages on the left menu)."}
+												params: {question:true,content:"You can add more blocks or pages using the menu on the left side of the page."}
 											}
 										},
 										{
-											params: {row_span:3,col_span:2,row:15,col:3},
+											params: {row_span:3,col_span:2,row:16,col:3},
 											block: {
-												params: {question:true,content:"When you're done, get a pixel perfect PDF version with one click on the left."}
+												params: {question:true,content:"When you're done, get a PDF version with one click on that same menu."}
 											}
 										},
 										{
-											params: {row_span:2,col_span:4,row:18,col:1},
+											params: {row_span:2,col_span:4,row:19,col:1},
 											block: {
 												params: {question:true,content:"And once you login, you'll be able to make multiple versions of a test, with questions synchronized across versions. Check it out!"}
 											}

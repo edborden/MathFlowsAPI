@@ -1,4 +1,4 @@
 class ImageSerializer < ApplicationSerializer
-	attributes :binary,:height,:width
+	attributes :cloudinary_id,:height,:width,:scale
 	has_one :block
 end

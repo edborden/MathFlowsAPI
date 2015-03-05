@@ -46,8 +46,8 @@ class Waterfall
 
 	def block mold
 		block = Block.create mold[:params]
-		if mold[:images]
-			mold[:images].each { |image_mold| block.images<<image(image_mold) }
+		if mold[:image]
+			block.image = image(mold[:image])
 		end
 		return block
 	end

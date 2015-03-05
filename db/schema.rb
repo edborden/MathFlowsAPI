@@ -72,10 +72,10 @@ ActiveRecord::Schema.define(version: 20141218005706) do
 
   create_table "images", force: true do |t|
     t.integer  "block_id"    
-    t.binary "binary"
     t.integer "width"
     t.integer "height"
-    t.string "ext"
+    t.integer "scale"
+    t.string "cloudinary_id"
   end 
   add_index "images", ["block_id"], using: :btree
 

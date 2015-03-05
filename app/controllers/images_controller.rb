@@ -1,8 +1,7 @@
 class ImagesController < ApplicationController
 
 	def create
-		image = Image.new image_params
-		image.save
+		image = Image.create image_params
 		render json: image
 	end
 
@@ -18,7 +17,7 @@ class ImagesController < ApplicationController
 	end
 
 	def image_params
-		params.require(:image).permit :binary,:block_id,:width,:height
+		params.require(:image).permit :cloudinary_id,:block_id,:width,:height,:scale
 	end
 
 end

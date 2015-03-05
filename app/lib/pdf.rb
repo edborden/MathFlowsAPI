@@ -63,7 +63,8 @@ class Pdf
 									content_line.line_items.each do |item|
 										float do										
 											## RENDER TO PDF
-											if item[:item].try :image?
+											if item[:item].is_a? Image
+												puts item[:item].file.present?
 												image item[:item].file, scale:0.25, position: item[:indentation]
 											else
 												indent item[:indentation] do
@@ -77,7 +78,7 @@ class Pdf
 
 							## JUST TEXT
 							else
-								text block.content
+								text block.content.gsub "\\$","$"
 							end
 						end
 
@@ -85,8 +86,9 @@ class Pdf
 
 					## BLOCK IMAGE
 
-					if block.images.exists?
-						image block.images.first.file, fit: [bounds.right,bounds.top - content_box.height], position: :right, vposition: :bottom
+					if block.image.present?
+						puts block.image.id.present?
+						image block.image.file, fit: [bounds.right,bounds.top - content_box.height], position: :right, vposition: :bottom
 					end
 
 				end

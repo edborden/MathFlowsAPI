@@ -2,15 +2,13 @@ class Snippet
 	include Prawn::View
 
 	def initialize text=nil
-		@text = text
+		if text
+			@text = clean text
+		end
 	end
 
 	def line_width
-		if @text
-			width_of @text
-		else
-			5
-		end
+		@text ? width_of(@text) : 5
 	end
 
 	def line_height
@@ -18,11 +16,15 @@ class Snippet
 	end
 
 	def text
-		if @text
-			@text
-		else
-			Prawn::Text::NBSP
-		end
+		@text ? @text : Prawn::Text::NBSP
+	end
+
+	def clean string
+		string.gsub "\\$","$"
+	end
+
+	def set_text string
+		@text = string
 	end
 
 end

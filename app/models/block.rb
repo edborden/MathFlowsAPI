@@ -1,9 +1,9 @@
 class Block < ActiveRecord::Base
 	has_many :positions, dependent: :destroy
-	has_many :images
+	has_one :image
 
 	amoeba do
 		enable
-		include_association :images
+		include_association :image
 	end
 end

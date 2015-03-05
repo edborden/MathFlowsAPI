@@ -19,7 +19,7 @@ class ContentLine
 		if line_width > element_width
 			last_item = @line_items.last
 			available_width = element_width - (line_width - last_item.line_width)
-			if last_item.try(:image?) || available_width < 10
+			if last_item.is_a?(Image) || available_width < 10
 				##drop image to use on next line
 				@unused_content_array << @line_items.pop
 			else
@@ -27,7 +27,7 @@ class ContentLine
 				
 				truncated_text = text_box last_item.text,{width:available_width,overflow: :truncate}
 				@unused_content_array.unshift Snippet.new(truncated_text)
-				last_item.text = last_item.text.delete truncated_text
+				last_item.set_text last_item.text.delete truncated_text
 			end
 		end
 		format_line_items
