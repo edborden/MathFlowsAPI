@@ -136,13 +136,15 @@ class MasterMold
 										{
 											params: {col:1,row:7,col_span:2,row_span:7},
 											block: {
-												params: {question:true,content:"Double click on any block to access its menu, which will allow you to add images..."}
+												params: {question:true,content:"Double click on any block to access its menu, which will allow you to add images..."},
+												image: {params:{height:353,width:446,cloudinary_id:"block_images/v7bz2rx9bs65ecbhyf0n",scale:5}}
 											}
 										},
 										{
 											params: {col:3,row:7,col_span:2,row_span:7},
 											block: {
-												params: {question:true,content:"...or create graphs."}
+												params: {question:true,content:"...or create graphs."},
+												image: {params: {width:501,height:398,cloudinary_id:"block_images/eyjdrh6xrt2no9a2ezam",scale:5}}
 											}
 										},
 										{

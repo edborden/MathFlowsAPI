@@ -10,6 +10,7 @@ gem 'prawn'
 gem 'rack-cors', require: 'rack/cors'
 gem 'google-api-client'
 gem 'amoeba'
+gem 'cloudinary'
 
 ## ANALYTICS
 gem 'keen'

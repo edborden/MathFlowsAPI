@@ -4,6 +4,8 @@ require 'base64'
 
 class Image < ActiveRecord::Base
 
+	before_destroy :delete_cloudinary, unless: :is_on_intro_test?
+
 	belongs_to :block
 
 	def latex string
@@ -34,10 +36,16 @@ class Image < ActiveRecord::Base
 		#puts @file
 	end
 
-	def file
-		unless @file
-			to_file ("http://res.cloudinary.com/hmb9zxcjb/image/upload/" + cloudinary_id)
-		end
+	def file		
+		to_file("http://res.cloudinary.com/hmb9zxcjb/image/upload/" + cloudinary_id) unless @file
 		@file
+	end
+
+	def delete_cloudinary
+		Cloudinary::Api.delete_resources([cloudinary_id])
+	end
+
+	def is_on_intro_test?
+		cloudinary_id == "block_images/eyjdrh6xrt2no9a2ezam" or cloudinary_id == "block_images/v7bz2rx9bs65ecbhyf0n"
 	end
 end

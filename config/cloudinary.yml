@@ -1,0 +1,19 @@
+---
+development:
+  cloud_name: hmb9zxcjb
+  api_key: '566164271918662'
+  api_secret: AuodaPJSII_4Pt4pE6bmairKkgY
+  enhance_image_tag: true
+  static_image_support: false
+production:
+  cloud_name: hmb9zxcjb
+  api_key: '566164271918662'
+  api_secret: AuodaPJSII_4Pt4pE6bmairKkgY
+  enhance_image_tag: true
+  static_image_support: true
+test:
+  cloud_name: hmb9zxcjb
+  api_key: '566164271918662'
+  api_secret: AuodaPJSII_4Pt4pE6bmairKkgY
+  enhance_image_tag: true
+  static_image_support: false

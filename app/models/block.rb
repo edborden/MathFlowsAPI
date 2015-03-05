@@ -1,6 +1,6 @@
 class Block < ActiveRecord::Base
 	has_many :positions, dependent: :destroy
-	has_one :image
+	has_one :image, dependent: :destroy
 
 	amoeba do
 		enable
