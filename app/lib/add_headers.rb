@@ -1,4 +1,4 @@
-module AddHeader
+module AddHeaders
 
 	def AddHeaders::to_this page
 		user = page.document.flow.folder.user

@@ -1,10 +1,11 @@
 class FlowsController < ApplicationController
+	include AddHeaders
 
 	def create
 		folder = Folder.find params[:flow][:folder_id]
 		flow = Waterfall.new.flow(MasterMold.new.fresh_flow)
 		folder.flows<<flow
-		AddHeader::to_this flow.documents.first.pages.first
+		AddHeaders::to_this flow.documents.first.pages.first
 		render json: flow.reload
 	end
 
