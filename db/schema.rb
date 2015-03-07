@@ -32,6 +32,7 @@ ActiveRecord::Schema.define(version: 20141218005706) do
 
   create_table "folders", force: true do |t|
     t.integer  "user_id"
+    t.integer "folder_id"
     t.string "name", default: "New Folder"
     t.boolean "open", default: true
   end 
@@ -47,6 +48,7 @@ ActiveRecord::Schema.define(version: 20141218005706) do
   add_index "flows", ["folder_id"], using: :btree
 
   create_table "documents", force: true do |t|
+    t.string "name", default: "New Version"
     t.integer  "flow_id"  
   end  
   add_index "documents", ["flow_id"], using: :btree
