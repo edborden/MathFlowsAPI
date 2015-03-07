@@ -20,7 +20,7 @@ class FoldersController < ApplicationController
 	end
 
 	def folder_params
-		params.require(:folder).permit :name
+		params.require(:folder).permit :name,:open
 	end
 
 end

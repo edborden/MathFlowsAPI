@@ -21,7 +21,7 @@ class FlowsController < ApplicationController
 	end
 
 	def flow_params
-		params.require(:flow).permit :name
+		params.require(:flow).permit :name,:open
 	end
 
 end
