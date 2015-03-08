@@ -23,10 +23,19 @@ class DocumentsController < ApplicationController
 		end
 	end
 
+	def update
+		document = Document.update params[:id],document_params
+		render json: document
+	end
+
 	def destroy
 		document = Document.find params[:id]
 		document.destroy
 		head :no_content
+	end
+
+	def document_params
+		params.require(:document).permit :name
 	end
 
 end

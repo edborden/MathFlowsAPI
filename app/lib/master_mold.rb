@@ -116,7 +116,7 @@ class MasterMold
 					params: {name:"Intro Test"},
 					documents: [
 						{
-							params: nil,
+							params: {name:"Version 1"},
 							pages: [
 								{
 									params: nil,
