@@ -64,7 +64,6 @@ class Pdf
 										float do										
 											## RENDER TO PDF
 											if item[:item].is_a? Image
-												puts item[:item].file.present?
 												image item[:item].file, scale:0.25, position: item[:indentation]
 											else
 												indent item[:indentation] do

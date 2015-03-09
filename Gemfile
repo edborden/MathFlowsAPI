@@ -6,7 +6,7 @@ gem 'rails-api', "0.2.1"
 gem 'active_model_serializers', git: "https://github.com/rails-api/active_model_serializers.git", ref: 'b9d216d'
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw]
 gem 'pg'
-gem 'prawn'
+gem 'prawn',"~> 1.3.0"
 gem 'rack-cors', require: 'rack/cors'
 gem 'google-api-client'
 gem 'amoeba'
