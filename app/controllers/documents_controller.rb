@@ -4,6 +4,7 @@ class DocumentsController < ApplicationController
 	def create
 		copy_from = Document.find params[:document][:copy_from_id]
 		document = copy_from.amoeba_dup
+		document.name = document.name + " Copy"
 		document.save
 		render json: document
 	end

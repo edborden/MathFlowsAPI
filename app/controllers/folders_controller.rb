@@ -2,10 +2,8 @@ class FoldersController < ApplicationController
 	include AddHeaders
 
 	def create
-		folder = Waterfall.new.folder(MasterMold.new.fresh_folder)
-		current_user.folders<<folder
-		AddHeaders::to_this folder.flows.first.documents.first.pages.first
-		render json: folder.reload
+		folder = Folder.create folder_params
+		render json: folder
 	end
 
 	def update
@@ -20,7 +18,7 @@ class FoldersController < ApplicationController
 	end
 
 	def folder_params
-		params.require(:folder).permit :name,:open,:folder_id
+		params.require(:folder).permit :name,:open,:folder_id,:flow_folder,:student_folder,:user_id
 	end
 
 end

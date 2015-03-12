@@ -110,7 +110,7 @@ class MasterMold
 
 	def intro_test
 		{
-			params: {name:"My First Folder"},
+			params: {name:"My First Folder",flow_folder:true},
 			flows: [
 				{
 					params: {name:"Intro Test"},

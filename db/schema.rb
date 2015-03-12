@@ -15,6 +15,7 @@ ActiveRecord::Schema.define(version: 20141218005706) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer "group_id"
+    t.boolean "premium"
   end
   add_index "users", ["google_id"], using: :btree
 
@@ -35,6 +36,8 @@ ActiveRecord::Schema.define(version: 20141218005706) do
     t.integer "folder_id"
     t.string "name", default: "New Folder"
     t.boolean "open", default: true
+    t.boolean "student_folder", default: false, null: false
+    t.boolean "flow_folder", default: false, null: false
   end 
   add_index "folders", ["user_id"], using: :btree
 
@@ -48,7 +51,7 @@ ActiveRecord::Schema.define(version: 20141218005706) do
   add_index "flows", ["folder_id"], using: :btree
 
   create_table "documents", force: true do |t|
-    t.string "name", default: "New Version"
+    t.string "name", default: "New Test"
     t.integer  "flow_id"  
   end  
   add_index "documents", ["flow_id"], using: :btree
@@ -94,6 +97,13 @@ ActiveRecord::Schema.define(version: 20141218005706) do
     t.float "inside_margin", default: 9 #1/2 line height of 12pt font
   end 
   add_index "layouts", ["user_id"], using: :btree
+
+  create_table "students", force: true do |t|
+    t.text  "name"
+    t.string "email"
+    t.integer "folder_id"
+  end
+  add_index "students", ["folder_id"], using: :btree
 
   create_table "sessions", force: true do |t|
     t.text  "token"
