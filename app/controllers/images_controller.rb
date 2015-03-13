@@ -5,11 +5,6 @@ class ImagesController < ApplicationController
 		render json: image
 	end
 
-	def update
-		image = Image.update params[:id], snippet_params
-		render json: image.reload
-	end
-
 	def destroy
 		image = Image.find params[:id]
 		image.destroy
