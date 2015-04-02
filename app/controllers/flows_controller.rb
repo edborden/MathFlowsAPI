@@ -1,4 +1,4 @@
-class FlowsController < ApplicationController
+class FlowsController < ResourceController
 	include AddHeaders
 
 	def create
@@ -9,18 +9,7 @@ class FlowsController < ApplicationController
 		render json: flow.reload
 	end
 
-	def update
-		flow = Flow.update params[:id],flow_params
-		render json: flow
-	end
-
-	def destroy
-		flow = Flow.find params[:id]
-		flow.destroy
-		head :no_content
-	end
-
-	def flow_params
+	def resource_params
 		params.require(:flow).permit :name,:open,:folder_id
 	end
 

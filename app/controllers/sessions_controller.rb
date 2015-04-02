@@ -1,4 +1,4 @@
-class SessionsController < ApplicationController
+class SessionsController < AuthenticatedController
 	skip_before_action :ensure_authenticated_user, except: :destroy
 
 	def create

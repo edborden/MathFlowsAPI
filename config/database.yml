@@ -3,7 +3,7 @@ development:
   host: localhost
   username: postgres
   password: bonebreak1
-  database: development
+  database: math_flows_development
   encoding: UTF8
 
 test:

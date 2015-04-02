@@ -1,4 +1,4 @@
-class GroupsController < ApplicationController
+class GroupsController < ResourceController
 
 	def create
 		group = Group.create
@@ -6,21 +6,15 @@ class GroupsController < ApplicationController
 		render json: group.reload
 	end
 
-	def update
-		group = Group.update params[:id],group_params
-		render json: group
-	end
-
 	def destroy
-		group = Group.find params[:id]
-		group.users.delete current_user
-		unless group.users(true).present?
-			group.destroy
+		@resource.users.delete current_user
+		unless @resource.users(true).present?
+			@resource.destroy
 		end
 		head :no_content
 	end
 
-	def group_params
+	def resource_params
 		params.require(:group).permit :name
 	end
 

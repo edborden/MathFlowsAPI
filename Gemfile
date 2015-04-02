@@ -1,12 +1,12 @@
 source 'https://rubygems.org'
 ruby '2.0.0'
 
-gem 'rails', '4.1.6'
-gem 'rails-api', "0.2.1"
+gem 'rails', '4.1.9'
+gem 'rails-api', "0.4.0"
 gem 'active_model_serializers', git: "https://github.com/rails-api/active_model_serializers.git", ref: 'b9d216d'
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw]
 gem 'pg'
-gem 'prawn',"~> 1.3.0"
+gem 'prawn',"~> 1.3.0" #image error with newest version
 gem 'rack-cors', require: 'rack/cors'
 gem 'google-api-client'
 gem 'amoeba'
