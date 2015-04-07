@@ -2,46 +2,27 @@ class Waterfall
 
 	def user mold
 		user = User.create mold[:params]
-		user.create_layout
-		mold[:headers].each { |header_mold| user.headers<<header(header_mold) }
+		mold[:headers].each { |header_mold| user.headers<<block(header_mold) }
 		mold[:folders].each { |folder_mold| user.folders<<folder(folder_mold) }
 		return user
 	end
 
-	def header mold
-		header = position(mold)
-		return header
-	end
-
 	def folder mold
 		folder = Folder.create mold[:params]
-		mold[:flows].each { |flow_mold| folder.flows<<flow(flow_mold) }
+		mold[:tests].each { |test_mold| folder.tests<<test(test_mold) }
 		return folder
 	end
 
-	def flow mold
-		flow = Flow.create mold[:params]
-		mold[:documents].each { |document_mold| flow.documents<<document(document_mold) }
-		return flow
-	end
-
-	def document mold
-		document = Document.create mold[:params]
-		mold[:pages].each { |page_mold| document.pages<<page(page_mold) }
-		return document
+	def test mold
+		test = Test.create mold[:params]
+		mold[:pages].each { |page_mold| test.pages<<page(page_mold) }
+		return test
 	end
 
 	def page mold
 		page = Page.create mold[:params]
-		mold[:positions].each { |position_mold| page.positions<<position(position_mold) }
+		mold[:blocks].each { |block_mold| page.blocks<<block(block_mold) }
 		return page
-	end
-
-	def position mold
-		position = Position.create mold[:params]
-		block = block mold[:block]
-		block.positions<<position
-		return position
 	end
 
 	def block mold

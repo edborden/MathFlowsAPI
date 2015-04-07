@@ -28,7 +28,7 @@ class ResourceController < AuthenticatedController
 
 	def update
 		if @resource.update resource_params
-			head :no_content
+			render_resource
 		else
 			render_errors
 		end		

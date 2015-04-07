@@ -1,8 +1,7 @@
 class User < ActiveRecord::Base
 	has_one :session
 	has_many :folders
-	has_many :headers, class_name: "Position"
-	has_one :layout
+	has_many :blocks
 	belongs_to :group
 
 	has_many :invitations_sent, class_name: "Invitation", foreign_key: "referrer_id"
