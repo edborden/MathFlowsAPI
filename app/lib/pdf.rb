@@ -1,9 +1,9 @@
 class Pdf
 	include Prawn::View
 
-	def initialize document
+	def initialize test
 		#super()
-		@doc = document
+		@test = test
 		generate_pdf
 	end
 
@@ -11,7 +11,7 @@ class Pdf
 
 		first_page = true
 	
-		@doc.pages.each do |page|
+		@test.pages.each do |page|
 
 			if first_page
 				first_page = false
@@ -19,19 +19,17 @@ class Pdf
 				start_new_page
 			end
 
-			page.positions.each do |position|
+			page.blocks.each do |block|
 
-				bounding_box([position.x, bounds.top - position.y], width: position.width, height:position.height) do
+				bounding_box([block.x, bounds.top - block.y], width: block.width, height:block.height) do
 					
-					block = position.block
-
 					content_box = bounding_box([0,bounds.top],width:bounds.right) do
 
 						## BLOCK QUESTION NUMBER
 
 						number_indentation = 0
 						if block.question
-							question_number = QuestionNumber.new(position)
+							question_number = QuestionNumber.new(block)
 							float do
 								text question_number.formatted
 							end
@@ -86,7 +84,6 @@ class Pdf
 					## BLOCK IMAGE
 
 					if block.image.present?
-						puts block.image.id.present?
 						image block.image.file, fit: [bounds.right,bounds.top - content_box.height], position: :right, vposition: :bottom
 					end
 
