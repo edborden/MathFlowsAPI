@@ -1,4 +1,5 @@
 class Block < ActiveRecord::Base
+	belongs_to :test
 	belongs_to :page
 	belongs_to :user #if it's a header
 	has_one :image, dependent: :destroy

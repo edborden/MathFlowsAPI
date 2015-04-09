@@ -2,7 +2,7 @@ class Waterfall
 
 	def user mold
 		user = User.create mold[:params]
-		mold[:headers].each { |header_mold| user.headers<<block(header_mold) }
+		mold[:blocks].each { |block_mold| user.blocks<<block(block_mold) }
 		mold[:folders].each { |folder_mold| user.folders<<folder(folder_mold) }
 		return user
 	end
@@ -15,7 +15,11 @@ class Waterfall
 
 	def test mold
 		test = Test.create mold[:params]
-		mold[:pages].each { |page_mold| test.pages<<page(page_mold) }
+		mold[:pages].each do |page_mold| 
+			p = page(page_mold)
+			test.pages<<p
+			p.blocks.each { |block| test.blocks<<block }
+		end
 		return test
 	end
 

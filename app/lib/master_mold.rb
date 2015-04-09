@@ -4,7 +4,7 @@ class MasterMold
 		{
 			params:nil,
 			folders: [intro_test],
-			headers: default_headers
+			blocks: default_headers
 		}
 	end
 
@@ -34,6 +34,8 @@ class MasterMold
 			params: {
 				row_span:3,
 				col_span:2,
+				col:1,
+				row:1,
 				question:true,
 				content:"[Add content here.]"
 			}

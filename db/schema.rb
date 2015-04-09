@@ -53,9 +53,10 @@ ActiveRecord::Schema.define(version: 20141218005706) do
   add_index "pages", ["test_id"], using: :btree
 
   create_table "blocks", force: true do |t|
-    t.integer  "page_id"  
+    t.integer  "page_id"
+    t.integer "test_id"
     t.integer "user_id"
-    t.boolean "question", default: true,null:false
+    t.boolean "question"
     t.integer  "row"
     t.integer  "col"
     t.integer  "row_span"
