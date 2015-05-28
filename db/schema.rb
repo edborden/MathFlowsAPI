@@ -17,7 +17,7 @@ ActiveRecord::Schema.define(version: 20141218005706) do
     t.integer "group_id"
     t.boolean "premium"
   end
-  add_index "users", ["google_id"], using: :btree
+  add_index "users", ["google_id"]
 
   create_table "groups", force: true do |t|
     t.string "name", default: "My Group"
@@ -29,28 +29,28 @@ ActiveRecord::Schema.define(version: 20141218005706) do
     t.string "referral_email"
     t.boolean "signup", default:false
   end  
-  add_index "invitations", ["referrer_id","referral_id"], using: :btree
+  add_index "invitations", ["referrer_id","referral_id"]
 
   create_table "folders", force: true do |t|
     t.integer  "user_id"
     t.integer "folder_id"
-    t.string "name", default: "New Folder"
+    t.string "name"
     t.boolean "open", default: true
     t.boolean "student_folder", default: false, null: false
     t.boolean "test_folder", default: false, null: false
   end 
-  add_index "folders", ["user_id","folder_id"], using: :btree
+  add_index "folders", ["user_id","folder_id"]
 
   create_table "tests", force: true do |t|
-    t.string "name", default: "New Test"
+    t.string "name"
     t.integer  "folder_id"  
   end  
-  add_index "tests", ["folder_id"], using: :btree
+  add_index "tests", ["folder_id"]
 
   create_table "pages", force: true do |t|
     t.integer "test_id"      
   end
-  add_index "pages", ["test_id"], using: :btree
+  add_index "pages", ["test_id"]
 
   create_table "blocks", force: true do |t|
     t.integer  "page_id"
@@ -63,7 +63,7 @@ ActiveRecord::Schema.define(version: 20141218005706) do
     t.integer  "col_span"
     t.text  "content"
   end 
-  add_index "blocks", ["page_id"], using: :btree
+  add_index "blocks", ["test_id,user_id"]
 
   create_table "images", force: true do |t|
     t.integer  "block_id"    
@@ -72,19 +72,19 @@ ActiveRecord::Schema.define(version: 20141218005706) do
     t.integer "scale"
     t.string "cloudinary_id"
   end 
-  add_index "images", ["block_id"], using: :btree
+  add_index "images", ["block_id"]
 
   create_table "students", force: true do |t|
     t.text  "name"
     t.string "email"
     t.integer "folder_id"
   end
-  add_index "students", ["folder_id"], using: :btree
+  add_index "students", ["folder_id"]
 
   create_table "sessions", force: true do |t|
     t.text  "token"
     t.integer "user_id"
   end
-  add_index "sessions", ["token","user_id"], using: :btree
+  add_index "sessions", ["token","user_id"]
 
 end

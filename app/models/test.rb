@@ -4,7 +4,8 @@ class Test < ActiveRecord::Base
 	belongs_to :folder
 
 	amoeba do
-		enable
+		include_association :pages
+		append :name => " Copy"
 	end
 
 end

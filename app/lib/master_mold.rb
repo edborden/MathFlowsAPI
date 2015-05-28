@@ -10,14 +10,14 @@ class MasterMold
 
 	def fresh_folder
 		{
-			params: nil,
+			params: {name:"New Folder"},
 			tests: [fresh_test]
 		}		
 	end
 
 	def fresh_test
 		{
-			params: nil,
+			params: {name:"New Test"},
 			pages: [fresh_page]
 		}
 	end
@@ -25,7 +25,7 @@ class MasterMold
 	def fresh_page
 		{
 			params: nil,
-			blocks: [default_block]
+			blocks: []
 		}
 	end
 
@@ -34,8 +34,6 @@ class MasterMold
 			params: {
 				row_span:3,
 				col_span:2,
-				col:1,
-				row:1,
 				question:true,
 				content:"[Add content here.]"
 			}
