@@ -63,7 +63,7 @@ ActiveRecord::Schema.define(version: 20141218005706) do
     t.integer  "col_span"
     t.text  "content"
   end 
-  add_index "blocks", ["test_id,user_id"]
+  add_index "blocks", ["test_id","user_id"]
 
   create_table "images", force: true do |t|
     t.integer  "block_id"    
