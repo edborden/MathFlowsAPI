@@ -9,6 +9,7 @@ class Image < ActiveRecord::Base
 	belongs_to :block
 
 	def latex string
+		string.chop!.slice! 0 #remove $
 		url = URI.encode("http://latex.codecogs.com/png.latex?\\dpi{300}" + string)
 		to_file url
 		set_dimensions
@@ -30,10 +31,7 @@ class Image < ActiveRecord::Base
 	end
 
 	def to_file url
-		#puts url
 		@file = open url
-		#@file = io.read
-		#puts @file
 	end
 
 	def file		

@@ -65,6 +65,12 @@ ActiveRecord::Schema.define(version: 20141218005706) do
   end 
   add_index "blocks", ["test_id","user_id"]
 
+  create_table "invalidations", force: true do |t|
+    t.integer "block_id"
+    t.string "message_type"      
+  end
+  add_index "invalidations", ["block_id"]
+
   create_table "images", force: true do |t|
     t.integer  "block_id"    
     t.integer "width"
