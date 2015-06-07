@@ -1,6 +1,6 @@
 class TestSerializer < ApplicationSerializer
 	attributes :name
-	has_many :pages,embed_in_root:true
-	has_many :blocks,embed_in_root:true
+	has_many :pages, embed: :ids, include: :true
+	has_many :blocks, embed: :ids, include: :true
 	has_one :folder
 end
