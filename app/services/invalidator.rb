@@ -18,7 +18,7 @@ class Invalidator
 
 	def invalidate_content
 
-		if actual_height > @block.height
+		if actual_height > @block.height + 5 #ADDING 5 is a temporary fix for one-line content not fitting
 
 			unless @content_invalidation.present?
 

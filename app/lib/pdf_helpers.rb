@@ -80,7 +80,7 @@ module PdfHelpers
 			if block.image.present?
 				image block.image.file, fit: [bounds.right,bounds.top - content_box.height], position: :right, vposition: :bottom
 			end
-			stroke_bounds
+
 		end
 
 	end
