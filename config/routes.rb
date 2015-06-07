@@ -8,4 +8,5 @@ Rails.application.routes.draw do
 	resources :folders, only: [:create,:update,:destroy]
 	resources :groups, only: [:create,:update,:destroy]
 	resources :invitations, only: [:create,:show,:update]
+	resources :lines, only: [:create,:update,:destroy]
 end

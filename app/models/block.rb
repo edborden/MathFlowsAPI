@@ -4,6 +4,7 @@ class Block < ActiveRecord::Base
 	belongs_to :user #if it's a header
 	has_one :image, dependent: :destroy
 	has_many :invalidations, dependent: :destroy
+	has_many :lines, dependent: :destroy
 
 	amoeba do
 		enable

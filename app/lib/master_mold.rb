@@ -29,17 +29,6 @@ class MasterMold
 		}
 	end
 
-	def default_block
-		{
-			params: {
-				row_span:3,
-				col_span:2,
-				question:true,
-				content:"[Add content here.]"
-			}
-		}
-	end
-
 	def default_headers
 		[
 			{
@@ -48,9 +37,9 @@ class MasterMold
 					row:1,
 					row_span:1,
 					col_span:2,
-					question: false,
-					content:"Date: _________________________"
-				}
+					question: false
+				},
+				lines: [{content:"Date: _________________________"}]
 			},
 			{
 				params: {
@@ -58,9 +47,9 @@ class MasterMold
 					row:1,
 					row_span:1,
 					col_span:2,
-					question: false,
-					content:"Name: ____________________"					
-				}
+					question: false					
+				},
+				lines: [{content:"Name: ____________________"}]
 			},
 			{
 				params: {
@@ -68,9 +57,9 @@ class MasterMold
 					row:2,
 					row_span:1,
 					col_span:2,
-					question: false,
-					content:"Chapter 3 Test"					
-				}
+					question: false				
+				},
+				lines: [{content:"Chapter 3 Test"}]
 			},
 			{
 				params: {
@@ -78,9 +67,9 @@ class MasterMold
 					row:2,
 					row_span:1,
 					col_span:2,
-					question: false,
-					content:"Ms. Smith"					
-				}
+					question: false				
+				},
+				lines: [{content:"Ms. Smith"}]
 			},
 			{
 				params: {
@@ -88,9 +77,9 @@ class MasterMold
 					row:3,
 					row_span:1,
 					col_span:2,
-					question: false,
-					content:"Algebra 2"					
-				}
+					question: false					
+				},
+				lines: [{content:"Algebra 2"}]
 			},
 			{
 				params: {
@@ -98,9 +87,9 @@ class MasterMold
 					row:3,
 					row_span:1,
 					col_span:2,
-					question: false,
-					content:"Period 5"					
-				}
+					question: false					
+				},
+				lines: [{content:"Period 5"}]
 			}
 		]
 	end
@@ -121,9 +110,9 @@ class MasterMold
 										col_span:2,
 										row:4,
 										col:1,
-										question:true,
-										content:"Drag around and resize any block."
-									}
+										question:true
+									},
+									lines: [{content:"Drag around and resize any block."},{content:"TEST 2"}]
 								},
 								{
 									params: {
@@ -131,9 +120,9 @@ class MasterMold
 										col_span:2,
 										row:4,
 										col:3,
-										question:true,
-										content:"Edit text by clicking on it. Switch to math mode and insert equations with the '\\$' key. $f\\left(x\\right)=\\sqrt[3]{4}x+12$"
-									}
+										question:true
+									},
+									lines: [{content:"Edit text by clicking on it. Switch to math mode and insert equations with the '\\$' key. $f\\left(x\\right)=\\sqrt[3]{4}x+12$"}]
 								},
 								{
 									params: {
@@ -141,9 +130,9 @@ class MasterMold
 										row:7,
 										col_span:2,
 										row_span:7,
-										question:true,
-										content:"Double click on any block to access its menu, which will allow you to add images..."
+										question:true
 									},
+									lines: [{content:"Double click on any block to access its menu, which will allow you to add images..."}],
 									image: {params:{height:353,width:446,cloudinary_id:"block_images/v7bz2rx9bs65ecbhyf0n",scale:5}}
 								},
 								{
@@ -152,9 +141,9 @@ class MasterMold
 										row:7,
 										col_span:2,
 										row_span:7,
-										question:true,
-										content:"...or create graphs."
+										question:true
 									},
+									lines: [{content:"...or create graphs."}],
 									image: {params: {width:501,height:398,cloudinary_id:"block_images/eyjdrh6xrt2no9a2ezam",scale:5}}
 								},
 								{
@@ -163,9 +152,9 @@ class MasterMold
 										row:14,
 										col_span:4,
 										row_span:2,
-										question:false,
-										content:"This block isn't numbered, like you might use for a block containing only test directions. The option for this is also in the block's menu."
-									}
+										question:false
+									},
+									lines: [{content:"This block isn't numbered, like you might use for a block containing only test directions. The option for this is also in the block's menu."}]
 								},
 								{
 									params: {
@@ -173,9 +162,9 @@ class MasterMold
 										col_span:2,
 										row:16,
 										col:1,
-										question:true,
-										content:"You can add more blocks or pages using the menu on the left side of the page."
-									}
+										question:true
+									},
+									lines: [{content:"You can add more blocks or pages using the menu on the left side of the page."}]
 								},
 								{
 									params: {
@@ -183,9 +172,9 @@ class MasterMold
 										col_span:2,
 										row:16,
 										col:3,
-										question:true,
-										content:"When you're done, get a PDF version with one click on that same menu."
-									}
+										question:true
+									},
+									lines: [{content:"When you're done, get a PDF version with one click on that same menu."}]
 								},
 								{
 									params: {
@@ -193,9 +182,9 @@ class MasterMold
 										col_span:4,
 										row:19,
 										col:1,
-										question:true,
-										content:"And once you login, you'll be able to make multiple versions of a test, with questions synchronized across versions. Check it out!"
-									}
+										question:true
+									},
+									lines: [{content:"And once you login, you'll be able to make multiple versions of a test, with questions synchronized across versions. Check it out!"}]
 								}
 							]
 						}

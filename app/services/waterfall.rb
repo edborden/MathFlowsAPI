@@ -31,10 +31,15 @@ class Waterfall
 
 	def block mold
 		block = Block.create mold[:params]
+		mold[:lines].each { |line_mold| block.lines<<line(line_mold) }
 		if mold[:image]
 			block.image = image(mold[:image])
 		end
 		return block
+	end
+
+	def line mold
+		line = Line.create(mold)
 	end
 
 	def image mold

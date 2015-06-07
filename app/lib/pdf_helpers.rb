@@ -26,51 +26,56 @@ module PdfHelpers
 					number_indentation = question_number.width
 				end
 
-				## BLOCK CONTENT
-
 				indent number_indentation do
 
-					## PROCESS CONTENT
-					processed_content = EquationExtractor.new(block.content)
+					## BLOCK LINES
 
-					## CONTENT WITH EQUATIONS
-					if processed_content.contains_equations?
+					block.lines.each do |line|
 
-						## PROCESS CONTENT LINES
-						element_width = bounds.right
-						content_lines = []
-						unused_content = processed_content.array
-						until unused_content.empty?
-							content_line = ContentLine.new(unused_content,element_width)
-							content_lines << content_line
-							unused_content = content_line.unused_content_array
-						end
+						## PROCESS CONTENT
+						processed_content = EquationExtractor.new(line.content)
 
-						## EACH LINE
-						last_height = 0
-						content_lines.each do |content_line|
-							bounding_box [0,bounds.top - last_height],width:bounds.right, height:content_line.height do				
-								content_line.line_items.each do |item|	
-									float do										
-										## RENDER TO PDF
-										if item[:item].is_a? Image
-											image item[:item].file, scale:0.25, position: item[:indentation]
-										else
-											indent item[:indentation] do
-												text item[:item].text, valign: :center
-											end
-										end										
+						## CONTENT WITH EQUATIONS
+						if processed_content.contains_equations?
+
+							## PROCESS CONTENT LINES
+							element_width = bounds.right
+							content_lines = []
+							unused_content = processed_content.array
+							until unused_content.empty?
+								content_line = ContentLine.new(unused_content,element_width)
+								content_lines << content_line
+								unused_content = content_line.unused_content_array
+							end
+
+							## EACH LINE
+							last_height = 0
+							content_lines.each do |content_line|
+								bounding_box [0,bounds.top - last_height],width:bounds.right, height:content_line.height do				
+									content_line.line_items.each do |item|	
+										float do										
+											## RENDER TO PDF
+											if item[:item].is_a? Image
+												image item[:item].file, scale:0.25, position: item[:indentation]
+											else
+												indent item[:indentation] do
+													text item[:item].text, valign: :center
+												end
+											end										
+										end
 									end
 								end
+								last_height += content_line.height
 							end
-							last_height += content_line.height
+
+						## JUST TEXT
+						else
+							content = line.content.gsub "\\$","$"
+							text content, leading: 5
 						end
 
-					## JUST TEXT
-					else
-						content = block.content.gsub "\\$","$"
-						text content, leading: 5
 					end
+
 				end
 
 			end

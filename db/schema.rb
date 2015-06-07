@@ -61,7 +61,6 @@ ActiveRecord::Schema.define(version: 20141218005706) do
     t.integer  "col"
     t.integer  "row_span"
     t.integer  "col_span"
-    t.text  "content"
   end 
   add_index "blocks", ["test_id","user_id"]
 
@@ -70,6 +69,12 @@ ActiveRecord::Schema.define(version: 20141218005706) do
     t.string "message_type"      
   end
   add_index "invalidations", ["block_id"]
+
+  create_table "lines", force: true do |t|
+    t.integer "block_id"
+    t.text "content"      
+  end
+  add_index "lines", ["block_id"]
 
   create_table "images", force: true do |t|
     t.integer  "block_id"    
