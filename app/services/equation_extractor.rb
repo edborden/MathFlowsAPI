@@ -6,7 +6,7 @@ class EquationExtractor
 		@array = convert_to_content_objects @string.split
 	end
 
-	def contains_equations?
+	def contains_equations? #not currently used
 		@array.any? { |obj| obj.is_a? Image }
 	end
 

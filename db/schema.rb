@@ -29,7 +29,8 @@ ActiveRecord::Schema.define(version: 20141218005706) do
     t.string "referral_email"
     t.boolean "signup", default:false
   end  
-  add_index "invitations", ["referrer_id","referral_id"]
+  add_index "invitations", ["referrer_id"]
+  add_index "invitations", ["referral_id"]
 
   create_table "folders", force: true do |t|
     t.integer  "user_id"
@@ -39,7 +40,8 @@ ActiveRecord::Schema.define(version: 20141218005706) do
     t.boolean "student_folder", default: false, null: false
     t.boolean "test_folder", default: false, null: false
   end 
-  add_index "folders", ["user_id","folder_id"]
+  add_index "folders", ["user_id"]
+  add_index "folders", ["folder_id"]
 
   create_table "tests", force: true do |t|
     t.string "name"
@@ -61,8 +63,10 @@ ActiveRecord::Schema.define(version: 20141218005706) do
     t.integer  "col"
     t.integer  "row_span"
     t.integer  "col_span"
+    t.string "lines_height", default:0
   end 
-  add_index "blocks", ["test_id","user_id"]
+  add_index "blocks", ["test_id"]
+  add_index "blocks", ["user_id"]
 
   create_table "invalidations", force: true do |t|
     t.integer "block_id"
@@ -72,7 +76,8 @@ ActiveRecord::Schema.define(version: 20141218005706) do
 
   create_table "lines", force: true do |t|
     t.integer "block_id"
-    t.text "content"      
+    t.text "content"
+    t.float "position" 
   end
   add_index "lines", ["block_id"]
 
@@ -96,6 +101,7 @@ ActiveRecord::Schema.define(version: 20141218005706) do
     t.text  "token"
     t.integer "user_id"
   end
-  add_index "sessions", ["token","user_id"]
+  add_index "sessions", ["token"]
+  add_index "sessions", ["user_id"]
 
 end

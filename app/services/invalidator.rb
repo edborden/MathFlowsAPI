@@ -14,18 +14,18 @@ class Invalidator
 	def run
 		invalidate_content
 		invalidate_position
+		return actual_height
 	end
 
 	def invalidate_content
 
 		puts actual_height
 		puts @block.height
-		if actual_height > @block.height + 5 #ADDING 5 is a temporary fix for one-line content not fitting
+		if actual_height > @block.height #+ 10 #ADDING 5 is a temporary fix for one-line content not fitting
 
 			unless @content_invalidation.present?
 
 				Invalidation.create block_id:@block.id,message_type:"1"
-				@block.reload
 
 			end
 
@@ -34,7 +34,6 @@ class Invalidator
 			if @content_invalidation.present?
 
 				@content_invalidation.destroy
-				@block.reload
 
 			end
 
@@ -51,7 +50,6 @@ class Invalidator
 			unless @position_invalidation.present?
 
 				Invalidation.create block_id:@block.id,message_type:"2"
-				@block.reload
 
 			end
 
@@ -60,7 +58,6 @@ class Invalidator
 			if @position_invalidation.present?
 
 				@position_invalidation.destroy
-				@block.reload
 				
 			end
 
@@ -69,10 +66,7 @@ class Invalidator
 	end
 
 	def actual_height
-
-		actual_block = write_stretchy_block @block
-		actual_block.height
-
+		@actual_height ||= write_stretchy_block(@block).height
 	end
 
 end

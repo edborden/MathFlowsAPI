@@ -4,7 +4,19 @@ class Block < ActiveRecord::Base
 	belongs_to :user #if it's a header
 	has_one :image, dependent: :destroy
 	has_many :invalidations, dependent: :destroy
-	has_many :lines, dependent: :destroy
+	has_many :lines, -> { order(:position) }, dependent: :destroy
+
+	after_update :run_invalidator
+
+	def run_invalidator
+		if page.present? #can only run if already part of the page. not compatible with waterfall.rb
+			lines_height = Invalidator.new(self).run
+			unless self.lines_height == lines_height
+				update_column "lines_height",lines_height
+			end
+			reload
+		end
+	end
 
 	amoeba do
 		enable

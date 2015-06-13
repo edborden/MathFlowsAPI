@@ -1,4 +1,4 @@
 class LineSerializer < ApplicationSerializer
-	attributes :content
-	has_one :block, embed: :ids, include: :true
+	attributes :content,:position
+	has_one :block, embed: :ids, include: :true, serializer:BlockWithoutLinesSerializer, root: "blocks"
 end

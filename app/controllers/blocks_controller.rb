@@ -10,17 +10,15 @@ class BlocksController < ResourceController
 			@resource.save
 			render_resource
 		else
-			super
+			@resource = model.new resource_params
+			if @resource.save
+				line = Line.new content:"",position:1
+				@resource.lines<<line
+				render_resource
+			else
+				render_errors
+			end
 		end
-	end
-
-	def update
-		if @resource.update resource_params
-			Invalidator.new(@resource).run
-			render_resource
-		else
-			render_errors
-		end		
 	end
 
 	def resource_params
