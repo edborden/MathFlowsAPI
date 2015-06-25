@@ -9,7 +9,7 @@ class Block < ActiveRecord::Base
 	after_update :run_invalidator
 
 	def run_invalidator
-		if page.present? #can only run if already part of the page. not compatible with waterfall.rb
+		if test.present? && page.present? #can only run if already part of the page. not compatible with waterfall.rb
 			lines_height = Invalidator.new(self).run
 			unless self.lines_height == lines_height
 				update_column "lines_height",lines_height
@@ -27,19 +27,11 @@ class Block < ActiveRecord::Base
 	end
 
 	def x
-		pdf_col*COL_WIDTH + pdf_col*INSIDE_MARGIN if attrs_set?
+		col*COL_WIDTH + col*INSIDE_MARGIN if attrs_set?
 	end
 
 	def y
-		pdf_row*ROW_HEIGHT + pdf_row*INSIDE_MARGIN if attrs_set?
-	end
-
-	def pdf_row
-		row - 1 if attrs_set?
-	end
-
-	def pdf_col
-		col - 1 if attrs_set?
+		row*ROW_HEIGHT + row*INSIDE_MARGIN if attrs_set?
 	end
 
 	def width

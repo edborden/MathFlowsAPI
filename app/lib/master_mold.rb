@@ -33,8 +33,8 @@ class MasterMold
 		[
 			{
 				params: {
-					col:1,
-					row:1,
+					col:0,
+					row:0,
 					row_span:1,
 					col_span:2,
 					question: false,
@@ -44,8 +44,8 @@ class MasterMold
 			},
 			{
 				params: {
-					col:3,
-					row:1,
+					col:2,
+					row:0,
 					row_span:1,
 					col_span:2,
 					question: false,
@@ -55,8 +55,8 @@ class MasterMold
 			},
 			{
 				params: {
-					col:1,
-					row:2,
+					col:0,
+					row:1,
 					row_span:1,
 					col_span:2,
 					question: false,
@@ -66,8 +66,8 @@ class MasterMold
 			},
 			{
 				params: {
-					col:3,
-					row:2,
+					col:2,
+					row:1,
 					row_span:1,
 					col_span:2,
 					question: false,
@@ -77,8 +77,8 @@ class MasterMold
 			},
 			{
 				params: {
-					col:1,
-					row:3,
+					col:0,
+					row:2,
 					row_span:1,
 					col_span:2,
 					question: false,
@@ -88,8 +88,8 @@ class MasterMold
 			},
 			{
 				params: {
-					col:3,
-					row:3,
+					col:2,
+					row:2,
 					row_span:1,
 					col_span:2,
 					question: false,
@@ -114,8 +114,8 @@ class MasterMold
 									params: {
 										row_span:3,
 										col_span:2,
-										row:4,
-										col:1,
+										row:3,
+										col:0,
 										question:true,
 										lines_height:18
 									},
@@ -125,16 +125,16 @@ class MasterMold
 									params: {
 										row_span:3,
 										col_span:2,
-										row:4,
-										col:3,
+										row:3,
+										col:2,
 										question:true
 									},
 									lines: [{content:"Edit text by clicking on it. Switch to math mode and insert equations with the '\\$' key. $f\\left(x\\right)=\\sqrt[3]{4}x+12$",position:1}]
 								},
 								{
 									params: {
-										col:1,
-										row:7,
+										col:0,
+										row:6,
 										col_span:2,
 										row_span:7,
 										question:true,
@@ -145,8 +145,8 @@ class MasterMold
 								},
 								{
 									params: {
-										col:3,
-										row:7,
+										col:2,
+										row:6,
 										col_span:2,
 										row_span:7,
 										question:true,
@@ -157,8 +157,8 @@ class MasterMold
 								},
 								{
 									params: {
-										col:1,
-										row:14,
+										col:0,
+										row:13,
 										col_span:4,
 										row_span:2,
 										question:false,
@@ -170,8 +170,8 @@ class MasterMold
 									params: {
 										row_span:3,
 										col_span:2,
-										row:16,
-										col:1,
+										row:15,
+										col:0,
 										question:true,
 										lines_height:36
 									},
@@ -181,8 +181,8 @@ class MasterMold
 									params: {
 										row_span:3,
 										col_span:2,
-										row:16,
-										col:3,
+										row:15,
+										col:2,
 										question:true,
 										lines_height:36
 									},
@@ -192,8 +192,8 @@ class MasterMold
 									params: {
 										row_span:2,
 										col_span:4,
-										row:19,
-										col:1,
+										row:18,
+										col:0,
 										question:true,
 										lines_height:36
 									},
