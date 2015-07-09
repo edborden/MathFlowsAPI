@@ -43,7 +43,7 @@ class Invalidator
 
 	def invalidate_position
 
-		max_rows = 27
+		max_rows = 26
 
 		if @block.row + (@block.row_span - 1) > max_rows
 

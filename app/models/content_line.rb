@@ -17,7 +17,11 @@ class ContentLine
 
 		#handler for when last content item is too long
 		if line_width > element_width
-			@unused_content_array.unshift @line_items.pop
+			if @line_items.size > 1 
+				@unused_content_array.unshift @line_items.pop
+			else
+				puts "NEED TO HANDLE ITEMS THAT HAVE WIDTHS GREATER THAN BLOCK WIDTH"
+			end
 		end
 
 		format_line_items
