@@ -32,7 +32,7 @@ class KeenHandler
 
 	def formatted_user user
 		{
-			id: user.id,
+			id: user.id.to_s,
 			guest: user.guest
 		}
 	end
