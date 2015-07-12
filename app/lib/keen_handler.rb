@@ -26,7 +26,7 @@ class KeenHandler
 
 	def signup user
 		Keen.publish :signup, {
-			user: formatted_user user
+			user: formatted_user(user)
 		}
 	end
 
