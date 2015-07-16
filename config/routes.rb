@@ -9,4 +9,6 @@ Rails.application.routes.draw do
 	resources :groups, only: [:create,:update,:destroy]
 	resources :invitations, only: [:create,:show,:update]
 	resources :lines, only: [:create,:update,:destroy]
+	resources :metrics, only: :index
+
 end

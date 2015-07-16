@@ -4,6 +4,8 @@ class User < ActiveRecord::Base
 	has_many :blocks
 	belongs_to :group
 
+	scope :not_guest, -> {where.not(guest:true)}
+
 	has_many :invitations_sent, class_name: "Invitation", foreign_key: "referrer_id"
 	has_many :referrals, through: :invitations_sent, source: :referral
 	has_one :invitation, foreign_key: "referral_id"
