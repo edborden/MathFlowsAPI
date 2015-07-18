@@ -12,6 +12,9 @@ gem 'google-api-client'
 gem 'amoeba'
 gem 'cloudinary'
 
+##USERVOICE
+gem 'uservoice-ruby'
+
 ## ANALYTICS
 gem 'keen'
 

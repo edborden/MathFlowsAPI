@@ -48,6 +48,7 @@ GEM
     erubis (2.7.0)
     excon (0.45.1)
     extlib (0.9.16)
+    ezcrypto (0.7.2)
     fabrication (2.12.2)
     faker (1.4.3)
       i18n (~> 0.5)
@@ -111,6 +112,7 @@ GEM
     multipart-post (2.0.0)
     netrc (0.10.3)
     newrelic_rpm (3.11.1.284)
+    oauth (0.4.7)
     pdf-core (0.4.0)
     pg (0.18.1-x64-mingw32)
     pg (0.18.1-x86-mingw32)
@@ -183,6 +185,10 @@ GEM
       unf_ext
     unf_ext (0.0.6)
     unf_ext (0.0.6-x86-mingw32)
+    uservoice-ruby (0.0.11)
+      ezcrypto (>= 0.7.2)
+      json (>= 1.7.5)
+      oauth (>= 0.4.7)
 
 PLATFORMS
   x64-mingw32
@@ -210,3 +216,4 @@ DEPENDENCIES
   rails_12factor
   tzinfo-data
   unicorn
+  uservoice-ruby

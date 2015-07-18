@@ -21,7 +21,6 @@ class User < ActiveRecord::Base
 		self.google_link = userinfo.link
 		self.google_refresh = google.authorization.refresh_token
 		self.guest = false
-		save
 		return self
 	end
 

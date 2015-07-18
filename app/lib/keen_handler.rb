@@ -5,7 +5,6 @@ class KeenHandler
 			referrer_id: invitation.referrer_id,
 			referral_email: invitation.referral_email
 		}
-
 	end
 
 	def invitation_visit invitation
