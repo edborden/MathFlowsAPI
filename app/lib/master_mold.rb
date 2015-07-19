@@ -119,7 +119,7 @@ class MasterMold
 										question:true,
 										lines_height:18
 									},
-									lines: [{content:"Drag around and resize any block.",position:1}]
+									lines: [{content:"Click on any block to select it. Selected blocks can be resized and dragged around.",position:1}]
 								},
 								{
 									params: {
@@ -140,7 +140,7 @@ class MasterMold
 										question:true,
 										lines_height:36
 									},
-									lines: [{content:"Double click on any block to access its menu, which will allow you to add images...",position:1}],
+									lines: [{content:"Access any selected block's menu on the right, which will allow you to add images...",position:1}],
 									image: {params:{height:353,width:446,cloudinary_id:"block_images/v7bz2rx9bs65ecbhyf0n",scale:5}}
 								},
 								{
@@ -197,7 +197,7 @@ class MasterMold
 										question:true,
 										lines_height:36
 									},
-									lines: [{content:"And once you login, you'll be able to make multiple versions of a test, with questions synchronized across versions. Check it out!",position:1}]
+									lines: [{content:"And once you login, you'll be able to copy tests with one click to easily make multiple versions. Check it out!",position:1}]
 								}
 							]
 						}
