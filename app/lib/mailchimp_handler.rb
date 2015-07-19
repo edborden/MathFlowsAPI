@@ -5,8 +5,10 @@ class MailchimpHandler
 	end
 
 	def subscribe user
-		if Rails.env == 'production'
+		begin
 			client.lists.subscribe "22facc0315", {email:user.email}, {name:user.name}, 'html', false
+		rescue Mailchimp::ListAlreadySubscribedError
+			puts "rescued successfully"
 		end
 	end
 
