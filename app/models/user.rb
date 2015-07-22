@@ -3,6 +3,7 @@ class User < ActiveRecord::Base
 	has_many :folders
 	has_many :blocks
 	belongs_to :group
+	has_one :preference
 
 	scope :not_guest, -> {where.not(guest:true)}
 

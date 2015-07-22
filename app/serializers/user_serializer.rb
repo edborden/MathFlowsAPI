@@ -3,4 +3,5 @@ class UserSerializer < ApplicationSerializer
 	has_many :folders, embed: :ids, include: :true
 	has_many :blocks, embed: :ids, include: :true
 	#has_one :group, embed_in_root: true
+	has_one :preference, embed: :ids, include: :true
 end

@@ -88,6 +88,14 @@ ActiveRecord::Schema.define(version: 20150718222534) do
 
   add_index "pages", ["test_id"], name: "index_pages_on_test_id", using: :btree
 
+  create_table "preferences", force: true do |t|
+    t.boolean "borders", default: false, null: false
+    t.boolean "directions", default: false, null: false
+    t.integer "user_id", null: false
+  end
+
+  add_index "preferences", ["user_id"], name: "index_preferences_on_user_id", using: :btree  
+
   create_table "sessions", force: true do |t|
     t.text    "token"
     t.integer "user_id"
