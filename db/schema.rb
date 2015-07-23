@@ -90,7 +90,7 @@ ActiveRecord::Schema.define(version: 20150718222534) do
 
   create_table "preferences", force: true do |t|
     t.boolean "borders", default: false, null: false
-    t.boolean "directions", default: false, null: false
+    t.boolean "directions", default: true, null: false
     t.integer "user_id", null: false
   end
 

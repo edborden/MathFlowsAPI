@@ -10,6 +10,8 @@ class Pdf
 	def generate_pdf
 
 		first_page = true
+
+		borders = @test.folder.user.preference.borders
 	
 		@test.pages.each do |page|
 
@@ -19,7 +21,7 @@ class Pdf
 				start_new_page
 			end
 
-			page.blocks.each { |block| write_block(block) }
+			page.blocks.each { |block| write_block(block,borders) }
 
 		end
 	end

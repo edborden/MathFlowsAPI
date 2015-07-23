@@ -4,7 +4,7 @@ class QuestionNumber
 
 	def initialize block
 		@index = question_blocks_sorted(block.page.test).index(block) + 1
-		@formatted = @index.to_s + ".  "
+		@formatted = @index.to_s + ")  "
 		@width = width_of @formatted
 	end
 
