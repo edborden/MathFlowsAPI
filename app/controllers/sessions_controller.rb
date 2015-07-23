@@ -9,13 +9,7 @@ class SessionsController < AuthenticatedController
 			google = GoogleHandler.new.user_authorized(params[:session][:token],params[:session][:redirect_uri])
 			user = User.find_by google_id: google.userinfo.id
 			unless user
-				user = current_user.set_attrs_from_google google
-				UservoiceHandler.new(user).set_uservoice_token
-				user.save
-				MailchimpHandler.new.subscribe user
-				Mailer.new.welcome user
-				user.invitation.try :set_signup
-				KeenHandler.new.signup user
+				user = UserConverter.new(current_user,google).from_guest
 			end
 			user.session.try :destroy
 			session = user.create_session
