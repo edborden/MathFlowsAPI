@@ -9,7 +9,7 @@ class TestsController < ResourceController
 			@resource.save
 			@resource.pages.each do |page|
 				page.blocks.each do |block|
-					block.test_id = @resource.id
+					block.user_id = current_user.id
 					block.save
 				end
 			end

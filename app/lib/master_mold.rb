@@ -38,7 +38,8 @@ class MasterMold
 					row_span:1,
 					col_span:2,
 					question: false,
-					lines_height:18
+					lines_height:18,
+					header:true
 				},
 				lines: [{content:"Date: _________________________",position:1}]
 			},
@@ -49,7 +50,8 @@ class MasterMold
 					row_span:1,
 					col_span:2,
 					question: false,
-					lines_height:18					
+					lines_height:18,
+					header:true			
 				},
 				lines: [{content:"Name: ____________________",position:1}]
 			},
@@ -60,7 +62,8 @@ class MasterMold
 					row_span:1,
 					col_span:2,
 					question: false,
-					lines_height:18				
+					lines_height:18,
+					header:true		
 				},
 				lines: [{content:"Chapter 3 Test",position:1}]
 			},
@@ -71,7 +74,8 @@ class MasterMold
 					row_span:1,
 					col_span:2,
 					question: false,
-					lines_height:18				
+					lines_height:18,
+					header:true		
 				},
 				lines: [{content:"Ms. Smith",position:1}]
 			},
@@ -82,7 +86,8 @@ class MasterMold
 					row_span:1,
 					col_span:2,
 					question: false,
-					lines_height:18					
+					lines_height:18,
+					header:true			
 				},
 				lines: [{content:"Algebra 2",position:1}]
 			},
@@ -93,7 +98,8 @@ class MasterMold
 					row_span:1,
 					col_span:2,
 					question: false,
-					lines_height:18					
+					lines_height:18,
+					header:true
 				},
 				lines: [{content:"Period 5",position:1}]
 			}

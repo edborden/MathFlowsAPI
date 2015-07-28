@@ -18,24 +18,24 @@ ActiveRecord::Schema.define(version: 20150718222534) do
 
   create_table "blocks", force: true do |t|
     t.integer "page_id"
-    t.integer "test_id"
     t.integer "user_id"
     t.boolean "question"
     t.integer "row"
     t.integer "col"
     t.integer "row_span"
     t.integer "col_span"
-    t.string  "lines_height", default: "0"
+    t.string  "lines_height", default: "0", null: false
+    t.boolean "header", default: false, null:false
   end
 
-  add_index "blocks", ["test_id"], name: "index_blocks_on_test_id", using: :btree
+  add_index "blocks", ["page_id"], name: "index_blocks_on_test_id", using: :btree
   add_index "blocks", ["user_id"], name: "index_blocks_on_user_id", using: :btree
 
   create_table "folders", force: true do |t|
     t.integer "user_id"
     t.integer "folder_id"
     t.string  "name"
-    t.boolean "open",           default: true
+    t.boolean "open",           default: true, null: false
     t.boolean "student_folder", default: false, null: false
     t.boolean "test_folder",    default: false, null: false
   end
@@ -68,7 +68,7 @@ ActiveRecord::Schema.define(version: 20150718222534) do
     t.integer "referrer_id"
     t.integer "referral_id"
     t.string  "referral_email"
-    t.boolean "signup",         default: false
+    t.boolean "signup", default: false, null: false
   end
 
   add_index "invitations", ["referral_id"], name: "index_invitations_on_referral_id", using: :btree
@@ -76,7 +76,7 @@ ActiveRecord::Schema.define(version: 20150718222534) do
 
   create_table "lines", force: true do |t|
     t.integer "block_id"
-    t.text    "content"
+    t.text    "content", default:"",null:false
     t.float   "position"
   end
 

@@ -1,7 +1,7 @@
 class GroupsController < ResourceController
 
 	def create
-		group = Group.create
+		group = Group.create resource_params
 		group.users<<current_user
 		render json: group.reload
 	end

@@ -25,4 +25,8 @@ class User < ActiveRecord::Base
 		return self
 	end
 
+	def headers
+		blocks.where(headers:true)
+	end
+
 end

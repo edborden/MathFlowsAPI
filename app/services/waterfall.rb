@@ -1,11 +1,11 @@
 class Waterfall
 
 	def user mold
-		user = User.create mold[:params]
-		mold[:blocks].each { |block_mold| user.blocks<<block(block_mold) }
-		mold[:folders].each { |folder_mold| user.folders<<folder(folder_mold) }
-		Preference.create user_id:user.id
-		return user
+		@user = User.create mold[:params]
+		mold[:blocks].each { |block_mold| @user.blocks<<block(block_mold) }
+		mold[:folders].each { |folder_mold| @user.folders<<folder(folder_mold) }
+		Preference.create user_id:@user.id
+		return @user
 	end
 
 	def folder mold
@@ -16,11 +16,7 @@ class Waterfall
 
 	def test mold
 		test = Test.create mold[:params]
-		mold[:pages].each do |page_mold| 
-			p = page(page_mold)
-			test.pages<<p
-			p.blocks.each { |block| test.blocks<<block }
-		end
+		mold[:pages].each { |page_mold| test.pages<<page(page_mold) }
 		return test
 	end
 
@@ -31,7 +27,9 @@ class Waterfall
 	end
 
 	def block mold
-		block = Block.create mold[:params]
+		block = Block.new mold[:params]
+		block.user_id = @user.id
+		block.save
 		mold[:lines].each { |line_mold| block.lines<<line(line_mold) }
 		if mold[:image]
 			block.image = image(mold[:image])

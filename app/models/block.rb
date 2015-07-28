@@ -1,7 +1,6 @@
 class Block < ActiveRecord::Base
-	belongs_to :test
 	belongs_to :page
-	belongs_to :user #if it's a header
+	belongs_to :user
 	has_one :image, dependent: :destroy
 	has_many :invalidations, dependent: :destroy
 	has_many :lines, -> { order(:position) }, dependent: :destroy
@@ -9,7 +8,7 @@ class Block < ActiveRecord::Base
 	after_update :run_invalidator
 
 	def run_invalidator
-		if test.present? && page.present? #can only run if already part of the page. not compatible with waterfall.rb
+		if page.present? and page.test.present? #can only run if already part of the page. not compatible with waterfall.rb
 			lines_height = Invalidator.new(self).run
 			unless self.lines_height == lines_height
 				update_column "lines_height",lines_height
