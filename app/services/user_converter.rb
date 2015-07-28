@@ -13,6 +13,7 @@ class UserConverter
 		Mailer.new.welcome @user
 		@user.invitation.try :set_signup
 		KeenHandler.new.signup @user
+		return @user
 	end
 
 end
