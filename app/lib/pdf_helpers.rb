@@ -12,9 +12,9 @@ module PdfHelpers
 
 		bounding_box([block.x, bounds.top - block.y], width: block.width,height:block_height) do
 
-			indent 2 do # when borders=true, need some space
+			total_content_height = 0
 
-				total_content_height = 0
+			indent 2 do # when borders=true, need some space
 						
 				content_box = bounding_box([0,bounds.top],width:bounds.right) do
 
