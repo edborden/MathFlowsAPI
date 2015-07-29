@@ -22,7 +22,11 @@ class Waterfall
 
 	def page mold
 		page = Page.create mold[:params]
-		mold[:blocks].each { |block_mold| page.blocks<<block(block_mold) }
+		mold[:blocks].each do |block_mold| 
+			block = block(block_mold)
+			block.header = false
+			page.blocks<<block
+		end
 		return page
 	end
 

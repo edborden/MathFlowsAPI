@@ -26,7 +26,7 @@ class User < ActiveRecord::Base
 	end
 
 	def headers
-		blocks.where(headers:true)
+		blocks.where(header:true)
 	end
 
 end
