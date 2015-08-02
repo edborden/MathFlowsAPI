@@ -5,14 +5,14 @@ class Invitation < ActiveRecord::Base
 	after_create :send_invitation_email
 
 	def send_invitation_email
-		Mailer.new.invitation self
-		KeenHandler.new.invitation self		
+		MailHandler.new.handle :invitation, self
+		KeenHandler.new.handle :invitation, self		
 	end
 
 	def set_signup
 		self.signup = true
 		save
-		KeenHandler.new.invitation_signup self
+		KeenHandler.new.handle :invitation_signup, self
 	end
 
 end

@@ -1,6 +1,7 @@
 require 'google/api_client'
 
 class GoogleHandler
+	include Handler
 
 	def client
 		@client ||= Google::APIClient.new(

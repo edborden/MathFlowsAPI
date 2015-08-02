@@ -1,6 +1,7 @@
 require 'uservoice-ruby'
 
 class UservoiceHandler
+	include Handler
 
 	def initialize user
 		@subdomain_name = 'mathflows'

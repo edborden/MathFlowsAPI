@@ -1,4 +1,5 @@
 class KeenHandler
+	include Handler
 
 	def invitation invitation
 		Keen.publish :invitation, {

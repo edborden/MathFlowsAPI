@@ -2,7 +2,7 @@ class InvitationsController < ResourceController
 
 	def update
 		invitation = Invitation.update params[:id],resource_params
-		KeenHandler.new.invitation_visit invitation.reload
+		KeenHandler.new.handle :invitation_visit, invitation.reload
 		render json: invitation
 	end
 

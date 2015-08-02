@@ -7,13 +7,19 @@ class UserConverter
 	
 	def from_guest
 		@user.set_attrs_from_google @google
-		UservoiceHandler.new(@user).set_uservoice_token
+		UservoiceHandler.new(@user).handle :set_uservoice_token
 		@user.save
-		MailchimpHandler.new.subscribe @user
-		Mailer.new.welcome @user
+		MailchimpHandler.new.handle :subscribe, @user
+		MailHandler.new.handle :welcome, @user
 		@user.invitation.try :set_signup
-		KeenHandler.new.signup @user
+		KeenHandler.new.handle :signup, @user
+		send_all_groupvitations
 		return @user
+	end
+
+	def send_all_groupvitations
+		groupvitations = Groupvitations.where(receiver_email: @user.email)
+		groupvitations.each { |groupvitation| groupvitation.send_groupvitation_email }
 	end
 
 end
