@@ -6,13 +6,13 @@ class Invitation < ActiveRecord::Base
 
 	def send_invitation_email
 		MailHandler.new.handle :invitation, self
-		KeenHandler.new.handle :invitation, self		
+		KeenHandler.new.handle :publish,:invitation, self		
 	end
 
 	def set_signup
 		self.signup = true
 		save
-		KeenHandler.new.handle :invitation_signup, self
+		KeenHandler.new.handle :publish,:invitation_signup, self
 	end
 
 end
