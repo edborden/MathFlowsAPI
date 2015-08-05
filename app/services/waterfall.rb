@@ -16,6 +16,8 @@ class Waterfall
 
 	def test mold
 		test = Test.create mold[:params]
+		@user.tests<<test
+		@user.reload
 		mold[:pages].each { |page_mold| test.pages<<page(page_mold) }
 		return test
 	end

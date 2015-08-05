@@ -131,8 +131,9 @@ ActiveRecord::Schema.define(version: 20150718222534) do
   add_index "students", ["folder_id"], name: "index_students_on_folder_id", using: :btree
 
   create_table "tests", force: true do |t|
-    t.string  "name"
+    t.string  "name", default: "New Test"
     t.integer "folder_id"
+    t.integer "user_id"
   end
 
   add_index "tests", ["folder_id"], name: "index_tests_on_folder_id", using: :btree
@@ -151,6 +152,8 @@ ActiveRecord::Schema.define(version: 20150718222534) do
     t.boolean  "guest", default: true, null: false
     t.boolean "premium_trial", default: false, null: false
     t.string   "uservoice_token"
+    t.integer "tests_count", default: 0, null:false
+    t.integer "tests_quota", default: 30, null:false
   end
 
   add_index "users", ["google_id"], name: "index_users_on_google_id", using: :btree

@@ -15,11 +15,19 @@ class TestsController < ResourceController
 			end
 		else
 			folder = Folder.find params[:test][:folder_id]
-			@resource = Waterfall.new.test(MasterMold.new.fresh_test)
+			@resource = Test.create
+			page = Page.create test_id:@resource.id
+			current_user.headers.each do |block| 
+				block = block.amoeba_dup
+				block.page_id = page.id
+				block.user_id = current_user.id
+				block.header = false
+				block.save
+			end
 			folder.tests<<@resource
-			AddHeaders::to_this @resource.pages.first
-			@resource.reload
 		end
+		current_user.tests<<@resource
+		@resource.reload
 		render_resource
 	end
 

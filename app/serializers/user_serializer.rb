@@ -1,5 +1,5 @@
 class UserSerializer < ApplicationSerializer
-	attributes :guest,:name,:pic,:premium,:email,:created_at,:uservoice_token
+	attributes :guest,:name,:pic,:premium,:email,:created_at,:uservoice_token,:tests_count,:tests_quota
 	has_many :folders, embed: :ids, include: :true
 	has_many :blocks, embed: :ids, include: :true
 	has_one :group, embed: :ids, include: :true

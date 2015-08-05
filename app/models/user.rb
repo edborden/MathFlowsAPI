@@ -2,6 +2,7 @@ class User < ActiveRecord::Base
 	has_one :session
 	has_many :folders
 	has_many :blocks
+	has_many :tests
 	belongs_to :group, counter_cache: true
 	has_one :preference
 

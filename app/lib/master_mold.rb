@@ -8,27 +8,6 @@ class MasterMold
 		}
 	end
 
-	def fresh_folder
-		{
-			params: {name:"New Folder"},
-			tests: [fresh_test]
-		}		
-	end
-
-	def fresh_test
-		{
-			params: {name:"New Test"},
-			pages: [fresh_page]
-		}
-	end
-
-	def fresh_page
-		{
-			params: nil,
-			blocks: []
-		}
-	end
-
 	def default_headers
 		[
 			{
