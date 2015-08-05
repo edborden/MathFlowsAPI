@@ -45,7 +45,22 @@ ActiveRecord::Schema.define(version: 20150718222534) do
 
   create_table "groups", force: true do |t|
     t.string "name", default: "My Group"
+    t.integer "users_count", default: 0, null: false
   end
+
+  create_table "groupvitations", force: true do |t|
+    t.integer "sender_id", null: false
+    t.integer "receiver_id"
+    t.string  "receiver_email", null: false
+    t.boolean "accepted", default: false, null: false    
+    t.boolean "declined", default: false, null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "groupvitations", ["sender_id"], name: "index_groupvitations_on_sender_id", using: :btree
+  add_index "groupvitations", ["receiver_id"], name: "index_groupvitations_on_receiver_id", using: :btree
+  add_index "groupvitations", ["receiver_email"], name: "index_groupvitations_on_receiver_email", using: :btree
 
   create_table "images", force: true do |t|
     t.integer "block_id"
@@ -69,10 +84,13 @@ ActiveRecord::Schema.define(version: 20150718222534) do
     t.integer "referral_id"
     t.string  "referral_email"
     t.boolean "signup", default: false, null: false
+    t.datetime "created_at"
+    t.datetime "signup_at"
   end
 
   add_index "invitations", ["referral_id"], name: "index_invitations_on_referral_id", using: :btree
   add_index "invitations", ["referrer_id"], name: "index_invitations_on_referrer_id", using: :btree
+  add_index "invitations", ["referral_email"], name: "index_invitations_on_referral_email", using: :btree
 
   create_table "lines", force: true do |t|
     t.integer "block_id"
@@ -120,7 +138,6 @@ ActiveRecord::Schema.define(version: 20150718222534) do
   add_index "tests", ["folder_id"], name: "index_tests_on_folder_id", using: :btree
 
   create_table "users", force: true do |t|
-    t.boolean  "guest",           default: true, null: false
     t.string   "email"
     t.string   "name"
     t.string   "pic"
@@ -129,12 +146,14 @@ ActiveRecord::Schema.define(version: 20150718222534) do
     t.string   "google_link"
     t.string   "google_refresh"
     t.datetime "created_at"
-    t.datetime "updated_at"
     t.integer  "group_id"
-    t.boolean  "premium"
+    t.boolean  "premium", default: false, null: false
+    t.boolean  "guest", default: true, null: false
+    t.boolean "premium_trial", default: false, null: false
     t.string   "uservoice_token"
   end
 
   add_index "users", ["google_id"], name: "index_users_on_google_id", using: :btree
+  add_index "users", ["email"], name: "index_users_on_email", using: :btree
 
 end

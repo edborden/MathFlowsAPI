@@ -2,15 +2,20 @@ class User < ActiveRecord::Base
 	has_one :session
 	has_many :folders
 	has_many :blocks
-	belongs_to :group
+	belongs_to :group, counter_cache: true
 	has_one :preference
 
 	scope :not_guest, -> {where.not(guest:true)}
 
 	has_many :invitations_sent, class_name: "Invitation", foreign_key: "referrer_id"
-	has_many :referrals, through: :invitations_sent, source: :referral
+	#has_many :referrals, through: :invitations_sent, source: :referral   #this won't always work bc referral_id won't always be set
 	has_one :invitation, foreign_key: "referral_id"
 	has_one :referrer, through: :invitation, source: :referrer
+
+	has_many :groupvitations_sent, class_name: "Groupvitation", foreign_key: "sender_id"
+	#has_many :receivers, through: :groupvitations_sent, source: :receiver
+	has_many :groupvitations, -> { where declined: false }, foreign_key: "receiver_id"
+	has_many :senders, through: :groupvitations, source: :sender
 
 	def set_attrs_from_google google
 		userinfo = google.userinfo

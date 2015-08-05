@@ -11,15 +11,23 @@ class UserConverter
 		@user.save
 		MailchimpHandler.new.handle :subscribe, @user
 		MailHandler.new.handle :welcome, @user
-		@user.invitation.try :set_signup
-		KeenHandler.new.handle :signup, @user
+		KeenHandler.new.handle :publish,:signup, @user
+		set_invitation
 		send_all_groupvitations
 		return @user
 	end
 
+	def set_invitation
+		invitation = Invitation.find_by_referral_email @user.email
+		invitation.set_signup if invitation	
+	end
+
 	def send_all_groupvitations
-		groupvitations = Groupvitations.where(receiver_email: @user.email)
-		groupvitations.each { |groupvitation| groupvitation.send_groupvitation_email }
+		groupvitations = Groupvitation.where(receiver_email: @user.email)
+		groupvitations.each do |groupvitation| 
+			groupvitation.receiver_id = @user.id
+			groupvitation.send_groupvitation_email
+		end
 	end
 
 end

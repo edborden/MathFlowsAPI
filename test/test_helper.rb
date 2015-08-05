@@ -9,4 +9,9 @@ class ActiveSupport::TestCase
 	def json_response
 		@json_response ||= JSON.parse @response.body
 	end
+
+	def authenticated_req type,method,params,user
+		send type,method,params, {'Authorization' => 'Bearer ' + user.session.token}
+	end
+
 end

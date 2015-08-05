@@ -4,4 +4,6 @@ class UserSerializer < ApplicationSerializer
 	has_many :blocks, embed: :ids, include: :true
 	has_one :group, embed: :ids, include: :true
 	has_one :preference, embed: :ids, include: :true
+	has_many :groupvitations, embed: :ids, include: :true
+	has_many :groupvitations_sent, embed: :ids, include: :true, root: "groupvitations"
 end

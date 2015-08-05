@@ -1,4 +1,5 @@
 class GroupsController < ResourceController
+	skip_before_action :set_resource, only: :unjoin
 
 	def create
 		group = Group.create resource_params
@@ -6,11 +7,8 @@ class GroupsController < ResourceController
 		render json: group.reload
 	end
 
-	def destroy
-		@resource.users.delete current_user
-		unless @resource.users(true).present?
-			@resource.destroy
-		end
+	def unjoin
+		Unjoin.new current_user
 		head :no_content
 	end
 
