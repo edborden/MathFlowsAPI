@@ -12,6 +12,9 @@ gem 'google-api-client'
 gem 'amoeba'
 gem 'cloudinary'
 
+## Logentries
+gem 'le'
+
 ##USERVOICE
 gem 'uservoice-ruby'
 
