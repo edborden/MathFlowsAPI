@@ -12,9 +12,6 @@ gem 'google-api-client'
 gem 'amoeba'
 gem 'cloudinary'
 
-## Logentries
-gem 'le'
-
 ##USERVOICE
 gem 'uservoice-ruby'
 
@@ -39,4 +36,5 @@ group :production do
 	gem 'rails_12factor'
 	gem 'newrelic_rpm'
 	gem 'unicorn', platforms: :ruby
+	gem 'le'
 end
