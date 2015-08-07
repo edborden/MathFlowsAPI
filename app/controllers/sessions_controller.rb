@@ -1,34 +1,26 @@
 class SessionsController < AuthenticatedController
-	skip_before_action :ensure_authenticated_user, except: :destroy
+	skip_before_action :ensure_authenticated_user, only: :create
 
 	def create
 		if params[:session][:token] == "issue"
 			user = Waterfall.new.user(MasterMold.new.fresh_user)
-			session = user.create_session
 		else 
 			google = GoogleHandler.new.user_authorized(params[:session][:token],params[:session][:redirect_uri])
-			user = User.find_by google_id: google.userinfo.id
+			user = User.find_by_google_id(google.userinfo.id)
 			unless user
 				user = UserConverter.new(current_user,google).from_guest
 			end
 			user.session.try :destroy
-			session = user.create_session
 		end
-		render json: session
+		render json: user.create_session
 	end
 
 	def index
-		session = Session.find_by_token params[:token]
-		if session
-			user = session.user
-			render json: [session]
-		else
-			head :unauthorized
-		end
+		render json: [current_session]
 	end
 
 	def destroy
-		current_user.session.destroy
+		current_session.destroy
 		head :no_content
 	end
 

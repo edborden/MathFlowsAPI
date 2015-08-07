@@ -1,15 +1,16 @@
 class AuthenticatedController < ApplicationController
 	before_filter :ensure_authenticated_user
 
-	# Renders a 401 status code if the current user is not authorized
 	def ensure_authenticated_user
 		head :unauthorized unless current_user
 	end
 
-	# Returns the user associated with the access token if available
-	def current_user
+	def current_session
 		@current_session ||= Session.find_by_token token
-		@current_user ||= @current_session.present? ? @current_session.user : nil
+	end
+
+	def current_user
+		@current_user ||= current_session.try :user
 	end
 
 	def token
