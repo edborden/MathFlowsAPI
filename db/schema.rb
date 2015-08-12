@@ -40,8 +40,6 @@ ActiveRecord::Schema.define(version: 20150718222534) do
     t.boolean "test_folder",    default: false, null: false
   end
 
-  #add_foreign_key "folders","users", dependent: :delete
-
   add_index "folders", ["folder_id"], name: "index_folders_on_folder_id", using: :btree
   add_index "folders", ["user_id"], name: "index_folders_on_user_id", using: :btree
 
@@ -72,7 +70,7 @@ ActiveRecord::Schema.define(version: 20150718222534) do
     t.string  "cloudinary_id"
   end
 
-  #add_foreign_key "images","blocks", dependent: :delete
+  add_foreign_key "images","blocks", on_delete: :cascade
 
   add_index "images", ["block_id"], name: "index_images_on_block_id", using: :btree
 
@@ -81,7 +79,7 @@ ActiveRecord::Schema.define(version: 20150718222534) do
     t.string  "message_type", null: false
   end
 
-  #add_foreign_key "invalidations","blocks", dependent: :delete
+  add_foreign_key "invalidations","blocks", on_delete: :cascade
 
   add_index "invalidations", ["block_id"], name: "index_invalidations_on_block_id", using: :btree
 
@@ -105,15 +103,13 @@ ActiveRecord::Schema.define(version: 20150718222534) do
     t.float   "position", default: 1, null: false
   end
 
-  #add_foreign_key "lines","blocks", dependent: :delete
+  add_foreign_key "lines","blocks", on_delete: :cascade
 
   add_index "lines", ["block_id"], name: "index_lines_on_block_id", using: :btree
 
   create_table "pages", force: true do |t|
     t.integer "test_id"
   end
-
-  #add_foreign_key "pages","tests", dependent: :delete
 
   add_index "pages", ["test_id"], name: "index_pages_on_test_id", using: :btree
 
@@ -123,16 +119,12 @@ ActiveRecord::Schema.define(version: 20150718222534) do
     t.integer "user_id", null: false
   end
 
-  #add_foreign_key "preferences","users", dependent: :delete
-
   add_index "preferences", ["user_id"], name: "index_preferences_on_user_id", using: :btree, unique:true
 
   create_table "sessions", force: true do |t|
     t.string   "token", null: false, length:16
     t.integer "user_id", null: false
   end
-
-  #add_foreign_key "sessions", "users", dependent: :delete
 
   add_index "sessions", ["token"], name: "index_sessions_on_token", using: :btree, unique: true
   add_index "sessions", ["user_id"], name: "index_sessions_on_user_id", using: :btree, unique: true
@@ -151,7 +143,7 @@ ActiveRecord::Schema.define(version: 20150718222534) do
     t.integer "user_id"
   end
 
-  #add_foreign_key "tests","users", dependent: :delete
+  add_foreign_key "pages","tests", on_delete: :cascade
 
   add_index "tests", ["folder_id"], name: "index_tests_on_folder_id", using: :btree
 
@@ -173,6 +165,11 @@ ActiveRecord::Schema.define(version: 20150718222534) do
     t.integer "tests_quota", default: 25, null:false
     t.string "referred_by"
   end
+
+  add_foreign_key "folders","users", on_delete: :cascade
+  add_foreign_key "tests","users", on_delete: :cascade
+  add_foreign_key "sessions", "users", on_delete: :cascade
+  add_foreign_key "preferences","users", on_delete: :cascade
 
   add_index "users", ["google_id"], name: "index_users_on_google_id", using: :btree
   add_index "users", ["email"], name: "index_users_on_email", using: :btree
