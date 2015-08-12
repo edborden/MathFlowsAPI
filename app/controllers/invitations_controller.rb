@@ -1,13 +1,23 @@
 class InvitationsController < ResourceController
+	skip_before_action :ensure_authenticated_user, only: :visit
+	skip_before_action :current_user_authorized?, only: :visit
 
-	def update
-		invitation = Invitation.update params[:id],resource_params
-		KeenHandler.new.handle :publish,:invitation_visit, invitation.reload
-		render json: invitation
+	def create
+		if User.find_by_email new_resource.referral_email
+			resource.errors.add :referral_email, "already a user"
+			render_errors
+		else
+			super
+		end
+	end
+
+	def visit
+		Visit.new resource
+		head :no_content
 	end
 
 	def resource_params
-		params.require(:invitation).permit :referrer_id,:referral_email,:referral_id
+		params.require(:invitation).permit :referral_email
 	end
 
 end

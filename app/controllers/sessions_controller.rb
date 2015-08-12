@@ -3,7 +3,7 @@ class SessionsController < AuthenticatedController
 
 	def create
 		if params[:session][:token] == "issue"
-			user = Waterfall.new.user(MasterMold.new.fresh_user)
+			user = GuestUser.new.user
 		else 
 			google = GoogleHandler.new.user_authorized(params[:session][:token],params[:session][:redirect_uri])
 			user = User.find_by_google_id(google.userinfo.id)

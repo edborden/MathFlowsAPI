@@ -1,6 +1,5 @@
 class TestsController < ResourceController
 	include ActionController::MimeResponds
-	include AddHeaders
 
 	def create
 		if params[:test][:copy_from_id]

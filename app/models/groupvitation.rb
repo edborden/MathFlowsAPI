@@ -19,4 +19,12 @@ class Groupvitation < ActiveRecord::Base
 		Invitation.create referrer_id: sender.id,referral_email: receiver_email
 	end
 
+	def has_write_access? user
+		[sender,receiver].include? user
+	end
+
+	def set_owner user
+		self.sender_id = user.id
+	end
+
 end

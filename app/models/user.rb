@@ -1,4 +1,6 @@
 class User < ActiveRecord::Base
+	after_create :create_preference
+
 	has_one :session
 	has_many :folders
 	has_many :blocks

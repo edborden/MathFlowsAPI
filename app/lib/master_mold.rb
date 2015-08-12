@@ -126,7 +126,7 @@ class MasterMold
 										lines_height:36
 									},
 									lines: [{content:"Access any selected block's menu on the right, which will allow you to add images...",position:1}],
-									image: {params:{height:353,width:446,cloudinary_id:"block_images/v7bz2rx9bs65ecbhyf0n",scale:5}}
+									image: {params:{height:353,width:446,cloudinary_id:"block_images/v7bz2rx9bs65ecbhyf0n"}}
 								},
 								{
 									params: {
@@ -138,7 +138,7 @@ class MasterMold
 										lines_height:18
 									},
 									lines: [{content:"...or create graphs.",position:1}],
-									image: {params: {width:501,height:398,cloudinary_id:"block_images/eyjdrh6xrt2no9a2ezam",scale:5}}
+									image: {params: {width:501,height:398,cloudinary_id:"block_images/eyjdrh6xrt2no9a2ezam"}}
 								},
 								{
 									params: {

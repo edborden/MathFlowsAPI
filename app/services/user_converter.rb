@@ -8,18 +8,20 @@ class UserConverter
 	def from_guest
 		@user.set_attrs_from_google @google
 		UservoiceHandler.new(@user).handle :set_uservoice_token
+		if invitation
+			invitation.set_signup(@user) 
+			@user.referred_by = invitation.referrer.name
+		end
 		@user.save
 		MailchimpHandler.new.handle :subscribe, @user
 		MailHandler.new.handle :welcome, @user
 		KeenHandler.new.handle :publish,:signup, @user
-		set_invitation
 		send_all_groupvitations
 		return @user
 	end
 
-	def set_invitation
-		invitation = Invitation.find_by_referral_email @user.email
-		invitation.set_signup if invitation	
+	def invitation
+		@invitation ||= Invitation.find_by_referral_email @user.email
 	end
 
 	def send_all_groupvitations

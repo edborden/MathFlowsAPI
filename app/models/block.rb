@@ -1,9 +1,9 @@
 class Block < ActiveRecord::Base
 	belongs_to :page
 	belongs_to :user
-	has_one :image, dependent: :destroy
-	has_many :invalidations, dependent: :destroy
-	has_many :lines, -> { order(:position) }, dependent: :destroy
+	has_one :image
+	has_many :invalidations
+	has_many :lines, -> { order(:position) }
 
 	after_update :run_invalidator
 
@@ -19,6 +19,14 @@ class Block < ActiveRecord::Base
 
 	amoeba do
 		enable
+	end
+
+	def has_write_access? test_user
+		[page.try(:test).try(:user),user].include? test_user
+	end
+
+	def set_owner user
+		self.user_id = user.id
 	end
 
 	def attrs_set?

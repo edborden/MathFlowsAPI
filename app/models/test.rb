@@ -1,5 +1,5 @@
 class Test < ActiveRecord::Base
-	has_many :pages, dependent: :destroy
+	has_many :pages
 	belongs_to :folder
 	belongs_to :user, counter_cache: true
 

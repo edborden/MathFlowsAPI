@@ -11,4 +11,8 @@ class Line < ActiveRecord::Base
 		end
 	end
 
+	def has_write_access? user
+		block.user == user
+	end
+
 end

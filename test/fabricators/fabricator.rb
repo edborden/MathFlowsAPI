@@ -1,4 +1,8 @@
 Fabricator(:user) do
+
+end
+
+Fabricator(:active_user, from: :user) do
 	name { Faker::Name.first_name }
 	email { |attrs| "#{attrs[:name].parameterize}@example.com" }
 	google_id {Faker::Lorem.characters(10)}
@@ -7,6 +11,26 @@ Fabricator(:user) do
 	guest false 
 end
 
-Fabricator(:user_with_session, from: :user) do
-	after_create { |attrs| User.find(attrs[:id]).create_session token: Faker::Lorem.characters(10)}
+Fabricator(:active_user_with_session, from: :active_user) do
+	after_create { |attrs| User.find(attrs[:id]).create_session }
+end
+
+Fabricator(:user_with_block, from: :active_user_with_session) do
+	after_create { |attrs| Fabricate(:test, user_id:attrs[:id]) }	
+end
+
+Fabricator(:invitation) do
+	referrer_id Faker::Number.number(3)
+	referral_email { "#{Faker::Lorem.characters(10)}@test.com" }
+end
+
+Fabricator(:block) do
+end
+
+Fabricator(:page) do
+	blocks(count:1)
+end
+
+Fabricator(:test) do
+	pages(count:1)
 end

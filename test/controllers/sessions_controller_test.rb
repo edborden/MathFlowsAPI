@@ -3,7 +3,7 @@ require 'test_helper'
 class SessionsControllerTest < ActionController::TestCase
 
 	def setup
-		@user = Fabricate :user_with_session
+		@user = Fabricate :active_user_with_session
 	end
 
 	## AUTHENTICATED CONTROLLER
@@ -33,6 +33,7 @@ class SessionsControllerTest < ActionController::TestCase
 	end
 
 	test "post to create with guest credentials converts user" do
+		skip
 	end
 
 	test "get to index returns user session" do

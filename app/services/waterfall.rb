@@ -4,7 +4,6 @@ class Waterfall
 		@user = User.create mold[:params]
 		mold[:blocks].each { |block_mold| @user.blocks<<block(block_mold) }
 		mold[:folders].each { |folder_mold| @user.folders<<folder(folder_mold) }
-		Preference.create user_id:@user.id
 		return @user
 	end
 

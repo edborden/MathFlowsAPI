@@ -1,12 +1,9 @@
 class GroupvitationsController < ResourceController
 
 	def create
-		@resource = Groupvitation.new resource_params
 		receiver = User.find_by_email params[:groupvitation][:receiver_email]
-		@resource.receiver_id = receiver.id if receiver
-		@resource.sender_id = current_user.id
-		@resource.save
-		render_resource
+		new_resource.receiver_id = receiver.id if receiver
+		super
 	end
 
 	def accept

@@ -46,4 +46,8 @@ class Image < ActiveRecord::Base
 	def is_on_intro_test?
 		cloudinary_id == "block_images/eyjdrh6xrt2no9a2ezam" or cloudinary_id == "block_images/v7bz2rx9bs65ecbhyf0n"
 	end
+
+	def has_write_access? user
+		block.user == user
+	end
 end

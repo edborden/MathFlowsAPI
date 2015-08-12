@@ -19,11 +19,11 @@ ActiveRecord::Schema.define(version: 20150718222534) do
   create_table "blocks", force: true do |t|
     t.integer "page_id"
     t.integer "user_id"
-    t.boolean "question"
+    t.boolean "question", default: false, null:false
     t.integer "row"
     t.integer "col"
-    t.integer "row_span"
-    t.integer "col_span"
+    t.integer "row_span", default: 1, null:false
+    t.integer "col_span", default: 1, null: false
     t.string  "lines_height", default: "0", null: false
     t.boolean "header", default: false, null:false
   end
@@ -34,17 +34,19 @@ ActiveRecord::Schema.define(version: 20150718222534) do
   create_table "folders", force: true do |t|
     t.integer "user_id"
     t.integer "folder_id"
-    t.string  "name"
+    t.string  "name", default:"My Folder",null: false
     t.boolean "open",           default: true, null: false
     t.boolean "student_folder", default: false, null: false
     t.boolean "test_folder",    default: false, null: false
   end
 
+  #add_foreign_key "folders","users", dependent: :delete
+
   add_index "folders", ["folder_id"], name: "index_folders_on_folder_id", using: :btree
   add_index "folders", ["user_id"], name: "index_folders_on_user_id", using: :btree
 
   create_table "groups", force: true do |t|
-    t.string "name", default: "My Group"
+    t.string "name", default: "My Group", null:false
     t.integer "users_count", default: 0, null: false
   end
 
@@ -66,43 +68,52 @@ ActiveRecord::Schema.define(version: 20150718222534) do
     t.integer "block_id"
     t.integer "width"
     t.integer "height"
-    t.integer "scale"
+    t.integer "scale", default: 5
     t.string  "cloudinary_id"
   end
+
+  #add_foreign_key "images","blocks", dependent: :delete
 
   add_index "images", ["block_id"], name: "index_images_on_block_id", using: :btree
 
   create_table "invalidations", force: true do |t|
     t.integer "block_id"
-    t.string  "message_type"
+    t.string  "message_type", null: false
   end
+
+  #add_foreign_key "invalidations","blocks", dependent: :delete
 
   add_index "invalidations", ["block_id"], name: "index_invalidations_on_block_id", using: :btree
 
   create_table "invitations", force: true do |t|
-    t.integer "referrer_id"
+    t.integer "referrer_id", null: false
     t.integer "referral_id"
-    t.string  "referral_email"
-    t.boolean "signup", default: false, null: false
+    t.string  "referral_email", null: false, unique: true
+    t.boolean "visited", default: false, null: false
+    t.boolean "signed_up", default: false, null: false
     t.datetime "created_at"
-    t.datetime "signup_at"
+    t.datetime "updated_at"
   end
 
   add_index "invitations", ["referral_id"], name: "index_invitations_on_referral_id", using: :btree
   add_index "invitations", ["referrer_id"], name: "index_invitations_on_referrer_id", using: :btree
-  add_index "invitations", ["referral_email"], name: "index_invitations_on_referral_email", using: :btree
+  add_index "invitations", ["referral_email"], name: "index_invitations_on_referral_email", using: :btree, unique:true
 
   create_table "lines", force: true do |t|
     t.integer "block_id"
     t.text    "content", default:"",null:false
-    t.float   "position"
+    t.float   "position", default: 1, null: false
   end
+
+  #add_foreign_key "lines","blocks", dependent: :delete
 
   add_index "lines", ["block_id"], name: "index_lines_on_block_id", using: :btree
 
   create_table "pages", force: true do |t|
     t.integer "test_id"
   end
+
+  #add_foreign_key "pages","tests", dependent: :delete
 
   add_index "pages", ["test_id"], name: "index_pages_on_test_id", using: :btree
 
@@ -112,15 +123,19 @@ ActiveRecord::Schema.define(version: 20150718222534) do
     t.integer "user_id", null: false
   end
 
-  add_index "preferences", ["user_id"], name: "index_preferences_on_user_id", using: :btree  
+  #add_foreign_key "preferences","users", dependent: :delete
+
+  add_index "preferences", ["user_id"], name: "index_preferences_on_user_id", using: :btree, unique:true
 
   create_table "sessions", force: true do |t|
-    t.text    "token"
-    t.integer "user_id"
+    t.string   "token", null: false, length:16
+    t.integer "user_id", null: false
   end
 
-  add_index "sessions", ["token"], name: "index_sessions_on_token", using: :btree
-  add_index "sessions", ["user_id"], name: "index_sessions_on_user_id", using: :btree
+  #add_foreign_key "sessions", "users", dependent: :delete
+
+  add_index "sessions", ["token"], name: "index_sessions_on_token", using: :btree, unique: true
+  add_index "sessions", ["user_id"], name: "index_sessions_on_user_id", using: :btree, unique: true
 
   create_table "students", force: true do |t|
     t.text    "name"
@@ -131,10 +146,12 @@ ActiveRecord::Schema.define(version: 20150718222534) do
   add_index "students", ["folder_id"], name: "index_students_on_folder_id", using: :btree
 
   create_table "tests", force: true do |t|
-    t.string  "name", default: "New Test"
+    t.string  "name", default: "New Test", null:false
     t.integer "folder_id"
     t.integer "user_id"
   end
+
+  #add_foreign_key "tests","users", dependent: :delete
 
   add_index "tests", ["folder_id"], name: "index_tests_on_folder_id", using: :btree
 
@@ -153,10 +170,12 @@ ActiveRecord::Schema.define(version: 20150718222534) do
     t.boolean "premium_trial", default: false, null: false
     t.string   "uservoice_token"
     t.integer "tests_count", default: 0, null:false
-    t.integer "tests_quota", default: 30, null:false
+    t.integer "tests_quota", default: 25, null:false
+    t.string "referred_by"
   end
 
   add_index "users", ["google_id"], name: "index_users_on_google_id", using: :btree
   add_index "users", ["email"], name: "index_users_on_email", using: :btree
+  add_index "users", ["group_id"], name: "index_users_on_group_id", using: :btree
 
 end

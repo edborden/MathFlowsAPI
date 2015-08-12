@@ -1,5 +1,4 @@
 Rails.application.routes.draw do
-	resources :students, only: [:create,:update,:destroy]
 	resources :tests, only: [:create,:show,:update,:destroy]
 	resources :sessions, only: [:create, :index, :destroy]
 	resources :blocks, only: [:create,:update,:show,:destroy]
@@ -8,7 +7,8 @@ Rails.application.routes.draw do
 	resources :folders, only: [:create,:update,:destroy]
 	resources :groups, only: [:create,:update]
 	post 'groups/unjoin', to: 'groups#unjoin'
-	resources :invitations, only: [:create,:show,:update]
+	resources :invitations, only: [:create]
+	post 'invitations/:id/visit', to: 'invitations#visit'
 	resources :lines, only: [:create,:update,:destroy]
 	resources :metrics, only: :index
 	resources :preferences, only: :update

@@ -6,6 +6,10 @@ class UserTest < ActiveSupport::TestCase
 		@user = Fabricate :user
 	end
 
+	test "creates preference on create" do
+		assert @user.preference
+	end
+
 	test "groupvitations" do
 		groupvitation = Groupvitation.create sender_id:@user.id,receiver_email:"test"
 		assert_equal groupvitation,@user.groupvitations_sent.first

@@ -1,17 +1,31 @@
 class ResourceController < AuthenticatedController
-	before_action :set_resource, except: :create
+	before_action :resource_exists?, except: :create
+	before_action :current_user_authorized?, except: :create
+
+	def current_user_authorized?
+		head :forbidden unless resource.has_write_access? current_user
+	end
+
+	def resource_exists?
+		head :not_found unless resource
+	end
 
 	def model
 		controller_name.classify.constantize
 	end
 
-	def set_resource
-		@resource = model.find params[:id]
+	def new_resource
+		@resource ||= model.new resource_params
+		@resource.try :set_owner,current_user
+		return @resource	
+	end
+
+	def resource
+		@resource ||= model.find params[:id]
 	end
 
 	def create
-		@resource = model.new resource_params
-		if @resource.save
+		if new_resource.save
 			render_resource
 		else
 			render_errors
@@ -19,7 +33,7 @@ class ResourceController < AuthenticatedController
 	end
 
 	def show
-		if @resource
+		if resource
 			render_resource
 		else
 			render json: {errors:{resource: [model.to_s + " doesn't exist."]}}, status: :unprocessable_entity
@@ -27,7 +41,7 @@ class ResourceController < AuthenticatedController
 	end
 
 	def update
-		if @resource.update resource_params
+		if resource.update resource_params
 			render_resource
 		else
 			render_errors
@@ -35,16 +49,19 @@ class ResourceController < AuthenticatedController
 	end
 
 	def destroy
-		@resource.destroy
-		head :no_content
+		if resource.destroy
+			head :no_content
+		else
+			head :unprocessable_entity
+		end
 	end
 
 	def render_resource
-		render json: @resource
+		render json: resource
 	end
 
 	def render_errors
-		render json: {errors: @resource.errors}, status: :unprocessable_entity
+		render json: {errors: resource.errors}, status: :unprocessable_entity
 	end
 
 end

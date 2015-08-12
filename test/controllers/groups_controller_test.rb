@@ -3,17 +3,31 @@ require 'test_helper'
 class GroupsControllerTest < ActionController::TestCase
 
 	def setup
-		@user1 = Fabricate :user_with_session
-		@user2 = Fabricate :user_with_session
+		@user = Fabricate :active_user_with_session
 	end
 
-	#user can't have open invites to group they don't belong to
-	test "sender_leaves_group_removes_old_groupvitations" do
+	test "post to create returns group which contains current user" do
+		authenticated_req :post, :create, {group:{name:"Test Group"}}, @user
+		assert_equal @user.id,json_response["users"][0]["id"]
+	end
+
+	test "unjoin" do		
+		Unjoin.expects(:new)
+		authenticated_req :post, :unjoin, nil, @user
+		assert_equal "204",response.code
+	end
+
+	test "update" do
 		group = Group.create
-		group.users << @user1
-		groupvitation = Groupvitation.create sender_id:@user1.id,receiver_id:@user2.id,receiver_email:@user2.email
-		authenticated_req :post, :unjoin, nil, @user1
-		assert_equal 0,@user1.groupvitations_sent.count
+		group.users << @user
+		authenticated_req :put, :update, {id:group.id,group:{name:"Test Name"}},@user
+		assert_equal "Test Name",json_response["group"]["name"]
+	end
+
+	test "update from user not in group returns forbidden" do
+		group = Group.create
+		authenticated_req :put, :update, {id:group.id,group:{name:"Test Name"}},@user
+		assert_equal "403",response.code	
 	end
 	
 end

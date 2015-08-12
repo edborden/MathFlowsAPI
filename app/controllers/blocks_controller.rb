@@ -1,29 +1,30 @@
 class BlocksController < ResourceController
 
 	def create
-		if params[:block][:copy_from_id]
-			copy_from = Block.find params[:block][:copy_from_id]
-			@resource = copy_from.amoeba_dup
-			@resource.user_id = current_user.id
-			@resource.page_id = nil
-			@resource.col = nil
-			@resource.row = nil
-			@resource.save
+		copy_from = params[:block][:copy_from_id]
+		if copy_from
+			@resource = BlockCopy.new(copy_from,current_user).block
 			render_resource
 		else
 			@resource = model.new resource_params
-			if @resource.save
-				line = Line.new position:1
-				@resource.lines<<line
-				render_resource
+			if @resource.has_write_access? current_user
+				@resource.set_owner current_user
+				if @resource.save
+					line = Line.new position:1
+					@resource.lines<<line
+					render_resource
+				else
+					render_errors
+				end
 			else
-				render_errors
+				head :forbidden
 			end
+
 		end
 	end
 
 	def resource_params
-		params.require(:block).permit :question,:row,:col,:col_span,:row_span,:user_id,:page_id,:header
+		params.require(:block).permit :question,:row,:col,:col_span,:row_span,:page_id,:header
 	end
 
 end

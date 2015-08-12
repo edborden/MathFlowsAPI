@@ -3,7 +3,7 @@ class Session < ActiveRecord::Base
 	before_create :issue_token
 
 	def issue_token
-		self.token = SecureRandom.hex
+		self.token = SecureRandom.hex(16)
 	end
 
 end
