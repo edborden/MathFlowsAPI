@@ -106,6 +106,13 @@ ActiveRecord::Schema.define(version: 20150718222534) do
 
   add_index "pages", ["test_id"], name: "index_pages_on_test_id", using: :btree
 
+  create_table "plans", force: true do |t|
+    t.integer "level", default: 0, null: false
+    t.integer "user_id", null: false
+  end
+
+  add_index "plans", ["user_id"], name: "index_plans_on_user_id", using: :btree, unique:true
+
   create_table "preferences", force: true do |t|
     t.boolean "borders", default: false, null: false
     t.boolean "directions", default: true, null: false

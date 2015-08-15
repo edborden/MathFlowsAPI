@@ -13,7 +13,6 @@ class UserTest < ActiveSupport::TestCase
 	should have_db_column(:google_refresh).of_type(:string)
 	should have_db_column(:created_at).of_type(:datetime)
 	should have_db_column(:group_id).of_type(:integer)
-	should have_db_column(:guest).of_type(:boolean).with_options(default: true, null: false)
 	should have_db_column(:uservoice_token).of_type(:string)
 	should have_db_column(:tests_count).of_type(:integer).with_options(default: 0, null:false)
 	should have_db_column(:tests_quota).of_type(:integer).with_options(default: 25, null:false)
@@ -22,7 +21,7 @@ class UserTest < ActiveSupport::TestCase
 	should have_db_index(:email).unique
 	should have_db_index(:group_id)
 
-	should define_enum_for(:gender).with(:male,:female)
+	should define_enum_for(:gender).with([:male,:female])
 
 	# ASSOCIATIONS
 
@@ -36,6 +35,7 @@ class UserTest < ActiveSupport::TestCase
 	should have_one :invitation
 	should have_many :groupvitations_sent
 	should have_many(:groupvitations).conditions(declined:false)
+	should have_one :plan
 
 	# VALIDATIONS
 
@@ -48,6 +48,10 @@ class UserTest < ActiveSupport::TestCase
 
 	test "after create, creates preference" do
 		assert @user.preference
+	end
+
+	test "after create, creates plan" do
+		assert @user.plan
 	end
 
 	test "test_count" do

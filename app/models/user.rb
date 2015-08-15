@@ -10,6 +10,7 @@ class User < ActiveRecord::Base
 	has_many :tests
 	belongs_to :group, counter_cache: true
 	has_one :preference
+	has_one :plan
 
 	has_many :invitations_sent, class_name: "Invitation", foreign_key: "referrer_id"
 	#has_many :referrals, through: :invitations_sent, source: :referral   #this won't always work bc referral_id won't always be set
@@ -27,10 +28,7 @@ class User < ActiveRecord::Base
 
 	# CALLBACKS
 
-	after_create :create_preference
-
-	scope :not_guest, -> {where.not(guest:true)}
-
+	after_create :create_preference,:create_plan
 
 	def set_attrs_from_google google
 		userinfo = google.userinfo
