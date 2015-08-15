@@ -16,8 +16,8 @@ class ResourceController < AuthenticatedController
 
 	def new_resource
 		@resource ||= model.new resource_params
-		@resource.try :set_owner,current_user
-		return @resource	
+		resource.try :set_owner,current_user
+		return resource	
 	end
 
 	def resource
@@ -30,6 +30,15 @@ class ResourceController < AuthenticatedController
 		else
 			render_errors
 		end		
+	end
+
+	def if_authorized
+		@resource = model.new resource_params
+		if resource.has_write_access? current_user
+			yield
+		else
+			head :forbidden
+		end
 	end
 
 	def show

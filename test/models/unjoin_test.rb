@@ -15,10 +15,6 @@ class UnjoinTest < ActiveSupport::TestCase
 		assert_not @user1.reload.group
 	end
 
-	test "unjoin deletes empty group" do
-		assert_equal 0,Group.count
-	end
-
 	#user can't have open invites to group they don't belong to
 	test "sender_leaves_group_removes_old_groupvitations" do
 		assert_equal 0,@user1.groupvitations_sent.count

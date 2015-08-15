@@ -8,10 +8,9 @@ class BlocksController < ResourceController
 		else
 			@resource = model.new resource_params
 			if @resource.has_write_access? current_user
-				@resource.set_owner current_user
+				@resource.try :set_owner,current_user
 				if @resource.save
-					line = Line.new position:1
-					@resource.lines<<line
+					Line.create position:1,block_id:@resource.id
 					render_resource
 				else
 					render_errors

@@ -30,6 +30,7 @@ group :test do
 	gem 'mocha', "~> 1.0.0"
 	gem 'fabrication'
 	gem "faker"
+	gem "shoulda"
 end
 
 group :production do

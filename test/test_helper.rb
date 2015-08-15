@@ -19,8 +19,12 @@ class ActiveSupport::TestCase
 		@folder = Folder.create user_id:@user.id
 		@test = Test.create user_id:@user.id,folder_id:@folder.id
 		@page = Page.create test_id: @test.id
-		@block = Block.create user_id:@user.id
+		@block = Block.create user_id:@user.id,page_id:@page.id
 		@line = Line.create block_id:@block.id,content: Faker::Lorem.characters(10)
+	end
+
+	def assert_raises_invalid
+		assert_raises(ActiveRecord::StatementInvalid,ActiveRecord::RecordInvalid) {yield}
 	end
 
 end

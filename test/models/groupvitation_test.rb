@@ -13,9 +13,30 @@ class GroupvitationTest < ActiveSupport::TestCase
 		assert_equal @group,@groupvitation.group
 	end
 
-	#receiver isn't signed up yet : automatically create matching invitation
 	test "create matching invitation if receiver is not signed up yet" do
 		assert_equal @sender.invitations_sent.first.referral_email,"nothing@test.com"		
+	end
+
+	test "cannot be created without receiver_email" do
+		assert_raises_invalid {Groupvitation.create sender_id:@sender.id}
+	end
+
+	test "cannot be created without sender_id" do
+		assert_raises_invalid {Groupvitation.create receiver_email:"test"}
+	end
+
+	test "destroyed if sender is destroyed" do
+		@sender.destroy
+		assert_equal 0,Groupvitation.count
+	end
+
+	test "destroyed if receiver is destroyed" do
+		receiver = Fabricate :user
+		@groupvitation.receiver_id = receiver.id
+		@groupvitation.save
+		assert_equal receiver,@groupvitation.receiver
+		receiver.destroy
+		assert_equal 0,Groupvitation.count
 	end
 
 end

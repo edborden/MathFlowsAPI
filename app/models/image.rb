@@ -35,8 +35,7 @@ class Image < ActiveRecord::Base
 	end
 
 	def file		
-		to_file("http://res.cloudinary.com/hmb9zxcjb/image/upload/" + cloudinary_id) unless @file
-		@file
+		@file ||= to_file("http://res.cloudinary.com/hmb9zxcjb/image/upload/" + cloudinary_id)
 	end
 
 	def delete_cloudinary

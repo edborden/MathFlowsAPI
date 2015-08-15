@@ -32,7 +32,7 @@ ActiveRecord::Schema.define(version: 20150718222534) do
   add_index "blocks", ["user_id"], name: "index_blocks_on_user_id", using: :btree
 
   create_table "folders", force: true do |t|
-    t.integer "user_id"
+    t.integer "user_id",null:false
     t.integer "folder_id"
     t.string  "name", default:"My Folder",null: false
     t.boolean "open",           default: true, null: false
@@ -63,52 +63,45 @@ ActiveRecord::Schema.define(version: 20150718222534) do
   add_index "groupvitations", ["receiver_email"], name: "index_groupvitations_on_receiver_email", using: :btree
 
   create_table "images", force: true do |t|
-    t.integer "block_id"
+    t.integer "block_id",null:false
     t.integer "width"
     t.integer "height"
-    t.integer "scale", default: 5
-    t.string  "cloudinary_id"
+    t.string  "cloudinary_id",null:false
   end
-
-  add_foreign_key "images","blocks", on_delete: :cascade
 
   add_index "images", ["block_id"], name: "index_images_on_block_id", using: :btree
 
   create_table "invalidations", force: true do |t|
-    t.integer "block_id"
+    t.integer "block_id", null:false
     t.string  "message_type", null: false
   end
-
-  add_foreign_key "invalidations","blocks", on_delete: :cascade
 
   add_index "invalidations", ["block_id"], name: "index_invalidations_on_block_id", using: :btree
 
   create_table "invitations", force: true do |t|
     t.integer "referrer_id", null: false
     t.integer "referral_id"
-    t.string  "referral_email", null: false, unique: true
+    t.string  "referral_email", null: false
     t.boolean "visited", default: false, null: false
     t.boolean "signed_up", default: false, null: false
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  add_index "invitations", ["referral_id"], name: "index_invitations_on_referral_id", using: :btree
+  add_index "invitations", ["referral_id"], name: "index_invitations_on_referral_id", using: :btree,unique:true
   add_index "invitations", ["referrer_id"], name: "index_invitations_on_referrer_id", using: :btree
   add_index "invitations", ["referral_email"], name: "index_invitations_on_referral_email", using: :btree, unique:true
 
   create_table "lines", force: true do |t|
-    t.integer "block_id"
+    t.integer "block_id", null:false
     t.text    "content", default:"",null:false
     t.float   "position", default: 1, null: false
   end
 
-  add_foreign_key "lines","blocks", on_delete: :cascade
-
   add_index "lines", ["block_id"], name: "index_lines_on_block_id", using: :btree
 
   create_table "pages", force: true do |t|
-    t.integer "test_id"
+    t.integer "test_id", null:false
   end
 
   add_index "pages", ["test_id"], name: "index_pages_on_test_id", using: :btree
@@ -129,21 +122,11 @@ ActiveRecord::Schema.define(version: 20150718222534) do
   add_index "sessions", ["token"], name: "index_sessions_on_token", using: :btree, unique: true
   add_index "sessions", ["user_id"], name: "index_sessions_on_user_id", using: :btree, unique: true
 
-  create_table "students", force: true do |t|
-    t.text    "name"
-    t.string  "email"
-    t.integer "folder_id"
-  end
-
-  add_index "students", ["folder_id"], name: "index_students_on_folder_id", using: :btree
-
   create_table "tests", force: true do |t|
     t.string  "name", default: "New Test", null:false
-    t.integer "folder_id"
-    t.integer "user_id"
+    t.integer "folder_id", null:false
+    t.integer "user_id", null:false
   end
-
-  add_foreign_key "pages","tests", on_delete: :cascade
 
   add_index "tests", ["folder_id"], name: "index_tests_on_folder_id", using: :btree
 
@@ -152,27 +135,35 @@ ActiveRecord::Schema.define(version: 20150718222534) do
     t.string   "name"
     t.string   "pic"
     t.string   "google_id"
-    t.string   "gender"
+    t.integer   "gender"
     t.string   "google_link"
     t.string   "google_refresh"
     t.datetime "created_at"
     t.integer  "group_id"
-    t.boolean  "premium", default: false, null: false
     t.boolean  "guest", default: true, null: false
-    t.boolean "premium_trial", default: false, null: false
     t.string   "uservoice_token"
     t.integer "tests_count", default: 0, null:false
     t.integer "tests_quota", default: 25, null:false
     t.string "referred_by"
   end
 
+  add_index "users", ["google_id"], name: "index_users_on_google_id", using: :btree, unique:true
+  add_index "users", ["email"], name: "index_users_on_email", using: :btree, unique:true
+  add_index "users", ["group_id"], name: "index_users_on_group_id", using: :btree
+
   add_foreign_key "folders","users", on_delete: :cascade
   add_foreign_key "tests","users", on_delete: :cascade
+  add_foreign_key "tests","folders", on_delete: :cascade
   add_foreign_key "sessions", "users", on_delete: :cascade
   add_foreign_key "preferences","users", on_delete: :cascade
-
-  add_index "users", ["google_id"], name: "index_users_on_google_id", using: :btree
-  add_index "users", ["email"], name: "index_users_on_email", using: :btree
-  add_index "users", ["group_id"], name: "index_users_on_group_id", using: :btree
+  add_foreign_key "blocks","users", on_delete: :nullify
+  add_foreign_key "groupvitations","users", column:"sender_id", on_delete: :cascade
+  add_foreign_key "groupvitations","users", column:"receiver_id", on_delete: :cascade
+  add_foreign_key "invitations","users", column:"referrer_id", on_delete: :cascade
+  add_foreign_key "invitations","users", column:"referral_id", on_delete: :nullify
+  add_foreign_key "images","blocks", on_delete: :cascade
+  add_foreign_key "invalidations","blocks", on_delete: :cascade
+  add_foreign_key "lines","blocks", on_delete: :cascade
+  add_foreign_key "pages","tests", on_delete: :cascade
 
 end

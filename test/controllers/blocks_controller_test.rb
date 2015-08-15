@@ -12,9 +12,10 @@ class BlocksControllerTest < ActionController::TestCase
 		assert_equal @user.id,json_response["block"]["user_id"].to_i
 	end
 
-	test "post to create creates new block for user" do
+	test "post to create creates new block with default line for user" do
 		authenticated_req :post,:create,{block:{page_id:@page.id}},@user
 		assert_equal @user,Block.last.user
+		assert json_response["lines"][0]
 	end
 
 	test "post to create when user isnt owner of page return forbidden" do		
@@ -24,7 +25,7 @@ class BlocksControllerTest < ActionController::TestCase
 	end
 
 	test "update" do
-		authenticated_req :put,:update,{id:@block.id,block:{row_span:4}},@user
+		authenticated_req :put,:update,{id:@block.id,block:{row_span:4,col_span:1,row:1,col:1}},@user
 		assert_equal 4,@block.reload.row_span
 	end
 

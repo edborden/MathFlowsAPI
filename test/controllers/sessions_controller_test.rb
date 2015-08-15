@@ -26,10 +26,10 @@ class SessionsControllerTest < ActionController::TestCase
 	## SESSIONS CONTROLLER
 
 	test "post to create with issue creates guest user" do
+		GuestUser.expects(:new).returns stub(user:Fabricate(:user))
 		post :create, {session:{token:"issue"}}
 		assert_equal 2,User.count
 		assert json_response["session"]
-		assert_equal true,json_response["users"][0]["guest"]
 	end
 
 	test "post to create with guest credentials converts user" do

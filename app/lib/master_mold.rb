@@ -93,7 +93,7 @@ class MasterMold
 					params: {name:"Intro Test"},
 					pages: [
 						{
-							params: nil,
+							params: {},
 							blocks: default_headers + [
 								{
 									params: {
