@@ -1,5 +1,3 @@
-require 'rails_helper'
-
 describe Decline do
 
 	let(:group) { create :group }

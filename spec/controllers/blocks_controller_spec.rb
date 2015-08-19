@@ -1,5 +1,3 @@
-require 'rails_helper'
-
 describe BlocksController do
 
 	include_context "eager_user_with_block"

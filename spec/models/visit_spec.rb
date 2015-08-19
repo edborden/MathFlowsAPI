@@ -1,5 +1,3 @@
-require 'rails_helper'
-
 describe Visit do
 
 	let(:user) { create :user }

@@ -1,5 +1,3 @@
-require 'rails_helper'
-
 describe BlockCopy do
 
 	include_context "user_with_block"

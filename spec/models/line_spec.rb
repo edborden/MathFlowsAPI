@@ -1,5 +1,3 @@
-require 'rails_helper'
-
 describe Line do
 
 	describe "db" do

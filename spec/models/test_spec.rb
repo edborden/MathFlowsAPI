@@ -1,5 +1,3 @@
-require 'rails_helper'
-
 describe Test do
 
 	describe "db" do

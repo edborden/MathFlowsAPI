@@ -1,5 +1,3 @@
-require 'rails_helper'
-
 describe LinesController do
 
 	include_context "user_with_block"

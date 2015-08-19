@@ -1,5 +1,3 @@
-require 'rails_helper'
-
 describe Unjoin do
 
 	let(:user1) { create :user }

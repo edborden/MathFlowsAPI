@@ -1,5 +1,3 @@
-require 'rails_helper'
-
 describe InvitationsController do
 
 	let(:referrer) { create :user_with_session }

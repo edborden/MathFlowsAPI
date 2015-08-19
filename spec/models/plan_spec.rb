@@ -1,5 +1,3 @@
-require 'rails_helper'
-
 describe Plan do
 
 	describe "db" do

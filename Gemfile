@@ -27,8 +27,8 @@ gem 'mandrill_mailer'
 gem 'mailchimp-api', require: 'mailchimp'
 
 group :development,:test do
-  gem 'rspec-rails'
-  gem 'factory_girl_rails'
+	gem 'rspec-rails'
+	gem 'factory_girl_rails'
 end
 
 group :test do

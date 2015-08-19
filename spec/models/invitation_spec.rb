@@ -1,5 +1,3 @@
-require 'rails_helper'
-
 describe Invitation do
 
 	describe "db" do

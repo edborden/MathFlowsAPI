@@ -1,5 +1,3 @@
-require 'rails_helper'
-
 describe SessionsController do
 
 	let(:user) { create :user_with_session }

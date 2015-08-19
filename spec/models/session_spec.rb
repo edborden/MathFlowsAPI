@@ -1,5 +1,3 @@
-require 'rails_helper'
-
 describe Session do
 
 	describe "db" do

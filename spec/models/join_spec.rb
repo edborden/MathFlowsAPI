@@ -1,5 +1,3 @@
-require 'rails_helper'
-
 describe Join do
 
 	let(:user) { create :user }

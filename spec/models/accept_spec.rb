@@ -1,5 +1,3 @@
-require 'rails_helper'
-
 describe Accept do
 
 	let(:group) { create :group }

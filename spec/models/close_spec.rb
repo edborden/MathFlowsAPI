@@ -1,5 +1,3 @@
-require 'rails_helper'
-
 describe Close do
 
 	context "valid user with block" do

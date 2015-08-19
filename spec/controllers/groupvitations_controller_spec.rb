@@ -1,5 +1,3 @@
-require 'rails_helper'
-
 describe GroupvitationsController do
 
 	let(:group) { create :group }

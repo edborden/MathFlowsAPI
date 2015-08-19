@@ -1,5 +1,3 @@
-require 'rails_helper'
-
 describe Invalidation do
 
 	describe "db" do

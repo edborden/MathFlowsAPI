@@ -1,5 +1,3 @@
-require 'rails_helper'
-
 describe GuestUser do
 
 	context "when run" do
