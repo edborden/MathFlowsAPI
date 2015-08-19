@@ -8,7 +8,7 @@ class Accept
 		Unjoin.new(user) if user.group_id.present?
 		Join.new user,@group
 
-		groupvitation.accepted = true
+		groupvitation.accepted!
 		groupvitation.save
 		KeenHandler.new.handle :publish,:groupvitation_accepted, groupvitation		
 

@@ -1,11 +1,20 @@
 class Block < ActiveRecord::Base
 	belongs_to :page
 	belongs_to :user
-	has_one :image
-	has_many :invalidations
-	has_many :lines, -> { order(:position) }
+	has_one :image, dependent: :destroy
+	has_many :invalidations, dependent: :destroy
+	has_many :lines, -> { order(:position) }, dependent: :destroy
+
+	validates_presence_of :kind,:col_span,:row_span,:lines_height
+
+	enum kind: [:question,:directions,:header]
 
 	after_update :run_invalidator
+
+	scope :valid, -> {where("id NOT IN (SELECT block_id FROM invalidations)")} #this doesn't work on an association (page.blocks.valid)
+	scope :question, -> { where(kind:0) }
+	scope :valid_question, -> { question.valid }
+	scope :header, -> { where(kind:2) }
 
 	def run_invalidator
 		if page.present? and page.test.present? #can only run if already part of the page. not compatible with waterfall.rb

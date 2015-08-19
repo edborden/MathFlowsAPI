@@ -16,9 +16,8 @@ class MasterMold
 					row:0,
 					row_span:1,
 					col_span:2,
-					question: false,
 					lines_height:18,
-					header:true
+					kind: "header"
 				},
 				lines: [{content:"Date: _________________________",position:1}]
 			},
@@ -28,9 +27,8 @@ class MasterMold
 					row:0,
 					row_span:1,
 					col_span:2,
-					question: false,
 					lines_height:18,
-					header:true			
+					kind: "header"			
 				},
 				lines: [{content:"Name: ____________________",position:1}]
 			},
@@ -40,9 +38,8 @@ class MasterMold
 					row:1,
 					row_span:1,
 					col_span:2,
-					question: false,
 					lines_height:18,
-					header:true		
+					kind: "header"	
 				},
 				lines: [{content:"Chapter 3 Test",position:1}]
 			},
@@ -52,9 +49,8 @@ class MasterMold
 					row:1,
 					row_span:1,
 					col_span:2,
-					question: false,
 					lines_height:18,
-					header:true		
+					kind: "header"
 				},
 				lines: [{content:"Ms. Smith",position:1}]
 			},
@@ -64,9 +60,8 @@ class MasterMold
 					row:2,
 					row_span:1,
 					col_span:2,
-					question: false,
 					lines_height:18,
-					header:true			
+					kind: "header"	
 				},
 				lines: [{content:"Algebra 2",position:1}]
 			},
@@ -76,9 +71,8 @@ class MasterMold
 					row:2,
 					row_span:1,
 					col_span:2,
-					question: false,
 					lines_height:18,
-					header:true
+					kind: "header"
 				},
 				lines: [{content:"Period 5",position:1}]
 			}
@@ -87,7 +81,7 @@ class MasterMold
 
 	def intro_test
 		{
-			params: {name:"My First Folder",test_folder:true,open:true},
+			params: {name:"My First Folder",open:true},
 			tests: [
 				{
 					params: {name:"Intro Test"},
@@ -101,7 +95,7 @@ class MasterMold
 										col_span:2,
 										row:3,
 										col:0,
-										question:true,
+										kind:"question",
 										lines_height:18
 									},
 									lines: [{content:"Click on any block to select it. Selected blocks can be resized and dragged around.",position:1}]
@@ -112,7 +106,7 @@ class MasterMold
 										col_span:2,
 										row:3,
 										col:2,
-										question:true
+										kind:"question"
 									},
 									lines: [{content:"Edit text by clicking on it. Switch to math mode and insert equations with the '\\$' key. $f\\left(x\\right)=\\sqrt[3]{4}x+12$",position:1}]
 								},
@@ -122,7 +116,7 @@ class MasterMold
 										row:6,
 										col_span:2,
 										row_span:7,
-										question:true,
+										kind:"question",
 										lines_height:36
 									},
 									lines: [{content:"Access any selected block's menu on the right, which will allow you to add images...",position:1}],
@@ -134,7 +128,7 @@ class MasterMold
 										row:6,
 										col_span:2,
 										row_span:7,
-										question:true,
+										kind:"question",
 										lines_height:18
 									},
 									lines: [{content:"...or create graphs.",position:1}],
@@ -146,7 +140,7 @@ class MasterMold
 										row:13,
 										col_span:4,
 										row_span:2,
-										question:false,
+										kind:"directions",
 										lines_height:36
 									},
 									lines: [{content:"This block isn't numbered, like you might use for a block containing only test directions. The option for this is also in the block's menu.",position:1}]
@@ -157,7 +151,7 @@ class MasterMold
 										col_span:2,
 										row:15,
 										col:0,
-										question:true,
+										kind:"question",
 										lines_height:36
 									},
 									lines: [{content:"You can add more blocks or pages using the menu on the left side of the page.",position:1}]
@@ -168,7 +162,7 @@ class MasterMold
 										col_span:2,
 										row:15,
 										col:2,
-										question:true,
+										kind:"question",
 										lines_height:36
 									},
 									lines: [{content:"When you're done, get a PDF version with one click on that same menu.",position:1}]
@@ -179,7 +173,7 @@ class MasterMold
 										col_span:4,
 										row:18,
 										col:0,
-										question:true,
+										kind:"question",
 										lines_height:36
 									},
 									lines: [{content:"And once you login, you'll be able to copy tests with one click to easily make multiple versions. Check it out!",position:1}]

@@ -9,7 +9,7 @@ class QuestionNumber
 	end
 
 	def question_blocks page
-		page.blocks.order("row ASC, col ASC").select {|block| block.question}
+		page.blocks.order("row ASC, col ASC").select {|block| block.question?}
 	end
 
 	def question_blocks_sorted test

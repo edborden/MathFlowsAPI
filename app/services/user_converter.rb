@@ -6,18 +6,32 @@ class UserConverter
 	end
 	
 	def from_guest
-		@user.set_attrs_from_google @google
+		set_user_attrs
 		UservoiceHandler.new(@user).handle :set_uservoice_token
 		if invitation
 			invitation.set_signup(@user) 
 			@user.referred_by = invitation.referrer.name
 		end
 		@user.save
+		set_google
+		adjust_plan
 		MailchimpHandler.new.handle :subscribe, @user
 		MailHandler.new.handle :welcome, @user
 		KeenHandler.new.handle :publish,:signup, @user
 		send_all_groupvitations
 		return @user
+	end
+
+	def set_user_attrs
+		userinfo = @google.userinfo
+		@user.name = userinfo.name
+		@user.email = userinfo.email
+		@user.gender = userinfo.gender
+		@user.pic = userinfo.picture
+	end
+
+	def set_google
+		Google.create user_id:@user.id,google_id: @google.userinfo.id,link: @google.userinfo.link,refresh: @google.authorization.refresh_token
 	end
 
 	def invitation
@@ -30,6 +44,12 @@ class UserConverter
 			groupvitation.receiver_id = @user.id
 			groupvitation.send_groupvitation_email
 		end
+	end
+
+	def adjust_plan
+		plan = @user.plan
+		plan.basic!
+		plan.save
 	end
 
 end

@@ -21,7 +21,7 @@ module PdfHelpers
 					## BLOCK QUESTION NUMBER
 
 					number_indentation = 0
-					if block.question
+					if block.question?
 						move_down 3.5
 						question_number = QuestionNumber.new(block)
 						float do
@@ -79,7 +79,7 @@ module PdfHelpers
 				image block.image.file, fit: [bounds.right,bounds.top - total_content_height], position: :right, vposition: :bottom
 			end
 
-			stroke_bounds if block.question && borders
+			stroke_bounds if block.question? && borders
 
 		end
 

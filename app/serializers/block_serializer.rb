@@ -1,5 +1,5 @@
 class BlockSerializer < ApplicationSerializer
-	attributes :question,:row,:col,:row_span,:col_span,:height,:width,:x,:y,:lines_height,:header
+	attributes :kind,:row,:col,:row_span,:col_span,:height,:width,:x,:y,:lines_height
 	has_one :image, embed: :ids, include: :true
 	has_many :invalidations, embed: :ids, include: :true
 	has_one :user

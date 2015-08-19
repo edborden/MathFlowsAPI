@@ -7,6 +7,7 @@ class Image < ActiveRecord::Base
 	before_destroy :delete_cloudinary, unless: :is_on_intro_test?
 
 	belongs_to :block
+	validates_presence_of :width,:height,:cloudinary_id,:block_id
 
 	def latex string
 		string.chop!.slice! 0 #remove $

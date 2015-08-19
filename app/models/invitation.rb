@@ -1,9 +1,11 @@
 class Invitation < ActiveRecord::Base
-	validates :referral_email, uniqueness: true
-	validates :referral_email, presence: true
+	validates_uniqueness_of :referral_email
+	validates_presence_of :referral_email,:referrer_id
 
 	belongs_to :referrer, class_name: "User"
 	belongs_to :referral, class_name: "User"
+
+	enum status: [:sent,:visited,:signed_up]
 
 	after_create :send_invitation_email
 

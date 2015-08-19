@@ -19,13 +19,12 @@ ActiveRecord::Schema.define(version: 20150718222534) do
   create_table "blocks", force: true do |t|
     t.integer "page_id"
     t.integer "user_id"
-    t.boolean "question", default: false, null:false
+    t.integer "kind", default: 0, null:false
     t.integer "row"
     t.integer "col"
     t.integer "row_span", default: 1, null:false
     t.integer "col_span", default: 1, null: false
-    t.string  "lines_height", default: "0", null: false
-    t.boolean "header", default: false, null:false
+    t.decimal  "lines_height", precision: 6, scale: 2, default:18.0,null:false
   end
 
   add_index "blocks", ["page_id"], name: "index_blocks_on_test_id", using: :btree
@@ -36,8 +35,7 @@ ActiveRecord::Schema.define(version: 20150718222534) do
     t.integer "folder_id"
     t.string  "name", default:"My Folder",null: false
     t.boolean "open",           default: true, null: false
-    t.boolean "student_folder", default: false, null: false
-    t.boolean "test_folder",    default: false, null: false
+    t.integer "contents", default:0,null:false
   end
 
   add_index "folders", ["folder_id"], name: "index_folders_on_folder_id", using: :btree
@@ -52,8 +50,7 @@ ActiveRecord::Schema.define(version: 20150718222534) do
     t.integer "sender_id", null: false
     t.integer "receiver_id"
     t.string  "receiver_email", null: false
-    t.boolean "accepted", default: false, null: false    
-    t.boolean "declined", default: false, null: false
+    t.integer "status",null:false,default:0
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -64,8 +61,8 @@ ActiveRecord::Schema.define(version: 20150718222534) do
 
   create_table "images", force: true do |t|
     t.integer "block_id",null:false
-    t.integer "width"
-    t.integer "height"
+    t.integer "width",null:false
+    t.integer "height",null:false
     t.string  "cloudinary_id",null:false
   end
 
@@ -73,7 +70,7 @@ ActiveRecord::Schema.define(version: 20150718222534) do
 
   create_table "invalidations", force: true do |t|
     t.integer "block_id", null:false
-    t.string  "message_type", null: false
+    t.integer  "message", null: false, default:0
   end
 
   add_index "invalidations", ["block_id"], name: "index_invalidations_on_block_id", using: :btree
@@ -82,8 +79,7 @@ ActiveRecord::Schema.define(version: 20150718222534) do
     t.integer "referrer_id", null: false
     t.integer "referral_id"
     t.string  "referral_email", null: false
-    t.boolean "visited", default: false, null: false
-    t.boolean "signed_up", default: false, null: false
+    t.integer "status",null:false,default:0
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -95,7 +91,7 @@ ActiveRecord::Schema.define(version: 20150718222534) do
   create_table "lines", force: true do |t|
     t.integer "block_id", null:false
     t.text    "content", default:"",null:false
-    t.float   "position", default: 1, null: false
+    t.float   "position", default: 1.0, null: false
   end
 
   add_index "lines", ["block_id"], name: "index_lines_on_block_id", using: :btree
@@ -137,14 +133,21 @@ ActiveRecord::Schema.define(version: 20150718222534) do
 
   add_index "tests", ["folder_id"], name: "index_tests_on_folder_id", using: :btree
 
+  create_table "googles", force: true do |t|
+    t.string   "google_id", null: false
+    t.string   "link"
+    t.string   "refresh"
+    t.integer "user_id", null: false
+  end
+
+  add_index "googles", ["user_id"], name: "index_googles_on_user_id", using: :btree, unique:true  
+  add_index "googles", ["google_id"], name: "index_googles_on_google_id", using: :btree, unique:true
+
   create_table "users", force: true do |t|
     t.string   "email"
     t.string   "name"
     t.string   "pic"
-    t.string   "google_id"
     t.integer   "gender"
-    t.string   "google_link"
-    t.string   "google_refresh"
     t.datetime "created_at"
     t.integer  "group_id"
     t.boolean  "guest", default: true, null: false
@@ -154,7 +157,6 @@ ActiveRecord::Schema.define(version: 20150718222534) do
     t.string "referred_by"
   end
 
-  add_index "users", ["google_id"], name: "index_users_on_google_id", using: :btree, unique:true
   add_index "users", ["email"], name: "index_users_on_email", using: :btree, unique:true
   add_index "users", ["group_id"], name: "index_users_on_group_id", using: :btree
 
@@ -163,6 +165,8 @@ ActiveRecord::Schema.define(version: 20150718222534) do
   add_foreign_key "tests","folders", on_delete: :cascade
   add_foreign_key "sessions", "users", on_delete: :cascade
   add_foreign_key "preferences","users", on_delete: :cascade
+  add_foreign_key "plans","users", on_delete: :cascade
+  add_foreign_key "googles","users", on_delete: :cascade
   add_foreign_key "blocks","users", on_delete: :nullify
   add_foreign_key "groupvitations","users", column:"sender_id", on_delete: :cascade
   add_foreign_key "groupvitations","users", column:"receiver_id", on_delete: :cascade

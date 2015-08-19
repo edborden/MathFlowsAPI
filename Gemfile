@@ -26,11 +26,15 @@ gem 'image_size'
 gem 'mandrill_mailer'
 gem 'mailchimp-api', require: 'mailchimp'
 
+group :development,:test do
+  gem 'rspec-rails'
+  gem 'factory_girl_rails'
+end
+
 group :test do
-	gem 'mocha', "~> 1.0.0"
-	gem 'fabrication'
 	gem "faker"
 	gem "shoulda"
+	gem "database_cleaner"
 end
 
 group :production do

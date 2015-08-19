@@ -23,7 +23,7 @@ class BlocksController < ResourceController
 	end
 
 	def resource_params
-		params.require(:block).permit :question,:row,:col,:col_span,:row_span,:page_id,:header
+		params.require(:block).permit :row,:col,:col_span,:row_span,:page_id,:kind
 	end
 
 end

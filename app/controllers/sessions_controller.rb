@@ -6,7 +6,7 @@ class SessionsController < AuthenticatedController
 			user = GuestUser.new.user
 		else 
 			google = GoogleHandler.new.user_authorized(params[:session][:token],params[:session][:redirect_uri])
-			user = User.find_by_google_id(google.userinfo.id)
+			user = Google.find_by_google_id(google.userinfo.id).try :user
 			unless user
 				user = UserConverter.new(current_user,google).from_guest
 			end

@@ -1,6 +1,8 @@
 class Page < ActiveRecord::Base
-	has_many :blocks
+	has_many :blocks, dependent: :destroy
 	belongs_to :test
+
+	validates_presence_of :test_id
 
 	amoeba do
 		enable

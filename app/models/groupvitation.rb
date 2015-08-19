@@ -6,6 +6,9 @@ class Groupvitation < ActiveRecord::Base
 	after_create :send_groupvitation_email, if: :receiver_is_a_user?
 	after_create :create_matching_invitation, unless: :receiver_is_a_user?
 
+	validates_presence_of :sender_id,:status,:receiver_email
+	enum status: [:sent,:accepted,:declined]
+
 	def receiver_is_a_user?
 		receiver_id.present?
 	end
