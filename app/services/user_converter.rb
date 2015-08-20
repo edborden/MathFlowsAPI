@@ -31,7 +31,7 @@ class UserConverter
 	end
 
 	def set_google
-		Google.create user_id:@user.id,google_id: @google.userinfo.id,link: @google.userinfo.link,refresh: @google.authorization.refresh_token
+		GoogleAuth.create user_id:@user.id,google_id: @google.userinfo.id,link: @google.userinfo.link,refresh: @google.authorization.refresh_token
 	end
 
 	def invitation

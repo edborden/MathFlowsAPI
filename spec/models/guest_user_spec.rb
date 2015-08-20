@@ -9,6 +9,7 @@ describe GuestUser do
 		it { expect(Test.count).to be 1 }
 		it { expect(Page.count).to be 1 }
 		it { expect(Block.count).not_to be 0 }
+		it { expect(@user.headers.count).to eq 6 }
 		
 	end
 

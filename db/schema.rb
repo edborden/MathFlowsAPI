@@ -29,6 +29,7 @@ ActiveRecord::Schema.define(version: 20150718222534) do
 
   add_index "blocks", ["page_id"], name: "index_blocks_on_test_id", using: :btree
   add_index "blocks", ["user_id"], name: "index_blocks_on_user_id", using: :btree
+  add_index "blocks", ["kind"], name: "index_blocks_on_kind", using: :btree
 
   create_table "folders", force: true do |t|
     t.integer "user_id",null:false
@@ -56,7 +57,7 @@ ActiveRecord::Schema.define(version: 20150718222534) do
   end
 
   add_index "groupvitations", ["sender_id"], name: "index_groupvitations_on_sender_id", using: :btree
-  add_index "groupvitations", ["receiver_id"], name: "index_groupvitations_on_receiver_id", using: :btree
+  add_index "groupvitations", ["receiver_id","status"], name: "index_groupvitations_on_receiver_id", using: :btree
   add_index "groupvitations", ["receiver_email"], name: "index_groupvitations_on_receiver_email", using: :btree
 
   create_table "images", force: true do |t|
@@ -133,15 +134,15 @@ ActiveRecord::Schema.define(version: 20150718222534) do
 
   add_index "tests", ["folder_id"], name: "index_tests_on_folder_id", using: :btree
 
-  create_table "googles", force: true do |t|
+  create_table "google_auths", force: true do |t|
     t.string   "google_id", null: false
     t.string   "link"
     t.string   "refresh"
     t.integer "user_id", null: false
   end
 
-  add_index "googles", ["user_id"], name: "index_googles_on_user_id", using: :btree, unique:true  
-  add_index "googles", ["google_id"], name: "index_googles_on_google_id", using: :btree, unique:true
+  add_index "google_auths", ["user_id"], name: "index_google_auths_on_user_id", using: :btree, unique:true  
+  add_index "google_auths", ["google_id"], name: "index_google_auths_on_google_id", using: :btree, unique:true
 
   create_table "users", force: true do |t|
     t.string   "email"
@@ -166,7 +167,7 @@ ActiveRecord::Schema.define(version: 20150718222534) do
   add_foreign_key "sessions", "users", on_delete: :cascade
   add_foreign_key "preferences","users", on_delete: :cascade
   add_foreign_key "plans","users", on_delete: :cascade
-  add_foreign_key "googles","users", on_delete: :cascade
+  add_foreign_key "google_auths","users", on_delete: :cascade
   add_foreign_key "blocks","users", on_delete: :nullify
   add_foreign_key "groupvitations","users", column:"sender_id", on_delete: :cascade
   add_foreign_key "groupvitations","users", column:"receiver_id", on_delete: :cascade

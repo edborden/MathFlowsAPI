@@ -1,4 +1,4 @@
-describe Google do
+describe GoogleAuth do
 	
 	describe "db" do
 
@@ -20,7 +20,7 @@ describe Google do
 
 	describe "validations" do
 
-		subject { create :google }
+		subject { create :google_auth }
 		it { should validate_uniqueness_of :google_id }
 		it { should validate_presence_of :user_id }
 		it { should validate_uniqueness_of :user_id }

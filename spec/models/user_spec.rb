@@ -33,7 +33,7 @@ describe User do
 		it { should have_many(:groupvitations_sent).dependent :destroy }
 		it { should have_many(:groupvitations).dependent :destroy }
 		it { should have_one(:plan).dependent :destroy }
-		it { should have_one(:google).dependent :destroy }
+		it { should have_one(:google_auth).dependent :destroy }
 
 	end
 
@@ -50,6 +50,38 @@ describe User do
 		it { expect(user.preference).to be_valid }
 		it { expect(user.plan).to be_valid }
 		it { expect(user.create_session).to be_valid }
+
+	end
+
+	describe "#headers" do
+
+		context "when user has a block" do
+
+			let!(:user) { create :user }
+			let!(:block) { create :block,user:user }
+
+			context "when the block isnt kind:header" do
+
+				it "doesn't get returned" do
+					expect(user.headers).not_to include block
+				end
+
+			end
+
+			context "when the block is kind:header" do
+
+				before do
+					block.header!
+					block.save
+				end
+
+				it "gets returned" do
+					expect(user.headers).to include block
+				end
+
+			end
+
+		end
 
 	end
 

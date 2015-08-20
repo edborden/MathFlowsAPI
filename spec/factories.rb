@@ -16,7 +16,7 @@ FactoryGirl.define do
 		end
 	end
 
-	factory :google do
+	factory :google_auth do
 		google_id { Faker::Lorem.characters(10) }
 		user
 	end
@@ -29,6 +29,12 @@ FactoryGirl.define do
 
 		factory :block_with_invalidation do
 			after(:create) {|block| create_list(:invalidation,1,block:block)} 
+		end
+
+		factory :header do
+			row 1
+			col 1
+			kind "header"
 		end
 	end
 
