@@ -13,6 +13,7 @@ describe Block do
 
 		it { should have_db_index :page_id }
 		it { should have_db_index :user_id }
+		it { should have_db_index :kind }
 
 		it { should define_enum_for(:kind).with [:question,:directions,:header]}
 
@@ -34,6 +35,7 @@ describe Block do
 		it { should validate_presence_of :row_span }
 		it { should validate_presence_of :col_span }
 		it { should validate_presence_of :lines_height }
+		it "should validate presence of user_id only on create"
 
 	end
 

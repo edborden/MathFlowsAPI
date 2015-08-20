@@ -13,7 +13,7 @@ describe Groupvitation do
 		it { should have_db_column :receiver_id }
 		it { should have_db_column :receiver_email }
 
-		it { should define_enum_for(:status).with [:sent,:accepted,:declined] }
+		it { should define_enum_for(:status).with [:not_a_user,:sent,:accepted,:declined] }
 
 	end
 
@@ -39,12 +39,20 @@ describe Groupvitation do
 			group = create :group
 			sender = create :user
 			group.users << sender
-			create :groupvitation, sender:sender,receiver_email:"nothing@test.com"
+			@groupvitation = create :groupvitation, sender:sender,receiver_email:"nothing@test.com"
 		end
 
 		it "creates a matching invitation" do
 			expect(Invitation.first.referral_email).to eq "nothing@test.com"
 		end
+
+		it { expect(@groupvitation.status).to eq "not_a_user" }
+
+	end
+
+	context "receiver is a user" do
+
+		it "has status 'sent'"
 
 	end
 

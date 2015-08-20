@@ -7,7 +7,7 @@ class Groupvitation < ActiveRecord::Base
 	after_create :create_matching_invitation, unless: :receiver_is_a_user?
 
 	validates_presence_of :sender_id,:status,:receiver_email
-	enum status: [:sent,:accepted,:declined]
+	enum status: [:not_a_user,:sent,:accepted,:declined]
 
 	def receiver_is_a_user?
 		receiver_id.present?
@@ -15,7 +15,9 @@ class Groupvitation < ActiveRecord::Base
 
 	def send_groupvitation_email
 		MailHandler.new.handle :groupvitation, self
-		KeenHandler.new.handle :publish,:groupvitation, self		
+		KeenHandler.new.handle :publish,:groupvitation, self
+		sent!
+		save	
 	end
 
 	def create_matching_invitation

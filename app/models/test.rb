@@ -24,4 +24,8 @@ class Test < ActiveRecord::Base
 		end
 	end
 
+	def has_write_access? test_user
+		test_user == user
+	end
+
 end

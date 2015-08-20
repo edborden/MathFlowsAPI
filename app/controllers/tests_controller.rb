@@ -13,20 +13,16 @@ class TestsController < ResourceController
 				end
 			end
 		else
-			folder = Folder.find params[:test][:folder_id]
-			@resource = Test.create
+			@resource = Test.create folder_id: params[:test][:folder_id], user_id:current_user.id
 			page = Page.create test_id:@resource.id
 			current_user.headers.each do |block| 
 				block = block.amoeba_dup
 				block.page_id = page.id
 				block.user_id = current_user.id
-				block.header = false
+				block.directions!
 				block.save
 			end
-			folder.tests<<@resource
 		end
-		current_user.tests<<@resource
-		@resource.reload
 		render_resource
 	end
 
