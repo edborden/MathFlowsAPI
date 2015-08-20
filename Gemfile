@@ -41,5 +41,5 @@ group :production do
 	gem 'rails_12factor'
 	gem 'newrelic_rpm'
 	gem 'unicorn', platforms: :ruby
-	gem 'le'
+	#gem 'le'
 end
