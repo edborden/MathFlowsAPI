@@ -26,6 +26,14 @@ class Block < ActiveRecord::Base
 		end
 	end
 
+	def content_invalidation 
+		invalidations.where(message:0).take
+	end
+
+	def position_invalidation
+		invalidations.where(message:1).take
+	end
+
 	amoeba do
 		enable
 	end

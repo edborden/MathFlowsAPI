@@ -5,9 +5,8 @@ class Invalidator
 	def initialize block
 
 		@block = block
-		invalidations = @block.invalidations
-		@content_invalidation = invalidations.find {|invalidation| invalidation.message_type == "1"}
-		@position_invalidation = invalidations.find {|invalidation| invalidation.message_type == "2"}
+		@content_invalidation = @block.content_invalidation
+		@position_invalidation = @block.position_invalidation
 
 	end
 
@@ -25,7 +24,7 @@ class Invalidator
 
 			unless @content_invalidation.present?
 
-				Invalidation.create block_id:@block.id,message_type:"1"
+				Invalidation.create block_id:@block.id,message:0
 
 			end
 
@@ -49,7 +48,7 @@ class Invalidator
 
 			unless @position_invalidation.present?
 
-				Invalidation.create block_id:@block.id,message_type:"2"
+				Invalidation.create block_id:@block.id,message:1
 
 			end
 

@@ -66,6 +66,10 @@ describe Block do
 
 	end
 
+	describe "content_invalidation"
+
+	describe "position_invalidation"
+
 	context "when destroyed" do
 
 		include_context "user_with_block"
