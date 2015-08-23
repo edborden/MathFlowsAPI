@@ -3,7 +3,13 @@ class QuestionNumber
 	attr_reader :formatted,:width
 
 	def initialize block
-		@index = question_blocks_sorted(block.page.test).index(block) + 1
+		page = block.page
+		test = page.try :test
+		if page && test
+			@index = question_blocks_sorted(block.test).index(block) + 1
+		else
+			@index = 0
+		end
 		@formatted = @index.to_s + ")  "
 		@width = width_of @formatted
 	end
