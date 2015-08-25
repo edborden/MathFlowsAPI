@@ -69,12 +69,24 @@ describe SessionsController do
 
 		describe "GET to #index" do
 
-			before { get :index, {token: user.session.token} }
+			let(:get_request) { get :index, {token: user.session.token} }
 
 			it "returns user session" do
-
+				get_request
 				expect(json_response["sessions"][0]["id"]).to eq user.session.id
 
+			end
+
+			context "when user has a groupvitation" do
+
+				it "include groupvitation in response" do
+					sender = create :user_with_group
+					create :groupvitation,sender:sender,receiver:user,receiver_email:user.email
+					get_request
+					expect(user.groupvitations.count).to eq 1
+					expect(json_response["users"][0]["groupvitation_ids"][0]).to be_truthy
+					expect(json_response["groupvitations"][0]).to be_truthy
+				end
 			end
 
 		end

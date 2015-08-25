@@ -14,6 +14,10 @@ FactoryGirl.define do
 		factory :user_with_session do
 			session
 		end
+
+		factory :user_with_group do
+			group
+		end
 	end
 
 	factory :google_auth do
