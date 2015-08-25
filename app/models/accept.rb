@@ -3,8 +3,10 @@ class Accept
 
 	def initialize user,groupvitation
 
+		@group = groupvitation.group
+
 		Unjoin.new(user) if user.group_id.present?
-		Join.new user,groupvitation.group
+		Join.new user,@group
 
 		groupvitation.accepted!
 		groupvitation.save

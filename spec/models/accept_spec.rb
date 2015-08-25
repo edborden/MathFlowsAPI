@@ -1,11 +1,10 @@
 describe Accept do
 
-	let(:group) { create :group }
-	let(:sender) { create :user, group_id: group.id }
+	let(:sender) { create :user_with_group }
 	let(:receiver) { create :user }
 	let(:groupvitation) { create :groupvitation, sender:sender,receiver:receiver,receiver_email:receiver.email }
 
-	before { Accept.new receiver,groupvitation }
+	let!(:accept) { Accept.new receiver,groupvitation }
 
 	it { expect(groupvitation.accepted?).to be true }
 
@@ -15,6 +14,10 @@ describe Accept do
 
 		it "runs Unjoin"
 
+	end
+
+	describe "#group" do
+		it { expect(accept.group).to eq sender.group }
 	end
 
 end

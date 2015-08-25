@@ -52,6 +52,7 @@ describe GroupvitationsController do
 			it "runs Accept" do
 				expect(Accept).to receive(:new).with(receiver,groupvitation).and_return double(group: create(:group))
 				authenticated_req :post, :accept, {id:groupvitation.id}, receiver
+				expect(json_response["group"]).to be_truthy
 			end
 
 		end
