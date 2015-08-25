@@ -16,8 +16,17 @@ class Invitation < ActiveRecord::Base
 
 	def set_signup referral
 		self.referral_id = referral.id
-		self.signed_up = true
+		signed_up!
 		save
+
+		referrer.tests_quota += 5
+		referrer.save
+
+		referral.referred_by = referrer.name
+		referral.tests_quota += 5
+		referral.save
+
+		MailHandler.new.handle :invitation_signup, self
 		KeenHandler.new.handle :publish,:invitation_signup, self
 	end
 

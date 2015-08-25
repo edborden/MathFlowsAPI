@@ -7,11 +7,8 @@ class UserConverter
 	
 	def from_guest
 		set_user_attrs
-		UservoiceHandler.new(@user).handle :set_uservoice_token
-		if invitation
-			invitation.set_signup(@user) 
-			@user.referred_by = invitation.referrer.name
-		end
+		UservoiceHandler.new(@user).handle :set_uservoice_token	
+		invitation.set_signup(@user) if invitation
 		@user.save
 		set_google
 		adjust_plan

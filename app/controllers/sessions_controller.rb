@@ -8,7 +8,8 @@ class SessionsController < AuthenticatedController
 			google = GoogleHandler.new.user_authorized(params[:session][:token],params[:session][:redirect_uri])
 			user = GoogleAuth.find_by_google_id(google.userinfo.id).try :user
 			unless user
-				user = UserConverter.new(current_user,google).from_guest
+				user_to_convert = current_user || GuestUser.new.user
+				user = UserConverter.new(user_to_convert,google).from_guest
 			end
 			user.session.try :destroy
 		end

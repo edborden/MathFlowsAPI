@@ -25,6 +25,17 @@ class MailHandler < MandrillMailer::TemplateMailer
 		).deliver
 	end
 
+	def invitation_signup invitation
+		mandrill_mail( template: 'invitation-signup',
+			subject: "Your friend joined MathFlows!",
+			to: invitation.referrer.email,
+			important: true,
+			inline_css: true,
+			vars: {'REFERRAL_NAME' => invitation.referral.name},
+			async: true
+		).deliver
+	end
+
 	def groupvitation groupvitation
 		mandrill_mail( template: 'groupvitation',
 			subject: "#{groupvitation.sender.name} invited you their MathFlows group",

@@ -77,15 +77,19 @@ describe SessionsController do
 
 			end
 
-			context "when user has a groupvitation" do
+			context "when user has a groupvitation and groupvitations_sent" do
 
-				it "include groupvitation in response" do
+				it "include both in response" do
+					create(:group).users << user
+					create :groupvitation,sender:user
 					sender = create :user_with_group
 					create :groupvitation,sender:sender,receiver:user,receiver_email:user.email
 					get_request
 					expect(user.groupvitations.count).to eq 1
+					expect(user.groupvitations_sent.count).to eq 1
+					expect(json_response["users"][0]["groupvitations_sent_ids"][0]).to be_truthy
 					expect(json_response["users"][0]["groupvitation_ids"][0]).to be_truthy
-					expect(json_response["groupvitations"][0]).to be_truthy
+					expect(json_response["groupvitations"].count).to eq 2
 				end
 			end
 
