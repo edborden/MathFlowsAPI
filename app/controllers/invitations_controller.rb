@@ -5,10 +5,8 @@ class InvitationsController < ResourceController
 	def create
 		if User.find_by_email new_resource.referral_email
 			resource.errors.add :referral_email, "already a user"
-			render_errors
-		else
-			super
 		end
+		super
 	end
 
 	def visit

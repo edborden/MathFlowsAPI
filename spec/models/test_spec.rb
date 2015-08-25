@@ -29,10 +29,9 @@ describe Test do
 
 	context "when destroyed" do
 
-		include_context "user_with_block"
+		include_context "eager_user_with_block"
 
 		it "destroys pages" do
-			page
 			expect { test.destroy }.to change { Page.count }.by(-1)
 		end
 
@@ -40,13 +39,12 @@ describe Test do
 
 			it "sets blocks' user_id and page_id to null" do
 				create :block_with_invalidation, page:page
-				expect(Block.count).to eq 1
-				block
-				expect(Block.count).to eq 2
+				create :block, kind:"directions", page:page
 				test.destroy
 				expect(Block.count).to eq 1
-				expect(block.reload.user_id).to be nil	
-				expect(block.reload.page_id).to be nil
+				block.reload
+				expect(block.user_id).to be nil	
+				expect(block.page_id).to be nil
 			end
 
 		end

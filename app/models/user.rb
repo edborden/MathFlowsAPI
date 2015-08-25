@@ -1,5 +1,10 @@
 class User < ActiveRecord::Base
 
+	# CALLBACKS
+
+	after_create :create_preference,:create_plan
+	before_destroy :destroy_headers_and_clipboard
+
 	# ASSOCIATIONS
 
 	enum gender: [:male,:female]
@@ -23,12 +28,17 @@ class User < ActiveRecord::Base
 
 	validates_uniqueness_of :email,allow_nil:true
 
-	# CALLBACKS
-
-	after_create :create_preference,:create_plan
-
 	def headers
 		blocks.header
+	end
+
+	def clipboard
+		blocks.where(page_id:nil).where.not(kind:2)
+	end
+
+	def destroy_headers_and_clipboard
+		headers.each { |block| block.destroy }
+		clipboard.each { |block| block.destroy }
 	end
 
 end

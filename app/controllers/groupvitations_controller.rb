@@ -2,7 +2,13 @@ class GroupvitationsController < ResourceController
 
 	def create
 		receiver = User.find_by_email params[:groupvitation][:receiver_email]
-		new_resource.receiver_id = receiver.id if receiver
+		if receiver
+			if current_user.group == receiver.group
+				new_resource.errors.add :receiver_email, "already in group"
+			else
+				new_resource.receiver_id = receiver.id
+			end
+		end
 		super
 	end
 

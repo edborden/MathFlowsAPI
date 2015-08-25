@@ -52,7 +52,15 @@ describe Groupvitation do
 
 	context "receiver is a user" do
 
-		it "has status 'sent'"
+		before do
+			group = create :group
+			sender = create :user
+			receiver = create :user
+			group.users << sender
+			@groupvitation = create :groupvitation, sender:sender,receiver_email:receiver.email,receiver:receiver
+		end
+
+		it { expect(@groupvitation.reload.sent?).to be true }
 
 	end
 

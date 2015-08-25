@@ -35,7 +35,7 @@ describe Block do
 		it { should validate_presence_of :row_span }
 		it { should validate_presence_of :col_span }
 		it { should validate_presence_of :lines_height }
-		it "should validate presence of user_id only on create"
+		it { should validate_presence_of(:user_id).on(:create) }
 
 	end
 
@@ -72,16 +72,22 @@ describe Block do
 
 	context "when destroyed" do
 
-		include_context "user_with_block"
+		let(:block) { create :block }
 
 		it "destroys images" do
 			create :image, block:block
 			expect { block.destroy }.to change { Image.count }.by(-1)
 		end
 
-		it "destroys invalidations"
+		it "destroys invalidations" do
+			create :invalidation, block:block
+			expect { block.destroy }.to change { Invalidation.count }.by(-1)
+		end
 
-		it "destroys lines"
+		it "destroys lines" do
+			create :line, block:block
+			expect { block.destroy }.to change { Line.count }.by(-1)
+		end
 
 	end
 

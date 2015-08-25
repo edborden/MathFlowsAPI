@@ -4,8 +4,10 @@ class Block < ActiveRecord::Base
 	has_one :image, dependent: :destroy
 	has_many :invalidations, dependent: :destroy
 	has_many :lines, -> { order(:position) }, dependent: :destroy
+	has_one :test, through: :page
 
 	validates_presence_of :kind,:col_span,:row_span,:lines_height
+	validates :user_id, presence: true, on: :create
 
 	enum kind: [:question,:directions,:header]
 
@@ -17,11 +19,9 @@ class Block < ActiveRecord::Base
 	scope :header, -> { where(kind:2) }
 
 	def run_invalidator
-		if page.present? and page.test.present? #can only run if already part of the page. not compatible with waterfall.rb
-			lines_height = Invalidator.new(self).run
-			unless self.lines_height == lines_height
-				update_column "lines_height",lines_height
-			end
+		lines_height = Invalidator.new(self).run
+		unless self.lines_height == lines_height
+			update_column "lines_height",lines_height
 			reload
 		end
 	end

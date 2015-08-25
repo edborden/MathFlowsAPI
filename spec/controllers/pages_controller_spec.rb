@@ -1,6 +1,7 @@
 describe PagesController do
 
 	include_context "user_with_block"
+	let(:not_owner) { create :user_with_session }
 
 	describe "POST to #create" do
 
@@ -16,7 +17,7 @@ describe PagesController do
 
 		context "without ownership" do
 
-			before { authenticated_req :post,:create,{page:{test_id:test.id}}, create(:user_with_session) }
+			before { authenticated_req :post,:create,{page:{test_id:test.id}}, not_owner }
 			it { should respond_with :forbidden }
 
 		end
@@ -24,17 +25,21 @@ describe PagesController do
 	end
 
 	describe "GET to #show" do
-		
-		before { authenticated_req :get,:show,{id:page.id},user }
 
-		it { should respond_with :ok }
-		it "renders page" do
-			expect(json_response["page"]["id"]).to eq page.id
+		context "with ownership" do
+		
+			before { authenticated_req :get,:show,{id:page.id},user }
+
+			it { should respond_with :ok }
+			it "renders page" do
+				expect(json_response["page"]["id"]).to eq page.id
+			end
+
 		end
 
 		context "without ownership" do
 
-			before { authenticated_req :get,:show,{id:page.id},create(:user_with_session) }
+			before { authenticated_req :get,:show,{id:page.id},not_owner }
 			it { should respond_with :forbidden }
 
 		end

@@ -106,20 +106,41 @@ describe User do
 		end
 
 		it "destroys tests" do
-			folder = create :folder, user:user
-			test =  create :test, user:user,folder:folder 
+			create :test, user:user,folder:create(:folder, user:user)
 			expect { user.destroy }.to change { Test.count }.by(-1)
 		end
 
-		it "nullifies user_id on blocks"
+		it "nullifies user_id on blocks" do
+			create :block, user:user,page:create(:page)
+			expect { user.destroy }.to change { Block.first.user_id }
+				.from(user.id)
+				.to nil
+		end
 
-		it "destroys preference"
+		it "destroys preference" do
+			user
+			expect { user.destroy }.to change { Preference.count }.by(-1)
+		end
 
-		it "destroys groupvitations_sent"
+		it "destroys groupvitations_sent" do
+			receiver = create :user
+			create :groupvitation, sender:user,receiver:receiver,receiver_email:receiver.email
+			expect { user.destroy }.to change { Groupvitation.count }.by(-1) 
+		end
 
-		it "destroys groupvitations"
+		it "destroys groupvitations" do
+			sender = create :user
+			create :groupvitation, sender:sender,receiver:user,receiver_email:user.email
+			expect { user.destroy }.to change { Groupvitation.count }.by(-1)
+		end 
 
-		it "destroys headers and blocks in clipboard"
+		it "destroys headers and blocks in clipboard" do
+			create :header,user:user
+			create :block,user:user
+			expect(user.clipboard.count).to eq 1
+			expect(user.headers.count).to eq 1
+			expect { user.destroy }.to change { Block.count }.by(-2)
+		end
 
 	end
 

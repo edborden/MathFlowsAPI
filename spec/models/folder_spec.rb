@@ -34,20 +34,13 @@ describe Folder do
 
 	end
 
-	context "when contains tests" do
-
-		let(:folder) { create :folder_with_test }
-
-		it "destroys dependents when destroyed" do
-			folder.destroy
-			expect(Test.all).not_to include folder.tests.first
-		end
-
-	end
-
 	context "when destroyed" do
 
-		it "destroys tests"
+		let!(:folder) { create :folder_with_test }
+
+		it "destroys tests" do
+			expect { folder.destroy }.to change { Folder.count }.by(-1)
+		end
 
 	end
 

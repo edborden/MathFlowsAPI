@@ -26,14 +26,16 @@ FactoryGirl.define do
 	end
 
 	factory :block do
+		row 1
+		col 1
+
+		user
 
 		factory :block_with_invalidation do
 			after(:create) {|block| create_list(:invalidation,1,block:block)} 
 		end
 
 		factory :header do
-			row 1
-			col 1
 			kind "header"
 		end
 	end

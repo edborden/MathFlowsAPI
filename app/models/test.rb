@@ -1,6 +1,6 @@
 class Test < ActiveRecord::Base
 
-	before_destroy :save_valid_blocks
+	before_destroy :save_valid_question_blocks
 
 	has_many :pages, dependent: :destroy
 	belongs_to :folder
@@ -14,11 +14,13 @@ class Test < ActiveRecord::Base
 		append :name => " Copy"
 	end
 
-	def save_valid_blocks
+	def save_valid_question_blocks
 		blocks.question.each do |block|
 			unless block.invalidations.exists?
 				block.page_id = nil
 				block.user_id = nil
+				block.row = nil
+				block.col = nil
 				block.save
 			end
 		end

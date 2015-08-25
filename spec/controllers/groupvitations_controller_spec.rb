@@ -1,29 +1,50 @@
 describe GroupvitationsController do
 
 	let(:group) { create :group }
-	let(:sender) { create :user_with_session }
-	let(:receiver) { create :user_with_session }
-	
-	before { group.users << sender }
+	let(:sender) { create :user_with_session,group_id:group.id }
+	let(:dummy_email) { "test@test.com" }
 
 	describe "POST to #create" do
 
-		before { authenticated_req :post, :create, {groupvitation:{receiver_email:receiver.email}}, sender }
+		context "when receiver is a user" do
+			let(:receiver) { create :user_with_session }
 
-		it { expect(Groupvitation.count).to be 1 }
+			context "and receiver is not already in same group" do
+				before { authenticated_req :post, :create, {groupvitation:{receiver_email:receiver.email}}, sender }
 
-		it "sets receiver_id if receiver exists" do
-			expect(Groupvitation.first.receiver_id).to eq receiver.id
-		end
+				it { should respond_with :ok }
 
-		context "when receiver is already in group" do
-			it "responds with errors"
+				it "should create a groupvitation" do
+					expect(Groupvitation.count).to be 1
+				end
+
+				it "sets receiver_id" do
+					expect(Groupvitation.first.receiver_id).to eq receiver.id
+				end
+
+				it { expect(json_response["groupvitation"]["status"]).to eq "sent" }
+			end
+
+			context "and receiver is already in same group" do
+				before do
+					group.users << receiver
+					authenticated_req :post, :create, {groupvitation:{receiver_email:receiver.email}}, sender
+				end
+
+				it { should respond_with :unprocessable_entity }
+				
+				it "should respond with correct error message" do
+					expect(json_response["errors"]["receiver_email"]).to eq ["already in group"]
+				end
+			end
+
 		end
 
 	end
 
 	context "when a groupvitation exists" do
 
+		let(:receiver) { create :user_with_session }
 		let!(:groupvitation) { create :groupvitation, sender:sender,receiver:receiver,receiver_email:receiver.email }
 
 		describe "POST to #accept" do

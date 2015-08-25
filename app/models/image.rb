@@ -4,7 +4,7 @@ require 'base64'
 
 class Image < ActiveRecord::Base
 
-	before_destroy :delete_cloudinary, unless: :is_on_intro_test?
+	before_destroy :delete_cloudinary
 
 	belongs_to :block
 	validates_presence_of :width,:height,:cloudinary_id,:block_id
@@ -32,7 +32,7 @@ class Image < ActiveRecord::Base
 	end
 
 	def to_file url
-		@file = open url
+		@file ||= open url
 	end
 
 	def file		
@@ -40,11 +40,7 @@ class Image < ActiveRecord::Base
 	end
 
 	def delete_cloudinary
-		Cloudinary::Api.delete_resources([cloudinary_id])
-	end
-
-	def is_on_intro_test?
-		cloudinary_id == "block_images/eyjdrh6xrt2no9a2ezam" or cloudinary_id == "block_images/v7bz2rx9bs65ecbhyf0n"
+		CloudinaryHandler.new.handle :delete_resource, cloudinary_id
 	end
 
 	def has_write_access? user

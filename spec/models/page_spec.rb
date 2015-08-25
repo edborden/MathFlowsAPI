@@ -22,7 +22,14 @@ describe Page do
 
 	context "when destroyed" do
 
-		it "destroys blocks"
+		let(:page) { create :page }
+		let!(:block) { create :block, page:page }
+
+		it "destroys child blocks" do
+			expect { page.destroy }.to change { Block.count }
+				.from(1)
+				.to 0
+		end
 
 	end
 

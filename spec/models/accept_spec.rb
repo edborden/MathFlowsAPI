@@ -7,7 +7,14 @@ describe Accept do
 
 	before { Accept.new receiver,groupvitation }
 
-	it { expect(receiver.group).to eq group }
 	it { expect(groupvitation.accepted?).to be true }
+
+	it "runs Join"
+
+	context "When receiver is already in a group" do
+
+		it "runs Unjoin"
+
+	end
 
 end

@@ -25,7 +25,7 @@ class ResourceController < AuthenticatedController
 	end
 
 	def create
-		if new_resource.save
+		if new_resource.errors.empty? && new_resource.save
 			render_resource
 		else
 			render_errors

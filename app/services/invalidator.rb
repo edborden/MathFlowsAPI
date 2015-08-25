@@ -11,15 +11,15 @@ class Invalidator
 	end
 
 	def run
-		invalidate_content
-		invalidate_position
+		invalidate_content if @block.page_id.present? || !@block.question?
+		invalidate_position if @block.attrs_set?
 		return actual_height
 	end
 
 	def invalidate_content
 
-		puts actual_height
-		puts @block.height
+		#puts actual_height
+		#puts @block.height
 		if actual_height > @block.height #+ 10 #ADDING 5 is a temporary fix for one-line content not fitting
 
 			unless @content_invalidation.present?
@@ -65,7 +65,7 @@ class Invalidator
 	end
 
 	def actual_height
-		@actual_height ||= write_stretchy_block(@block).height
+		@actual_height ||= @block.attrs_set? ? write_stretchy_block(@block).height : @block.height
 	end
 
 end
