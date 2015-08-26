@@ -22,7 +22,7 @@ class User < ActiveRecord::Base
 	has_one :invitation, foreign_key: "referral_id", dependent: :nullify
 
 	has_many :groupvitations_sent, class_name: "Groupvitation", foreign_key: "sender_id", dependent: :destroy
-	has_many :groupvitations, -> { where.not(status:3) }, foreign_key: "receiver_id", dependent: :destroy
+	has_many :groupvitations, -> { where(status:1) }, foreign_key: "receiver_id", dependent: :destroy
 
 	# VALIDATIONS
 
