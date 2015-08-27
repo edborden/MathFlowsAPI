@@ -24,6 +24,7 @@ describe Block do
 		it { should belong_to :page }
 		it { should belong_to :user }
 		it { should have_one(:image).dependent :destroy }
+		it { should have_one(:table).dependent :destroy }
 		it { should have_many(:invalidations).dependent :destroy }
 		it { should have_many(:lines).order(:position).dependent :destroy }
 

@@ -162,6 +162,37 @@ ActiveRecord::Schema.define(version: 20150718222534) do
   add_index "users", ["email"], name: "index_users_on_email", using: :btree, unique:true
   add_index "users", ["group_id"], name: "index_users_on_group_id", using: :btree
 
+  create_table "tables", force: true do |t|
+    t.integer "block_id",null:false
+    t.integer "rows_count",null:false,default:0
+    t.integer "cols_count",null:false,default:0
+  end
+
+  add_index "tables", ["block_id"], name: "index_tables_on_block_id", using: :btree
+
+  create_table "projections", force: true do |t|
+    t.integer "table_id",null:false
+    t.integer "axis",null:false,default:0
+    t.float   "position", default: 1.0, null: false    
+  end
+
+  add_index "projections", ["table_id","axis"], name: "index_tables_on_table_id", using: :btree
+
+  create_table "cells", force: true do |t|
+    t.integer "table_id",null:false
+    t.integer "row_id",null:false
+    t.integer "col_id",null:false
+    t.text    "content", default:"",null:false
+  end
+
+  add_index "cells", ["table_id"], name: "index_cells_on_table_id", using: :btree
+  add_index "cells", ["row_id"], name: "index_cells_on_row_id", using: :btree
+  add_index "cells", ["col_id"], name: "index_cells_on_col_id", using: :btree
+
+  add_foreign_key "cells","projections", column: "row_id", on_delete: :cascade
+  add_foreign_key "cells","projections", column: "col_id", on_delete: :cascade
+  add_foreign_key "projections","tables", on_delete: :cascade
+  add_foreign_key "tables","blocks", on_delete: :cascade
   add_foreign_key "folders","users", on_delete: :cascade
   add_foreign_key "tests","users", on_delete: :cascade
   add_foreign_key "tests","folders", on_delete: :cascade

@@ -1,7 +1,7 @@
 class Line < ActiveRecord::Base
 	belongs_to :block
 
-	after_save {block.run_invalidator}
+	#after_save {block.run_invalidator}
 
 	def processed_content
 		if content.blank?

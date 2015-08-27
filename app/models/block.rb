@@ -5,13 +5,14 @@ class Block < ActiveRecord::Base
 	has_many :invalidations, dependent: :destroy
 	has_many :lines, -> { order(:position) }, dependent: :destroy
 	has_one :test, through: :page
+	has_one :table, dependent: :destroy
 
 	validates_presence_of :kind,:col_span,:row_span,:lines_height
 	validates :user_id, presence: true, on: :create
 
 	enum kind: [:question,:directions,:header]
 
-	after_update :run_invalidator
+	#after_update :run_invalidator
 
 	scope :valid, -> {where("id NOT IN (SELECT block_id FROM invalidations)")} #this doesn't work on an association (page.blocks.valid)
 	scope :question, -> { where(kind:0) }

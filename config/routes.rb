@@ -15,4 +15,5 @@ Rails.application.routes.draw do
 	resources :groupvitations, only: [:create,:destroy]
 	post 'groupvitations/:id/accept', to: 'groupvitations#accept'
 	post 'groupvitations/:id/decline', to: 'groupvitations#decline'
+	resources :tables, only: [:create,:destroy]
 end
