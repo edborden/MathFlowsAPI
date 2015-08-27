@@ -26,26 +26,25 @@ describe InvitationsController do
 
 		context "when referral_email already has an invitation" do
 
-			before do
-				create :invitation, referrer:referrer,referral_email:"test@test.com"
-				authenticated_req :post, :create, {invitation:{referral_email:"test@test.com"}}, referrer
-			end
+			let(:existing_invitation) { create :invitation }
+			
+			before { authenticated_req :post, :create, {invitation:{referral_email:existing_invitation.referral_email}}, referrer }
 
 			it { should respond_with :unprocessable_entity }
 			it "doesnt create invitation" do
 				expect(Invitation.count).to be 1
 			end
 			it "renders error" do
-				expect(json_response["errors"]["referral_email"]).to include "has already been taken"
+				expect(json_response["errors"]["referral_email"]).to include "already a user"
 			end
 
 		end
 
 		context "when referral is already signed up" do
 
-			let!(:referral) { create :user,email:"test@test.com" }
+			let(:referral) { create :user }
 
-			before { authenticated_req :post, :create, {invitation:{referral_email:"test@test.com"}}, referrer }
+			before { authenticated_req :post, :create, {invitation:{referral_email:referral.email}}, referrer }
 
 			it { should respond_with :unprocessable_entity }
 			it "doesnt create invitation" do
@@ -61,7 +60,7 @@ describe InvitationsController do
 
 	describe "POST to #visit" do
 
-		let!(:invitation) { create :invitation,referrer:referrer,referral_email:"test@test.com" }
+		let(:invitation) { create :invitation }
 
 		it "runs Visit" do
 			expect(Visit).to receive(:new)

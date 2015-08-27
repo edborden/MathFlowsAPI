@@ -45,7 +45,7 @@ describe GroupvitationsController do
 	context "when a groupvitation exists" do
 
 		let(:receiver) { create :user_with_session }
-		let!(:groupvitation) { create :groupvitation, sender:sender,receiver:receiver,receiver_email:receiver.email }
+		let(:groupvitation) { create :groupvitation, receiver:receiver }
 
 		describe "POST to #accept" do
 
@@ -69,7 +69,8 @@ describe GroupvitationsController do
 		describe "DELETE to #destroy" do
 			
 			it "deletes groupvitation" do
-				expect { authenticated_req :delete, :destroy, {id:groupvitation.id},sender }
+				groupvitation
+				expect { authenticated_req :delete, :destroy, {id:groupvitation.id},receiver }
 					.to change {Groupvitation.count }
 					.from(1)
 					.to 0

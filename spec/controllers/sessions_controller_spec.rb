@@ -49,7 +49,6 @@ describe SessionsController do
 			context "with 'issue'" do
 
 				it "creates guest user" do
-
 					expect(GuestUser).to receive(:new).and_return double(user:create(:user))
 					post :create, {session:{token:"issue"}}
 					expect(User.count).to eq 1

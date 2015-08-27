@@ -33,17 +33,12 @@ describe Groupvitation do
 
 	end
 
-	context "receiver is not signed up yet" do
+	context "when receiver is not signed up yet" do
 
-		before do
-			group = create :group
-			sender = create :user
-			group.users << sender
-			@groupvitation = create :groupvitation, sender:sender,receiver_email:"nothing@test.com"
-		end
-
+		before { @groupvitation = create :groupvitation, receiver:nil }
+			
 		it "creates a matching invitation" do
-			expect(Invitation.first.referral_email).to eq "nothing@test.com"
+			expect(Invitation.first).to be_truthy
 		end
 
 		it { expect(@groupvitation.status).to eq "not_a_user" }

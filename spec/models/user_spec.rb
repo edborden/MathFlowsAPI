@@ -31,7 +31,7 @@ describe User do
 		it { should have_many(:invitations_sent).dependent :destroy }
 		it { should have_one(:invitation).dependent :nullify }
 		it { should have_many(:groupvitations_sent).dependent :destroy }
-		it { should have_many(:groupvitations).conditions(where:1).dependent :destroy }
+		it { should have_many(:groupvitations).conditions(status:1).dependent :destroy }
 		it { should have_one(:plan).dependent :destroy }
 		it { should have_one(:google_auth).dependent :destroy }
 
