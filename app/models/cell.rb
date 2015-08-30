@@ -6,4 +6,8 @@ class Cell < ActiveRecord::Base
 
 	validates_presence_of :table_id,:row_id,:col_id
 
+	def has_write_access? user
+		table.block.user == user
+	end
+
 end

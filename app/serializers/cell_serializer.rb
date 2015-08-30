@@ -1,5 +1,3 @@
 class CellSerializer < ApplicationSerializer
-	attributes :content
-	has_one :row
-	has_one :col
+	attributes :content,:row_id,:col_id,:table_id
 end
