@@ -36,34 +36,7 @@ module PdfHelpers
 
 						block.lines.each do |line|
 
-							## PROCESS CONTENT LINES
-							element_width = bounds.right
-							content_lines = []
-							unused_content = line.processed_content
-							until unused_content.empty?
-								content_line = ContentLine.new(unused_content,element_width)
-								content_lines << content_line
-								unused_content = content_line.unused_content_array
-							end
-
-							## EACH LINE
-							content_lines.each do |content_line|
-								bounding_box [0,bounds.top - total_content_height],width:bounds.right, height:content_line.height do				
-									content_line.line_items.each do |item|	
-										float do										
-											## RENDER TO PDF
-											if item[:item].is_a? Image
-												image item[:item].file, scale:0.25, position: item[:indentation]
-											else
-												indent item[:indentation] do
-													text item[:item].text, valign: :center
-												end
-											end										
-										end
-									end
-								end
-								total_content_height += content_line.height
-							end
+							total_content_height = write_line(line,total_content_height)
 
 						end
 
@@ -79,10 +52,49 @@ module PdfHelpers
 				image block.image.file, fit: [bounds.right,bounds.top - total_content_height], position: :right, vposition: :bottom
 			end
 
+			## QUESTION BLOCK BORDERS
+
 			stroke_bounds if block.question? && borders
 
 		end
 
+	end
+
+	def process_content_lines element_width, unused_content
+		content_lines = []
+		until unused_content.empty?
+			content_line = ContentLine.new(unused_content,element_width)
+			content_lines << content_line
+			unused_content = content_line.unused_content_array
+		end
+		return content_lines
+	end
+
+	def write_content_line content_line, element_height, total_content_height, element_width
+		bounding_box [0,element_height - total_content_height],width:element_width, height:content_line.height do				
+			content_line.line_items.each do |item|
+				float do
+					## RENDER TO PDF
+					if item[:item].is_a? Image
+						image item[:item].file, scale:0.25, position: item[:indentation]
+					else
+						indent item[:indentation] do
+							text item[:item].text, valign: :center
+						end
+					end
+				end
+			end
+		end
+	end
+
+	def write_line line, total_content_height
+		content_lines = process_content_lines bounds.right, line.processed_content
+
+		content_lines.each do |content_line|
+			write_content_line content_line, bounds.top, total_content_height, bounds.right
+			total_content_height += content_line.height
+		end
+		return total_content_height
 	end
 
 end
