@@ -173,7 +173,8 @@ ActiveRecord::Schema.define(version: 20150718222534) do
   create_table "projections", force: true do |t|
     t.integer "table_id",null:false
     t.integer "axis",null:false,default:0
-    t.float   "position", default: 1.0, null: false    
+    t.float   "position", default: 1.0, null: false 
+    t.integer "size", default:15,null:false
   end
 
   add_index "projections", ["table_id","axis"], name: "index_tables_on_table_id", using: :btree

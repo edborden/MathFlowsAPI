@@ -26,4 +26,10 @@ describe Image do
 
 	end
 
+	context "after creation" do
+
+		it "creates alignment"
+
+	end
+
 end

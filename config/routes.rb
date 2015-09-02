@@ -17,4 +17,5 @@ Rails.application.routes.draw do
 	post 'groupvitations/:id/decline', to: 'groupvitations#decline'
 	resources :tables, only: [:create,:destroy]
 	resources :cells, only: [:create,:update]
+	resources :projections, only: [:update]
 end

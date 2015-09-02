@@ -42,7 +42,7 @@ describe Table do
 
 	end
 
-	context "after create" do
+	context "after creation" do
 
 		let(:table) { create :table, rows_count:3,cols_count:2}
 
@@ -60,6 +60,10 @@ describe Table do
 
 		it "retains correct cols_count" do
 			expect(table.reload.cols_count).to be 2
+		end
+
+		it "creates alignment" do
+			expect(table.alignment).to be_truthy
 		end
 
 	end

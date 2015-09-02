@@ -5,6 +5,7 @@ describe Projection do
 		it { should have_db_column(:table_id).of_type(:integer).with_options null:false }
 		it { should have_db_column(:axis).of_type(:integer).with_options null:false}
 		it { should have_db_column(:position).of_type(:float).with_options null:false,default:1.0 }
+		it { should have_db_column(:size).of_type(:integer).with_options null:false,default:15 }
 
 		it { should have_db_index [:table_id,:axis] }
 
