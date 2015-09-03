@@ -9,11 +9,11 @@ class Table < ActiveRecord::Base
 	validates_presence_of :block_id
 
 	def rows
-		projections.row
+		projections.row.order :id
 	end
 
 	def cols
-		projections.col
+		projections.col.order :id
 	end
 
 	def has_write_access? user
@@ -29,5 +29,9 @@ class Table < ActiveRecord::Base
 
 		rows_to_create.times { |index| Projection.create axis:0,table_id:self.id,position:index }
 		cols_to_create.times { |index| Projection.create axis:1,table_id:self.id,position:index }
+	end
+
+	def cell_at row,col
+		cells.where(row_id:row.id,col_id:col.id).take
 	end
 end

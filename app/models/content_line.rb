@@ -41,6 +41,7 @@ class ContentLine
 		@line_items.each do |item|
 			@height = item[:item].line_height if item[:item].line_height > @height
 		end
+		@height += 4 if @height > 18# allow for 2px buffer on top and bottom for images
 	end
 
 end

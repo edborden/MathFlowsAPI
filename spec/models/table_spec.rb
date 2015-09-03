@@ -42,6 +42,15 @@ describe Table do
 
 	end
 
+	describe "#cell_at" do
+		let(:cell) { table.cells.first }
+
+		it "returns the cell at given row and col" do
+			expect(table.cell_at(cell.row,cell.col)).to eq cell
+		end
+
+	end
+
 	context "after creation" do
 
 		let(:table) { create :table, rows_count:3,cols_count:2}

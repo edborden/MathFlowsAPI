@@ -1,4 +1,5 @@
 class Cell < ActiveRecord::Base
+	include ProcessedContent
 
 	belongs_to :table
 	belongs_to :row, class_name:"Projection", inverse_of: :row_cells
