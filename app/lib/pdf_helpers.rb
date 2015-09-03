@@ -57,47 +57,7 @@ module PdfHelpers
 			table = block.table
 			if table.present?
 
-				table_box = bounding_box( [0, bounds.top - block_top_offset], width:bounds.right ) do
-
-					y = 0
-
-					table.rows.each do |row|
-
-						x = 0
-
-						row_box = bounding_box([0,bounds.top - y], width: bounds.right ) do
-
-							table.cols.each do |col|
-
-								bounding_box([x,bounds.top],width:col.size) do
-
-									cell = table.cell_at(row,col) || Cell.new(row_id:row.id,col_id:col.id)
-									write_line cell, 0
-
-								end
-
-								x += col.size
-
-							end
-
-						end
-
-						p row_box.height
-
-						stroke { rectangle [0,bounds.top-y],x,row_box.height }
-
-						y += row_box.height
-
-					end 
-
-				end
-					
-				#stroke each col
-				x = 0
-				table.cols.each do |col|
-					x += col.size
-					stroke { vertical_line bounds.top - block_top_offset, bounds.top - table_box.height - block_top_offset, at: x }
-				end
+				write_table table, block_top_offset
 
 			end
 
@@ -107,6 +67,49 @@ module PdfHelpers
 
 		end
 
+	end
+
+	def write_table table,top_offset
+
+		table_box = bounding_box( [0, bounds.top - top_offset], width:bounds.right ) do
+
+			y = 0
+
+			table.rows.each do |row|
+
+				x = 0
+
+				row_box = bounding_box([0,bounds.top - y], width: bounds.right ) do
+
+					table.cols.each do |col|
+
+						bounding_box([x,bounds.top],width:col.size) do
+
+							cell = table.cell_at(row,col) || Cell.new(row_id:row.id,col_id:col.id)
+							write_line cell, 0
+
+						end
+
+						x += col.size
+
+					end
+
+				end
+
+				stroke { rectangle [0,bounds.top-y],x,row_box.height }
+
+				y += row_box.height
+
+			end 
+
+		end
+			
+		#stroke each col
+		x = 0
+		table.cols.each do |col|
+			x += col.size
+			stroke { vertical_line bounds.top - top_offset, bounds.top - table_box.height - top_offset, at: x }
+		end
 	end
 
 	def process_content_lines element_width, unused_content
