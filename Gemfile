@@ -11,6 +11,7 @@ gem 'rack-cors', require: 'rack/cors'
 gem 'google-api-client'
 gem 'amoeba'
 gem 'cloudinary'
+gem 'puma', platforms: :ruby
 
 ##USERVOICE
 gem 'uservoice-ruby'
@@ -40,6 +41,6 @@ end
 group :production do
 	gem 'rails_12factor'
 	gem 'newrelic_rpm'
-	gem 'unicorn', platforms: :ruby
+	#gem 'unicorn', platforms: :ruby
 	#gem 'le'
 end

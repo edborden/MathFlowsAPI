@@ -258,6 +258,7 @@ DEPENDENCIES
   newrelic_rpm
   pg
   prawn (~> 1.3.0)
+  puma
   rack-cors
   rails (= 4.2.4)
   rails-api (= 0.4.0)
@@ -265,7 +266,6 @@ DEPENDENCIES
   rspec-rails
   shoulda
   tzinfo-data
-  unicorn
   uservoice-ruby
 
 BUNDLED WITH
