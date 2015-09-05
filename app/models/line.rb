@@ -3,7 +3,7 @@ class Line < ActiveRecord::Base
 
 	belongs_to :block
 
-	#after_save {block.run_invalidator}
+	after_save {block.run_invalidator}
 
 	def has_write_access? user
 		block.user == user

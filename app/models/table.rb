@@ -3,8 +3,9 @@ class Table < ActiveRecord::Base
 	belongs_to :block
 	has_many :projections, dependent: :destroy
 	has_many :cells
+	has_one :alignment, as: :alignable, dependent: :destroy
 
-	after_create :create_projections
+	after_create :create_projections, :create_alignment
 
 	validates_presence_of :block_id
 

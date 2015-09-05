@@ -190,6 +190,14 @@ ActiveRecord::Schema.define(version: 20150718222534) do
   add_index "cells", ["row_id"], name: "index_cells_on_row_id", using: :btree
   add_index "cells", ["col_id"], name: "index_cells_on_col_id", using: :btree
 
+  create_table "alignments", force: true do |t|
+    t.integer "alignable_id",null:false
+    t.string "alignable_type",null:false
+    t.integer "side",null:false
+  end
+
+  add_index "alignments", ["alignable_type","alignable_id"], name: "index_alignments_on_alignable_type", using: :btree, unique: true
+
   add_foreign_key "cells","projections", column: "row_id", on_delete: :cascade
   add_foreign_key "cells","projections", column: "col_id", on_delete: :cascade
   add_foreign_key "projections","tables", on_delete: :cascade

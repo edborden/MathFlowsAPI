@@ -14,6 +14,7 @@ describe Image do
 	describe "associations" do
 
 		it { should belong_to :block }
+		it { should have_one(:alignment).dependent :destroy }
 
 	end
 
@@ -26,9 +27,13 @@ describe Image do
 
 	end
 
+	let(:image) { create :image }
+
 	context "after creation" do
 
-		it "creates alignment"
+		it "creates alignment" do
+			expect(image.alignment).to be_truthy
+		end
 
 	end
 

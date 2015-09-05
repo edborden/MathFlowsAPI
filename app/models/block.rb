@@ -12,7 +12,7 @@ class Block < ActiveRecord::Base
 
 	enum kind: [:question,:directions,:header]
 
-	#after_update :run_invalidator
+	after_update :run_invalidator
 
 	scope :valid, -> {where("id NOT IN (SELECT block_id FROM invalidations)")} #this doesn't work on an association (page.blocks.valid)
 	scope :question, -> { where(kind:0) }

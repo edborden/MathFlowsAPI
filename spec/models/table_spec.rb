@@ -15,6 +15,7 @@ describe Table do
 		it { should belong_to :block }
 		it { should have_many(:projections).dependent(:destroy) }
 		it { should have_many(:cells) }
+		it { should have_one(:alignment).dependent :destroy }
 
 	end
 

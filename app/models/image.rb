@@ -5,8 +5,11 @@ require 'base64'
 class Image < ActiveRecord::Base
 
 	before_destroy :delete_cloudinary
+	after_create :create_alignment
 
 	belongs_to :block
+	has_one :alignment, as: :alignable, dependent: :destroy
+
 	validates_presence_of :width,:height,:cloudinary_id,:block_id
 
 	def latex string

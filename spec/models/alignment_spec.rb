@@ -8,6 +8,10 @@ describe Alignment do
 
 		it { should have_db_index([:alignable_type,:alignable_id]).unique }
 
+		it { should define_enum_for(:side).with [:left,:right]}
+
+	end
+
 	describe "associations" do
 
 		it { should belong_to :alignable }
@@ -18,7 +22,7 @@ describe Alignment do
 
 		it { should validate_presence_of :alignable_id }
 		it { should validate_presence_of :alignable_type }
-		it { sohuld validate_presence_of :side }
+		it { should validate_presence_of :side }
 
 	end
 
