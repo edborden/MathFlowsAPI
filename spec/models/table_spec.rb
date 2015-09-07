@@ -52,6 +52,14 @@ describe Table do
 
 	end
 
+	describe "#width" do
+
+		it "sums cols" do
+			expect(table.width).to eq 15
+		end
+
+	end
+
 	context "after creation" do
 
 		let(:table) { create :table, rows_count:3,cols_count:2}

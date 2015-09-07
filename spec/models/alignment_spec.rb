@@ -4,7 +4,7 @@ describe Alignment do
 
 		it { should have_db_column(:alignable_id).of_type(:integer).with_options null:false }
 		it { should have_db_column(:alignable_type).of_type(:string).with_options null:false }
-		it { should have_db_column(:side).of_type(:integer).with_options null:false }
+		it { should have_db_column(:side).of_type(:integer).with_options null:false,default:0 }
 
 		it { should have_db_index([:alignable_type,:alignable_id]).unique }
 

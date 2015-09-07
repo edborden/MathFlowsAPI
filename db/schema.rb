@@ -193,7 +193,7 @@ ActiveRecord::Schema.define(version: 20150718222534) do
   create_table "alignments", force: true do |t|
     t.integer "alignable_id",null:false
     t.string "alignable_type",null:false
-    t.integer "side",null:false
+    t.integer "side",null:false,default:0
   end
 
   add_index "alignments", ["alignable_type","alignable_id"], name: "index_alignments_on_alignable_type", using: :btree, unique: true

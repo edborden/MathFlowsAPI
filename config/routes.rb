@@ -18,4 +18,5 @@ Rails.application.routes.draw do
 	resources :tables, only: [:create,:destroy]
 	resources :cells, only: [:create,:update]
 	resources :projections, only: [:create,:update,:destroy]
+	resources :alignments, only: [:update]
 end

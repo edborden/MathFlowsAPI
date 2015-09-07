@@ -49,7 +49,7 @@ module PdfHelpers
 			## BLOCK IMAGE
 
 			if block.image.present?
-				image block.image.file, fit: [bounds.right,bounds.top - block_top_offset], position: :right, vposition: :bottom
+				image block.image.file, fit: [bounds.right,bounds.top - block_top_offset], position: block.image.alignment.side.to_sym, vposition: :bottom
 			end
 
 			## BLOCK TABLE
@@ -71,7 +71,7 @@ module PdfHelpers
 
 	def write_table table,top_offset
 
-		table_box = bounding_box( [0, bounds.top - top_offset], width:bounds.right ) do
+		table_box = bounding_box( [align(table), bounds.top - top_offset], width:bounds.right ) do
 
 			y = 0
 
@@ -110,6 +110,10 @@ module PdfHelpers
 			x += col.size
 			stroke { vertical_line bounds.top - top_offset, bounds.top - table_box.height - top_offset, at: x }
 		end
+	end
+
+	def align table
+		table.alignment.side == "left" ? 0 : bounds.right - table.width
 	end
 
 	def process_content_lines element_width, unused_content

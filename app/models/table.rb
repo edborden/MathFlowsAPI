@@ -9,6 +9,10 @@ class Table < ActiveRecord::Base
 
 	validates_presence_of :block_id
 
+	def width
+		cols.select(:size).map(&:size).sum
+	end
+
 	def rows
 		projections.row.order :position
 	end
