@@ -48,17 +48,16 @@ module PdfHelpers
 
 			## BLOCK IMAGE
 
-			if block.image.present?
-				image block.image.file, fit: [bounds.right,bounds.top - block_top_offset], position: block.image.alignment.side.to_sym, vposition: :bottom
+			image = block.image
+			if image.present?
+				image image.file, width: image.width, height: image.height, position: image.alignment.side.to_sym
 			end
 
 			## BLOCK TABLE
 
 			table = block.table
 			if table.present?
-
 				write_table table, block_top_offset
-
 			end
 
 			## QUESTION BLOCK BORDERS

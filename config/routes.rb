@@ -2,7 +2,7 @@ Rails.application.routes.draw do
 	resources :tests, only: [:create,:show,:update,:destroy]
 	resources :sessions, only: [:create, :index, :destroy]
 	resources :blocks, only: [:create,:update,:show,:destroy]
-	resources :images, only: [:create, :destroy]
+	resources :images, only: [:create, :update, :destroy]
 	resources :pages, only: [:create,:show,:destroy]
 	resources :folders, only: [:create,:update,:destroy]
 	resources :groups, only: [:create,:update]
