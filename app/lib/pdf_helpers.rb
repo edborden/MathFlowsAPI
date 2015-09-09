@@ -46,19 +46,9 @@ module PdfHelpers
 
 			block_top_offset += lines_box.height
 
-			## BLOCK IMAGE
+			## BLOCK CHILDREN
 
-			image = block.images.first
-			if image.present?
-				image image.file, width: image.width, height: image.height, position: image.alignment.side.to_sym
-			end
-
-			## BLOCK TABLE
-
-			table = block.tables.first
-			if table.present?
-				write_table table, block_top_offset
-			end
+			block.children.each { |child| write_block_child(child,block_top_offset) }
 
 			## QUESTION BLOCK BORDERS
 
@@ -68,9 +58,27 @@ module PdfHelpers
 
 	end
 
-	def write_table table,top_offset
+	def write_block_child child,top_offset
 
-		table_box = bounding_box( [align(table), bounds.top - top_offset], width:bounds.right ) do
+		child_box = bounding_box( [align(child), bounds.top - top_offset], width:bounds.right ) do
+
+			if child.is_a? Table
+
+				write_table child
+
+			else
+
+				image child.file, width: child.width, height: child.height, position: child.alignment.side.to_sym
+
+			end				
+
+		end
+
+	end
+
+	def write_table table
+
+		table_box = bounding_box( [0,bounds.top], width: bounds.right ) do
 
 			y = 0
 
@@ -107,12 +115,12 @@ module PdfHelpers
 		x = 0
 		table.cols.each do |col|
 			x += col.size
-			stroke { vertical_line bounds.top - top_offset, bounds.top - table_box.height - top_offset, at: x }
+			stroke { vertical_line bounds.top, bounds.top - table_box.height, at: x }
 		end
 	end
 
-	def align table
-		table.alignment.side == "left" ? 0 : bounds.right - table.width
+	def align child
+		child.alignment.side == "left" ? 0 : bounds.right - child.width
 	end
 
 	def process_content_lines element_width, unused_content
