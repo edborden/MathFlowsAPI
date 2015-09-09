@@ -5,7 +5,7 @@ class ImagesController < ResourceController
 	end
 
 	def resource_params
-		params.require(:image).permit :cloudinary_id,:block_id,:width,:height
+		params.require(:image).permit :cloudinary_id,:block_id,:width,:height,:block_position
 	end
 
 end

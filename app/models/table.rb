@@ -6,7 +6,7 @@ class Table < ActiveRecord::Base
 	has_many :cells
 	has_one :alignment, as: :alignable, dependent: :destroy
 
-	after_create :create_alignment,:create_projections,:set_block_position
+	after_create :create_alignment,:create_projections
 
 	validates_presence_of :block_id
 

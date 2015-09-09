@@ -36,10 +36,6 @@ describe Image do
 			expect(image.alignment).to be_truthy
 		end
 
-		it "sets block_position" do
-			expect(image.block_position).to eq 0
-		end
-
 	end
 
 end

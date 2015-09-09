@@ -85,10 +85,6 @@ describe Table do
 			expect(table.alignment).to be_truthy
 		end
 
-		it "sets block_position" do
-			expect(table.block_position).to eq 0
-		end
-
 	end
 	
 end

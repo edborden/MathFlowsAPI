@@ -6,7 +6,7 @@ class Image < ActiveRecord::Base
 	include BlockChild
 
 	before_destroy :delete_cloudinary
-	after_create :create_alignment,:set_block_position
+	after_create :create_alignment
 	after_save {block.run_invalidator}
 
 	belongs_to :block
