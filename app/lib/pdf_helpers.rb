@@ -48,14 +48,14 @@ module PdfHelpers
 
 			## BLOCK IMAGE
 
-			image = block.image
+			image = block.images.first
 			if image.present?
 				image image.file, width: image.width, height: image.height, position: image.alignment.side.to_sym
 			end
 
 			## BLOCK TABLE
 
-			table = block.table
+			table = block.tables.first
 			if table.present?
 				write_table table, block_top_offset
 			end

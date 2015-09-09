@@ -23,8 +23,8 @@ describe Block do
 
 		it { should belong_to :page }
 		it { should belong_to :user }
-		it { should have_one(:image).dependent :destroy }
-		it { should have_one(:table).dependent :destroy }
+		it { should have_many(:images).dependent :destroy }
+		it { should have_many(:tables).dependent :destroy }
 		it { should have_many(:invalidations).dependent :destroy }
 		it { should have_many(:lines).order(:position).dependent :destroy }
 
@@ -63,6 +63,22 @@ describe Block do
 			directions_block = create :block, kind:"directions"
 
 			expect(Block.valid_question).to contain_exactly valid_question
+		end
+
+	end
+
+	describe "#children" do
+
+		context "when has children" do
+
+			let(:block_with_children) { create :block_with_children }
+
+			it "returns images and tables ordered by block_position" do
+
+				expect(block_with_children.children).to eq [block_with_children.tables.first,block_with_children.images.first]
+
+			end
+
 		end
 
 	end

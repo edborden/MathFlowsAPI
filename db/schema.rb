@@ -65,6 +65,7 @@ ActiveRecord::Schema.define(version: 20150718222534) do
     t.integer "width",null:false
     t.integer "height",null:false
     t.string  "cloudinary_id",null:false
+    t.integer "block_position"
   end
 
   add_index "images", ["block_id"], name: "index_images_on_block_id", using: :btree
@@ -165,6 +166,7 @@ ActiveRecord::Schema.define(version: 20150718222534) do
   create_table "tables", force: true do |t|
     t.integer "block_id",null:false
     t.integer "rows_count",null:false,default:0
+    t.integer "block_position"
     t.integer "cols_count",null:false,default:0
   end
 

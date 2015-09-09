@@ -5,6 +5,7 @@ describe Table do
 		it { should have_db_column(:block_id).of_type(:integer).with_options null:false }
 		it { should have_db_column(:rows_count).of_type(:integer).with_options null:false,default:0 }
 		it { should have_db_column(:cols_count).of_type(:integer).with_options null:false,default:0 }
+		it { should have_db_column(:block_position).of_type(:integer) }
 
 		it { should have_db_index :block_id }
 
@@ -82,6 +83,10 @@ describe Table do
 
 		it "creates alignment" do
 			expect(table.alignment).to be_truthy
+		end
+
+		it "sets block_position" do
+			expect(table.block_position).to eq 0
 		end
 
 	end

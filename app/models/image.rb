@@ -3,9 +3,10 @@ require 'data_uri/open_uri'
 require 'base64'
 
 class Image < ActiveRecord::Base
+	include BlockChild
 
 	before_destroy :delete_cloudinary
-	after_create :create_alignment
+	after_create :create_alignment,:set_block_position
 	after_save {block.run_invalidator}
 
 	belongs_to :block

@@ -1,11 +1,12 @@
 class Table < ActiveRecord::Base
+	include BlockChild
 
 	belongs_to :block
 	has_many :projections, dependent: :destroy
 	has_many :cells
 	has_one :alignment, as: :alignable, dependent: :destroy
 
-	after_create :create_alignment,:create_projections
+	after_create :create_alignment,:create_projections,:set_block_position
 
 	validates_presence_of :block_id
 

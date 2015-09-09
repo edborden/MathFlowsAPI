@@ -1,11 +1,11 @@
 class Block < ActiveRecord::Base
 	belongs_to :page
 	belongs_to :user
-	has_one :image, dependent: :destroy
+	has_many :images, dependent: :destroy
 	has_many :invalidations, dependent: :destroy
 	has_many :lines, -> { order(:position) }, dependent: :destroy
 	has_one :test, through: :page
-	has_one :table, dependent: :destroy
+	has_many :tables, dependent: :destroy
 
 	validates_presence_of :kind,:col_span,:row_span,:lines_height
 	validates :user_id, presence: true, on: :create
@@ -25,6 +25,11 @@ class Block < ActiveRecord::Base
 			update_column "lines_height",lines_height
 			reload
 		end
+	end
+
+	def children
+		unsorted = tables + images
+		unsorted.sort { |child1,child2| child2.block_position <=> child1.block_position }
 	end
 
 	def content_invalidation 

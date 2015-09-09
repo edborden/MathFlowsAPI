@@ -6,6 +6,7 @@ describe Image do
 		it { should have_db_column(:width).of_type(:integer).with_options null:false }
 		it { should have_db_column(:height).of_type(:integer).with_options null:false }
 		it { should have_db_column(:cloudinary_id).of_type(:string).with_options null:false }
+		it { should have_db_column(:block_position).of_type(:integer) }
 
 		it { should have_db_index :block_id }
 
@@ -33,6 +34,10 @@ describe Image do
 
 		it "creates alignment" do
 			expect(image.alignment).to be_truthy
+		end
+
+		it "sets block_position" do
+			expect(image.block_position).to eq 0
 		end
 
 	end
