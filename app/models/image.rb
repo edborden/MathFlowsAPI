@@ -6,6 +6,7 @@ class Image < ActiveRecord::Base
 
 	before_destroy :delete_cloudinary
 	after_create :create_alignment
+	after_save {block.run_invalidator}
 
 	belongs_to :block
 	has_one :alignment, as: :alignable, dependent: :destroy

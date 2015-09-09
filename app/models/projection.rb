@@ -8,6 +8,9 @@ class Projection < ActiveRecord::Base
 
 	validates_presence_of :table_id,:axis,:position
 
+	after_save {table.block.run_invalidator}
+	after_destroy {table.block.run_invalidator}
+
 	def cells
 		row? ? row_cells : col_cells
 	end
