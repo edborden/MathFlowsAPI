@@ -48,7 +48,11 @@ module PdfHelpers
 
 			## BLOCK CHILDREN
 
-			block.children.each { |child| write_block_child(child,block_top_offset) }
+			block.children.each do |child| 
+
+				child_box = write_block_child(child,block_top_offset)
+
+			end
 
 			## QUESTION BLOCK BORDERS
 
@@ -138,11 +142,11 @@ module PdfHelpers
 			content_line.line_items.each do |item|
 				float do
 					## RENDER TO PDF
-					if item[:item].is_a? Image
-						image item[:item].file, scale:0.25, position: item[:indentation], vposition: 2
+					if item.object.is_a? Equation
+						image item.object.file, scale:0.25, position: item.indentation, vposition: 2
 					else
-						indent item[:indentation] do
-							text item[:item].text, valign: :center
+						indent item.indentation do
+							text item.object.text, valign: :center
 						end
 					end
 				end

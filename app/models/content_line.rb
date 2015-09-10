@@ -8,7 +8,7 @@ class ContentLine
 		@line_items = []
 		line_width = 0
 		@unused_content_array.each do |item|
-			line_width = line_width + item.line_width
+			line_width = line_width + item.width
 			line_items << item
 			break if line_width > element_width
 		end
@@ -31,15 +31,15 @@ class ContentLine
 	def format_line_items
 		cursor = 0
 		@line_items.each_with_index do |item,index|
-			@line_items[index] = {indentation: cursor,item:item}
-			cursor += item.line_width
+			@line_items[index] = OpenStruct.new indentation:cursor,object:item
+			cursor += item.width
 		end
 	end
 
 	def set_height
 		@height = 0
 		@line_items.each do |item|
-			@height = item[:item].line_height if item[:item].line_height > @height
+			@height = item.object.height if item.object.height > @height
 		end
 		@height += 4 if @height > 18# allow for 2px buffer on top and bottom for images
 	end
