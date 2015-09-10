@@ -11,18 +11,10 @@ class Equation
 		set_dimensions
 	end
 
-	def line_width
-		width * 0.25
-	end
-
-	def line_height
-		height * 0.25
-	end
-
 	def set_dimensions
 		size = ImageSize.new(file).size
-		@width = size[0]
-		@height = size[1]
+		@width = size[0] * 0.25
+		@height = size[1] * 0.25
 	end
 
 end

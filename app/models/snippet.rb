@@ -7,11 +7,11 @@ class Snippet
 		end
 	end
 
-	def line_width
+	def width
 		@text ? width_of(@text) : 5
 	end
 
-	def line_height
+	def height
 		18
 	end
 
