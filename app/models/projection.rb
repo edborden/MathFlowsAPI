@@ -1,8 +1,8 @@
 class Projection < ActiveRecord::Base
 	
 	belongs_to :table
-	has_many :row_cells, dependent: :destroy, class_name: "Cell", foreign_key: "row_id", counter_cache: true
-	has_many :col_cells, dependent: :destroy, class_name: "Cell", foreign_key: "col_id", counter_cache: true
+	has_many :row_cells, dependent: :destroy, class_name: "Cell", foreign_key: "row_id"
+	has_many :col_cells, dependent: :destroy, class_name: "Cell", foreign_key: "col_id"
 
 	enum axis: [:row,:col]
 

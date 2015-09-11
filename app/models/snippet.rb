@@ -1,30 +1,34 @@
 class Snippet
 	include Prawn::View
 
-	def initialize text=nil
-		if text
-			@text = clean text
+	def initialize string=nil
+		if string
+			@string = clean string
 		end
 	end
 
 	def width
-		@text ? width_of(@text) : 5
+		@string ? width_of(@string) : 5
 	end
 
 	def height
 		18
 	end
 
-	def text
-		@text ? @text : Prawn::Text::NBSP
+	def string
+		@string ? @string : Prawn::Text::NBSP
 	end
 
 	def clean string
 		string.gsub "\\$","$"
 	end
 
-	def set_text string
-		@text = string
+	def alignment
+		OpenStruct.new side: "left", left?:true
+	end
+
+	def write_to_pdf pdf
+		pdf.text string, valign: :center
 	end
 
 end

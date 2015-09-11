@@ -16,8 +16,8 @@ describe Projection do
 	describe "associations" do
 
 		it { should belong_to :table }
-		it { should have_many(:row_cells).dependent(:destroy).class_name("Cell").with_foreign_key("row_id").counter_cache }
-		it { should have_many(:col_cells).dependent(:destroy).class_name("Cell").with_foreign_key("col_id").counter_cache }
+		it { should have_many(:row_cells).dependent(:destroy).class_name("Cell").with_foreign_key("row_id") }
+		it { should have_many(:col_cells).dependent(:destroy).class_name("Cell").with_foreign_key("col_id") }
 
 	end
 

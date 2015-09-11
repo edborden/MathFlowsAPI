@@ -1,7 +1,6 @@
 require 'open-uri'
 
 class Image < ActiveRecord::Base
-
 	before_destroy :delete_cloudinary
 	after_create :create_alignment
 	after_save {block.run_invalidator}
@@ -21,5 +20,9 @@ class Image < ActiveRecord::Base
 
 	def has_write_access? user
 		block.user == user
+	end
+
+	def write_to_pdf pdf
+		pdf.image file, width: width, height: height
 	end
 end

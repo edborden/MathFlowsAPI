@@ -13,7 +13,7 @@ class EquationExtractor
 	def convert_to_content_objects string_array
 		string_array.each_with_index do |string,index|
 			if string[0] == "$" && string[string.length-1] == "$" #is an equation
-				string_array[index] = Image.new.latex(string)
+				string_array[index] = Equation.new(string)
 			else string.is_a? String
 				string_array[index] = Snippet.new(string+" ")
 			end

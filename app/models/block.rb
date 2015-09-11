@@ -1,4 +1,6 @@
 class Block < ActiveRecord::Base
+	include ProcessedContent
+
 	belongs_to :page
 	belongs_to :user
 	has_many :images, dependent: :destroy
@@ -29,7 +31,7 @@ class Block < ActiveRecord::Base
 
 	def children
 		unsorted = tables + images
-		unsorted.sort { |child1,child2| child2.block_position <=> child1.block_position }
+		unsorted.sort { |child1,child2| child1.block_position <=> child2.block_position }
 	end
 
 	def content_invalidation 
@@ -78,6 +80,10 @@ class Block < ActiveRecord::Base
 
 	def total_inside_margin_width
 		(col_span-1) * INSIDE_MARGIN
+	end
+
+	def processed_content
+		children
 	end
 
 end

@@ -8,7 +8,7 @@ describe Alignment do
 
 		it { should have_db_index([:alignable_type,:alignable_id]).unique }
 
-		it { should define_enum_for(:side).with [:left,:right]}
+		it { should define_enum_for(:side).with [:left,:right,:center]}
 
 	end
 

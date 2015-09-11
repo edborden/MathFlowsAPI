@@ -12,45 +12,37 @@ module PdfHelpers
 
 		bounding_box([block.x, bounds.top - block.y], width: block.width,height:block_height) do
 
-			block_top_offset = 0
+			## BLOCK QUESTION NUMBER
+
+			number_indentation = 0
+			if block.question?
+				move_down 3.5
+				question_number = QuestionNumber.new(block)
+				float do
+					text question_number.formatted, {style: :bold}
+				end
+				number_indentation = question_number.width
+			end
+
+			y = 0
 						
-			lines_box = bounding_box([0,bounds.top],width:bounds.right) do
+			block.lines.each do |line|
 
-				y = 0
+				lines_box = bounding_box [number_indentation,bounds.top-y],width:bounds.right do
 
-				## BLOCK QUESTION NUMBER
-
-				number_indentation = 0
-				if block.question?
-					move_down 3.5
-					question_number = QuestionNumber.new(block)
-					float do
-						text question_number.formatted, {style: :bold}
-					end
-					number_indentation = question_number.width
-				end
-
-				indent number_indentation do
-
-					## BLOCK LINES
-
-					block.lines.each do |line|
-
-						y += write_line(line,y)
-
-					end
+					line.write_to_pdf self
 
 				end
+
+				y += lines_box.height
 
 			end
 
-			block_top_offset += lines_box.height
-
 			## BLOCK CHILDREN
 
-			block.children.each do |child| 
+			bounding_box [0,bounds.top-y],width:bounds.right do
 
-				child_box = write_block_child(child,block_top_offset)
+				block.write_to_pdf(self) if block.children
 
 			end
 
@@ -60,109 +52,6 @@ module PdfHelpers
 
 		end
 
-	end
-
-	def write_block_child child,top_offset
-
-		child_box = bounding_box( [align(child), bounds.top - top_offset], width:bounds.right ) do
-
-			if child.is_a? Table
-
-				write_table child
-
-			else
-
-				image child.file, width: child.width, height: child.height, position: child.alignment.side.to_sym
-
-			end				
-
-		end
-
-	end
-
-	def write_table table
-
-		table_box = bounding_box( [0,bounds.top], width: bounds.right ) do
-
-			y = 0
-
-			table.rows.each do |row|
-
-				x = 0
-
-				row_box = bounding_box([0,bounds.top - y], width: bounds.right ) do
-
-					table.cols.each do |col|
-
-						bounding_box([x,bounds.top],width:col.size) do
-
-							cell = table.cell_at(row,col) || Cell.new(row_id:row.id,col_id:col.id)
-							write_line cell, 0
-
-						end
-
-						x += col.size
-
-					end
-
-				end
-
-				stroke { rectangle [0,bounds.top-y],x,row_box.height }
-
-				y += row_box.height
-
-			end 
-
-		end
-			
-		#stroke each col
-		x = 0
-		table.cols.each do |col|
-			x += col.size
-			stroke { vertical_line bounds.top, bounds.top - table_box.height, at: x }
-		end
-	end
-
-	def align child
-		child.alignment.side == "left" ? 0 : bounds.right - child.width
-	end
-
-	def process_content_lines element_width, unused_content
-		content_lines = []
-		until unused_content.empty?
-			content_line = ContentLine.new(unused_content,element_width)
-			content_lines << content_line
-			unused_content = content_line.unused_content_array
-		end
-		return content_lines
-	end
-
-	def write_content_line content_line, y, element_width
-		bounding_box [2,y],width:element_width, height:content_line.height do				
-			content_line.line_items.each do |item|
-				float do
-					## RENDER TO PDF
-					if item.object.is_a? Equation
-						image item.object.file, scale:0.25, position: item.indentation, vposition: 2
-					else
-						indent item.indentation do
-							text item.object.text, valign: :center
-						end
-					end
-				end
-			end
-		end
-	end
-
-	def write_line line, top_offset
-		y = 0
-		content_lines = process_content_lines bounds.right, line.processed_content
-
-		content_lines.each do |content_line|
-			write_content_line content_line, bounds.top - top_offset - y, bounds.right
-			y += content_line.height
-		end
-		return y
 	end
 
 end

@@ -1,7 +1,6 @@
 require 'open-uri'
 
 class Equation
-
 	attr_reader :file,:width,:height
 
 	def initialize latex
@@ -15,6 +14,14 @@ class Equation
 		size = ImageSize.new(file).size
 		@width = size[0] * 0.25
 		@height = size[1] * 0.25
+	end
+
+	def alignment
+		OpenStruct.new side: "left", left?:true
+	end
+
+	def write_to_pdf pdf
+		pdf.image @file, scale:0.25, vposition: 2
 	end
 
 end
