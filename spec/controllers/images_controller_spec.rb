@@ -6,7 +6,7 @@ describe ImagesController do
 
 		it "creates image" do
 
-			authenticated_req :post,:create,{image:{cloudinary_id:"block_images/v7bz2rx9bs65ecbhyf0n",block_id:block.id,height:100,width:100}},user
+			authenticated_req :post,:create,{image:{cloudinary_id:"block_images/v7bz2rx9bs65ecbhyf0n",block_id:block.id,height:100,width:100,block_position:0}},user
 			should respond_with :ok
 			expect(Image.count).to eq 1
 

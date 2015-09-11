@@ -8,7 +8,7 @@ class Image < ActiveRecord::Base
 	belongs_to :block
 	has_one :alignment, as: :alignable, dependent: :destroy
 
-	validates_presence_of :width,:height,:cloudinary_id,:block_id
+	validates_presence_of :width,:height,:cloudinary_id,:block_id,:block_position
 
 	def file		
 		@file ||= open "http://res.cloudinary.com/hmb9zxcjb/image/upload/" + cloudinary_id

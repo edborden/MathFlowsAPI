@@ -8,7 +8,7 @@ class Table < ActiveRecord::Base
 
 	after_create :create_alignment,:create_projections
 
-	validates_presence_of :block_id
+	validates_presence_of :block_id,:block_position
 
 	def width
 		@width ||= cols.select(:size).map(&:size).sum

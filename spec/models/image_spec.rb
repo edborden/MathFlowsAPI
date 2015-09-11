@@ -25,6 +25,7 @@ describe Image do
 		it { should validate_presence_of :width }
 		it { should validate_presence_of :height }
 		it { should validate_presence_of :cloudinary_id }
+		it { should validate_presence_of :block_position }
 
 	end
 

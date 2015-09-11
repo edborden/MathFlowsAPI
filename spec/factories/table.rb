@@ -2,6 +2,7 @@ FactoryGirl.define do
 
 	factory :table do
 		block
+		block_position 0
 
 		factory :table_with_content do
 			after(:create) do |table| 
