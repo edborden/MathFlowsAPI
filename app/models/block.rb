@@ -9,7 +9,7 @@ class Block < ActiveRecord::Base
 	has_one :test, through: :page
 	has_many :tables, dependent: :destroy
 
-	validates_presence_of :kind,:col_span,:row_span,:lines_height
+	validates_presence_of :kind,:col_span,:row_span
 	validates :user_id, presence: true, on: :create
 
 	enum kind: [:question,:directions,:header]
@@ -22,11 +22,7 @@ class Block < ActiveRecord::Base
 	scope :header, -> { where(kind:2) }
 
 	def run_invalidator
-		lines_height = Invalidator.new(self).run
-		unless self.lines_height == lines_height
-			update_column "lines_height",lines_height
-			reload
-		end
+		Invalidator.new(self).run
 	end
 
 	def children

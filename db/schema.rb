@@ -24,7 +24,6 @@ ActiveRecord::Schema.define(version: 20150718222534) do
     t.integer "col"
     t.integer "row_span", default: 1, null:false
     t.integer "col_span", default: 1, null: false
-    t.decimal  "lines_height", precision: 6, scale: 2, default:18.0,null:false
   end
 
   add_index "blocks", ["page_id"], name: "index_blocks_on_test_id", using: :btree

@@ -9,7 +9,6 @@ describe Block do
 		it { should have_db_column(:col).of_type :integer }
 		it { should have_db_column(:row_span).of_type(:integer).with_options default:1,null:false }
 		it { should have_db_column(:col_span).of_type(:integer).with_options default:1,null:false }
-		it { should have_db_column(:lines_height).of_type(:decimal).with_options precision: 6, scale: 2, default: 18.0, null:false }
 
 		it { should have_db_index :page_id }
 		it { should have_db_index :user_id }
@@ -35,7 +34,6 @@ describe Block do
 		it { should validate_presence_of :kind }
 		it { should validate_presence_of :row_span }
 		it { should validate_presence_of :col_span }
-		it { should validate_presence_of :lines_height }
 		it { should validate_presence_of(:user_id).on(:create) }
 
 	end
