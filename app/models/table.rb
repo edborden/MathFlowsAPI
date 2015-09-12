@@ -6,6 +6,8 @@ class Table < ActiveRecord::Base
 	has_many :cells
 	has_one :alignment, as: :alignable, dependent: :destroy
 
+	attr_accessor :rows_count,:cols_count
+
 	after_create :create_alignment,:create_projections
 
 	validates_presence_of :block_id,:block_position
@@ -27,14 +29,8 @@ class Table < ActiveRecord::Base
 	end
 
 	def create_projections
-		rows_to_create = rows_count
-		cols_to_create = cols_count
-
-		self.rows_count = 0
-		self.cols_count = 0
-
-		rows_to_create.times { |index| Projection.create axis:0,table_id:self.id,position:index+1 }
-		cols_to_create.times { |index| Projection.create axis:1,table_id:self.id,position:index+1 }
+		@rows_count.times { |index| Projection.create axis:0,table_id:self.id,position:index+1 }
+		@cols_count.times { |index| Projection.create axis:1,table_id:self.id,position:index+1 }
 	end
 
 	def cell_at row,col
