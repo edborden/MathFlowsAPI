@@ -17,7 +17,7 @@ describe Close do
 		end
 
 		context "user's block is invalidated" do
-			before { Invalidation.create block_id:block.id }
+			before { block.update content_invalid:true }
 
 			it "destroys block" do
 				expect { Close.new(user) }.to change { Block.count }.by(-1) 

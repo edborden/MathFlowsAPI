@@ -4,7 +4,6 @@ class Block < ActiveRecord::Base
 	belongs_to :page
 	belongs_to :user
 	has_many :images, dependent: :destroy
-	has_many :invalidations, dependent: :destroy
 	has_many :lines, -> { order(:position) }, dependent: :destroy
 	has_one :test, through: :page
 	has_many :tables, dependent: :destroy
@@ -14,28 +13,14 @@ class Block < ActiveRecord::Base
 
 	enum kind: [:question,:directions,:header]
 
-	after_update :run_invalidator
-
-	scope :valid, -> {where("id NOT IN (SELECT block_id FROM invalidations)")} #this doesn't work on an association (page.blocks.valid)
+	scope :valid, -> {where(content_invalid:false)}
 	scope :question, -> { where(kind:0) }
 	scope :valid_question, -> { question.valid }
 	scope :header, -> { where(kind:2) }
 
-	def run_invalidator
-		Invalidator.new(self).run
-	end
-
 	def children
 		unsorted = tables + images
 		unsorted.sort { |child1,child2| child1.block_position <=> child2.block_position }
-	end
-
-	def content_invalidation 
-		invalidations.where(message:0).take
-	end
-
-	def position_invalidation
-		invalidations.where(message:1).take
 	end
 
 	amoeba do

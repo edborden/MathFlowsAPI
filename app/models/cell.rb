@@ -7,8 +7,6 @@ class Cell < ActiveRecord::Base
 
 	validates_presence_of :table_id,:row_id,:col_id
 
-	after_save {table.block.run_invalidator}
-
 	def has_write_access? user
 		table.block.user == user
 	end

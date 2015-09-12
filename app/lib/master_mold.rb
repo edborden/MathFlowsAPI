@@ -112,7 +112,7 @@ class MasterMold
 										kind:"question"
 									},
 									lines: [{content:"Access any selected block's menu on the right, which will allow you to add images...",position:1}],
-									image: {params:{height:141,width:178,cloudinary_id:"block_images/v7bz2rx9bs65ecbhyf0n"}}
+									image: {params:{height:141,width:178,cloudinary_id:"block_images/v7bz2rx9bs65ecbhyf0n",block_position:0}}
 								},
 								{
 									params: {
@@ -123,7 +123,7 @@ class MasterMold
 										kind:"question"
 									},
 									lines: [{content:"...or create graphs.",position:1}],
-									image: {params: {width:200,height:159,cloudinary_id:"block_images/eyjdrh6xrt2no9a2ezam"}}
+									image: {params: {width:200,height:159,cloudinary_id:"block_images/eyjdrh6xrt2no9a2ezam",block_position:0}}
 								},
 								{
 									params: {

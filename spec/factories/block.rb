@@ -7,7 +7,7 @@ FactoryGirl.define do
 		user
 
 		factory :block_with_invalidation do
-			after(:create) {|block| create_list(:invalidation,1,block:block)} 
+			content_invalid true 
 		end
 
 		factory :block_with_children do

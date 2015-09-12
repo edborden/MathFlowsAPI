@@ -23,6 +23,11 @@ class BlocksController < ResourceController
 		end
 	end
 
+	def validate
+		Validate.new resource
+		render_resource
+	end
+
 	def resource_params
 		params.require(:block).permit :row,:col,:col_span,:row_span,:page_id,:kind
 	end

@@ -24,6 +24,7 @@ ActiveRecord::Schema.define(version: 20150718222534) do
     t.integer "col"
     t.integer "row_span", default: 1, null:false
     t.integer "col_span", default: 1, null: false
+    t.boolean "content_invalid",default:false,null:false
   end
 
   add_index "blocks", ["page_id"], name: "index_blocks_on_test_id", using: :btree
@@ -68,13 +69,6 @@ ActiveRecord::Schema.define(version: 20150718222534) do
   end
 
   add_index "images", ["block_id"], name: "index_images_on_block_id", using: :btree
-
-  create_table "invalidations", force: true do |t|
-    t.integer "block_id", null:false
-    t.integer  "message", null: false, default:0
-  end
-
-  add_index "invalidations", ["block_id"], name: "index_invalidations_on_block_id", using: :btree
 
   create_table "invitations", force: true do |t|
     t.integer "referrer_id", null: false
@@ -216,7 +210,6 @@ ActiveRecord::Schema.define(version: 20150718222534) do
   add_foreign_key "invitations","users", column:"referrer_id", on_delete: :cascade
   add_foreign_key "invitations","users", column:"referral_id", on_delete: :nullify
   add_foreign_key "images","blocks", on_delete: :cascade
-  add_foreign_key "invalidations","blocks", on_delete: :cascade
   add_foreign_key "lines","blocks", on_delete: :cascade
   add_foreign_key "pages","tests", on_delete: :cascade
 

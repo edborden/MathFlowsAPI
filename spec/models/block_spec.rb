@@ -9,6 +9,7 @@ describe Block do
 		it { should have_db_column(:col).of_type :integer }
 		it { should have_db_column(:row_span).of_type(:integer).with_options default:1,null:false }
 		it { should have_db_column(:col_span).of_type(:integer).with_options default:1,null:false }
+		it { should have_db_column(:content_invalid).of_type(:boolean).with_options default:false,null:false }
 
 		it { should have_db_index :page_id }
 		it { should have_db_index :user_id }
@@ -24,7 +25,6 @@ describe Block do
 		it { should belong_to :user }
 		it { should have_many(:images).dependent :destroy }
 		it { should have_many(:tables).dependent :destroy }
-		it { should have_many(:invalidations).dependent :destroy }
 		it { should have_many(:lines).order(:position).dependent :destroy }
 
 	end
@@ -92,11 +92,6 @@ describe Block do
 		it "destroys images" do
 			create :image, block:block
 			expect { block.destroy }.to change { Image.count }.by(-1)
-		end
-
-		it "destroys invalidations" do
-			create :invalidation, block:block
-			expect { block.destroy }.to change { Invalidation.count }.by(-1)
 		end
 
 		it "destroys lines" do

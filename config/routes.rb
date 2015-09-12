@@ -1,7 +1,8 @@
 Rails.application.routes.draw do
 	resources :tests, only: [:create,:show,:update,:destroy]
 	resources :sessions, only: [:create, :index, :destroy]
-	resources :blocks, only: [:create,:update,:show,:destroy]
+	resources :blocks, only: [:create,:update,:destroy]
+	post 'blocks/:id/validate', to: 'blocks#validate'
 	resources :images, only: [:create, :update, :destroy]
 	resources :pages, only: [:create,:show,:destroy]
 	resources :folders, only: [:create,:update,:destroy]
@@ -19,4 +20,5 @@ Rails.application.routes.draw do
 	resources :cells, only: [:create,:update]
 	resources :projections, only: [:create,:update,:destroy]
 	resources :alignments, only: [:update]
+	resources :invalidations, only: :index
 end

@@ -16,7 +16,7 @@ class Test < ActiveRecord::Base
 
 	def save_valid_question_blocks
 		blocks.question.each do |block|
-			unless block.invalidations.exists?
+			unless block.content_invalid
 				block.page_id = nil
 				block.user_id = nil
 				block.row = nil

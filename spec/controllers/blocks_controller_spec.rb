@@ -37,6 +37,14 @@ describe BlocksController do
 
 	end
 
+	describe "POST to #validate" do
+
+		it "runs validate" do
+
+		end
+
+	end
+
 	describe "PUT to #update" do
 
 		it "updates block" do
@@ -45,15 +53,6 @@ describe BlocksController do
 				.from(1)
 				.to 4
 		end
-	end
-
-	describe "GET to #show" do
-
-		it "returns block" do
-			authenticated_req :get,:show,{id:block.id},user
-			expect(json_response["block"]["id"]).to be block.id
-		end
-
 	end
 
 	describe "DELETE to #destroy" do
