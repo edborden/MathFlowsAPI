@@ -95,7 +95,7 @@ describe Block do
 		end
 
 		it "destroys lines" do
-			create :line, block:block
+			create :line, lineable:block
 			expect { block.destroy }.to change { Line.count }.by(-1)
 		end
 

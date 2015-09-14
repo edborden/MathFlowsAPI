@@ -11,7 +11,7 @@ class BlocksController < ResourceController
 			if header? || @resource.has_write_access?(current_user)
 				@resource.try :set_owner,current_user
 				if @resource.save
-					Line.create position:1,block_id:@resource.id
+					Line.create position:1,lineable_id:@resource.id,lineable_type:"Block"
 					render_resource
 				else
 					render_errors

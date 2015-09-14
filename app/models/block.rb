@@ -4,7 +4,7 @@ class Block < ActiveRecord::Base
 	belongs_to :page
 	belongs_to :user
 	has_many :images, dependent: :destroy
-	has_many :lines, -> { order(:position) }, dependent: :destroy
+	has_many :lines, -> { order(:position) }, as: :lineable, dependent: :destroy
 	has_one :test, through: :page
 	has_many :tables, dependent: :destroy
 

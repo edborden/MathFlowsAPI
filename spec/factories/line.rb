@@ -1,7 +1,8 @@
 FactoryGirl.define do
 
 	factory :line do
-		block
+		lineable { create :block}
+		content ""
 	end
 
 end

@@ -36,7 +36,7 @@ class Waterfall
 	end
 
 	def line mold,block
-		Line.create mold.merge block_id:block.id
+		Line.create mold.merge lineable_id:block.id,lineable_type:"Block"
 	end
 
 	def image mold,block

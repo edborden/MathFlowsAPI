@@ -5,7 +5,6 @@ describe Cell do
 		it { should have_db_column(:table_id).of_type(:integer).with_options null:false }
 		it { should have_db_column(:row_id).of_type(:integer).with_options null:false }
 		it { should have_db_column(:col_id).of_type(:integer).with_options null:false }
-		it { should have_db_column(:content).of_type(:text).with_options default:"",null:false }
 
 		it { should have_db_index :table_id }
 		it { should have_db_index :row_id }
@@ -18,6 +17,7 @@ describe Cell do
 		it { should belong_to :table }
 		it { should belong_to(:row).class_name("Projection").inverse_of :row_cells }
 		it { should belong_to(:col).class_name("Projection").inverse_of :col_cells }
+		it { should have_many(:lines).order(:position).dependent :destroy }
 
 	end
 

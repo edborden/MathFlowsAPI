@@ -84,12 +84,13 @@ ActiveRecord::Schema.define(version: 20150718222534) do
   add_index "invitations", ["referral_email"], name: "index_invitations_on_referral_email", using: :btree, unique:true
 
   create_table "lines", force: true do |t|
-    t.integer "block_id", null:false
+    t.integer "lineable_id", null:false
+    t.string "lineable_type", null: false
     t.text    "content", default:"",null:false
     t.float   "position", default: 1.0, null: false
   end
 
-  add_index "lines", ["block_id"], name: "index_lines_on_block_id", using: :btree
+  add_index "lines", ["lineable_type","lineable_id"], name: "index_lines_on_lineable_type", using: :btree
 
   create_table "pages", force: true do |t|
     t.integer "test_id", null:false
@@ -208,7 +209,6 @@ ActiveRecord::Schema.define(version: 20150718222534) do
   add_foreign_key "invitations","users", column:"referrer_id", on_delete: :cascade
   add_foreign_key "invitations","users", column:"referral_id", on_delete: :nullify
   add_foreign_key "images","blocks", on_delete: :cascade
-  add_foreign_key "lines","blocks", on_delete: :cascade
   add_foreign_key "pages","tests", on_delete: :cascade
 
 end

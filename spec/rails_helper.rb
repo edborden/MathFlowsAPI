@@ -56,7 +56,7 @@ shared_context "user_with_block" do
   let(:test)  { create :test, user:user,folder:folder }
   let(:page) { create :page, test: test }
   let(:block) { create :block, user:user,page:page }
-  let(:line) { create :line, block:block }
+  let(:line) { create :line, lineable:block }
 end
 
 shared_context "eager_user_with_block" do
@@ -65,7 +65,7 @@ shared_context "eager_user_with_block" do
   let!(:test)  { create :test, user:user,folder:folder }
   let!(:page) { create :page, test: test }
   let!(:block) { create :block, user:user,page:page }
-  let!(:line) { create :line, block:block }
+  let!(:line) { create :line, lineable:block }
 end
 
 def authenticated_req type,method,params,user

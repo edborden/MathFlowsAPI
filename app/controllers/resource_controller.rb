@@ -33,7 +33,7 @@ class ResourceController < AuthenticatedController
 	end
 
 	def if_authorized
-		@resource = model.new resource_params
+		@resource ||= model.new resource_params
 		if resource.has_write_access? current_user
 			yield
 		else
