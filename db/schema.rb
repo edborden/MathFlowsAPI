@@ -92,6 +92,13 @@ ActiveRecord::Schema.define(version: 20150718222534) do
 
   add_index "lines", ["lineable_type","lineable_id"], name: "index_lines_on_lineable_type", using: :btree
 
+  create_table "styles", force: true do |t|
+    t.integer "line_id", null:false
+    t.integer    "effect", default:0,null:false
+  end
+
+  add_index "styles", ["line_id"], name: "index_styles_on_line_id", using: :btree
+
   create_table "pages", force: true do |t|
     t.integer "test_id", null:false
   end
@@ -191,7 +198,8 @@ ActiveRecord::Schema.define(version: 20150718222534) do
   end
 
   add_index "alignments", ["alignable_type","alignable_id"], name: "index_alignments_on_alignable_type", using: :btree, unique: true
-
+  
+  add_foreign_key "styles","lines", on_delete: :cascade
   add_foreign_key "cells","projections", column: "row_id", on_delete: :cascade
   add_foreign_key "cells","projections", column: "col_id", on_delete: :cascade
   add_foreign_key "projections","tables", on_delete: :cascade

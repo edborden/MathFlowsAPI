@@ -21,4 +21,5 @@ Rails.application.routes.draw do
 	resources :projections, only: [:create,:update,:destroy]
 	resources :alignments, only: [:update]
 	resources :invalidations, only: :index
+	resources :styles, only: [:create,:destroy]
 end
