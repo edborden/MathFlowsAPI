@@ -8,6 +8,8 @@ class Image < ActiveRecord::Base
 	has_one :alignment, as: :alignable, dependent: :destroy
 
 	validates_presence_of :width,:height,:cloudinary_id,:block_id,:block_position
+	
+	amoeba {enable}
 
 	def file		
 		@file ||= open "http://res.cloudinary.com/hmb9zxcjb/image/upload/" + cloudinary_id

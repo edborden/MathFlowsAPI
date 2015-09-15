@@ -12,6 +12,8 @@ class Table < ActiveRecord::Base
 
 	validates_presence_of :block_id,:block_position
 
+	amoeba {enable}
+
 	def width
 		@width ||= cols.select(:size).map(&:size).sum
 	end

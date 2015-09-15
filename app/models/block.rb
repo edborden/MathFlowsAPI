@@ -18,13 +18,11 @@ class Block < ActiveRecord::Base
 	scope :valid_question, -> { question.valid }
 	scope :header, -> { where(kind:2) }
 
+	amoeba {enable}
+
 	def children
 		unsorted = tables + images
 		unsorted.sort { |child1,child2| child1.block_position <=> child2.block_position }
-	end
-
-	amoeba do
-		enable
 	end
 
 	def has_write_access? test_user

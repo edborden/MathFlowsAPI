@@ -4,9 +4,7 @@ class Page < ActiveRecord::Base
 
 	validates_presence_of :test_id
 
-	amoeba do
-		enable
-	end
+	amoeba {enable}
 
 	def has_write_access? user
 		test.user == user

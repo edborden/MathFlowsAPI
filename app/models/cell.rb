@@ -7,6 +7,8 @@ class Cell < ActiveRecord::Base
 
 	validates_presence_of :table_id,:row_id,:col_id
 
+	amoeba {enable}
+
 	def user
 		table.block.user
 	end

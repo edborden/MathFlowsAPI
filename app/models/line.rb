@@ -9,8 +9,6 @@ class Line < ActiveRecord::Base
 		lineable.user == user
 	end
 
-	amoeba do
-		enable
-	end
+	amoeba {enable}
 
 end
