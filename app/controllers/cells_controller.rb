@@ -5,7 +5,7 @@ class CellsController < ResourceController
 	end
 
 	def resource_params
-		params.require(:cell).permit :content,:row_id,:col_id,:table_id
+		params.require(:cell).permit :row_id,:col_id,:table_id
 	end
 
 end
