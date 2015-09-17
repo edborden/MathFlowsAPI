@@ -42,7 +42,7 @@ module PdfHelpers
 
 			bounding_box [0,bounds.top-y],width:bounds.right do
 
-				block.write_to_pdf(self) if block.children
+				block.write_to_pdf(self)
 
 			end
 

@@ -2,27 +2,48 @@ class ContentLine
 	attr_reader :unused_content_array,:line_items,:height
 
 	##TAKES AN ARRAY OF CONTENT, SPITS OUT ARRAY OF CONTENT IT DIDN'T USE
-	def initialize unused_content_array,element_width
+	def initialize unused_content_array,element_width,styles
 		@width = element_width
 		@unused_content_array = unused_content_array
+		@styles = styles
 		@line_items = []
+		unconsolidated_line_items = []
 		line_width = 0
 		@unused_content_array.each do |item|
 			line_width += item.width
-			line_items << item
+			unconsolidated_line_items << item
 			break if line_width > @width
 		end
 
-		@unused_content_array -= @line_items
+		@unused_content_array -= unconsolidated_line_items
 
 		#handler for when last content item is too long
 		if line_width > @width
-			if @line_items.size > 1 
-				@unused_content_array.unshift @line_items.pop
+			if unconsolidated_line_items.size > 1 
+				@unused_content_array.unshift unconsolidated_line_items.pop
 			else
 				puts "NEED TO HANDLE ITEMS THAT HAVE WIDTHS GREATER THAN BLOCK WIDTH"
 			end
 		end
+
+		snippet_string = ""
+		unconsolidated_line_items.each do |item|
+			if item.is_a? Equation
+				if snippet_string.length > 0
+					@line_items.push Snippet.new(snippet_string,@styles)
+					snippet_string = ""	
+				end			
+				@line_items.push item
+				@line_items.push Snippet.new
+			elsif item.is_a? Snippet
+				snippet_string += item.string
+			else
+				@line_items.push item
+			end
+		end
+		if snippet_string.length > 0
+			@line_items.push Snippet.new(snippet_string,@styles)
+		end	
 
 		format_line_items
 		set_height

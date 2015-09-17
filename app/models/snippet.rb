@@ -1,14 +1,16 @@
 class Snippet
 	include Prawn::View
 
-	def initialize string=nil
+	def initialize string=nil,styles=nil
+		@styles = styles
 		if string
 			@string = clean string
+			apply_styles
 		end
 	end
 
 	def width
-		@string ? width_of(@string) : 5
+		@width ||= @string ? width_of(@string,inline_format:true).round+3 : 5
 	end
 
 	def height
@@ -27,8 +29,12 @@ class Snippet
 		OpenStruct.new side: "left", left?:true
 	end
 
+	def apply_styles
+		@styles.each { |style| @string = style.open_tag + @string + style.close_tag }
+	end
+
 	def write_to_pdf pdf
-		pdf.text string, valign: :center
+		pdf.text string, valign: :center, inline_format:true
 	end
 
 end

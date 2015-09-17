@@ -20,7 +20,6 @@ gem 'uservoice-ruby'
 gem 'keen'
 
 ## IMAGE UTILS
-gem 'data_uri'
 gem 'image_size'
 
 ## EMAIL

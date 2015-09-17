@@ -4,7 +4,7 @@ module ProcessedContent
 		if content.blank?
 			[Snippet.new]
 		else
-			EquationExtractor.new(content).array
+			EquationExtractor.new(content,try(:styles)).array
 		end
 	end
 
@@ -12,7 +12,7 @@ module ProcessedContent
 		content_lines = []
 		unused_content = processed_content
 		until unused_content.empty?
-			content_line = ContentLine.new(unused_content,element_width)
+			content_line = ContentLine.new(unused_content,element_width,try(:styles))
 			content_lines << content_line
 			unused_content = content_line.unused_content_array
 		end
