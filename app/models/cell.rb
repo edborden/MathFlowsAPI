@@ -17,4 +17,21 @@ class Cell < ActiveRecord::Base
 		self.user == user
 	end
 
+	def write_to_pdf pdf
+		y = 0
+						
+		lines.each do |line|
+
+			lines_box = pdf.bounding_box [0,pdf.bounds.top-y],width:pdf.bounds.right do
+
+				line.write_to_pdf pdf
+
+			end
+
+			y += lines_box.height
+
+		end
+
+	end
+
 end
