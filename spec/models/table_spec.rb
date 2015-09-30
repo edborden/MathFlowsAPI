@@ -20,7 +20,7 @@ describe Table do
 
 	describe "validations" do 
 
-		it { should validate_presence_of :block_id }
+		#it { should validate_presence_of :block_id } #breaks amoeba
 		it { should validate_presence_of :block_position }
 
 	end
@@ -76,6 +76,26 @@ describe Table do
 			expect(table.alignment).to be_truthy
 		end
 
+	end
+
+	describe "#amoeba" do
+
+		before do
+			table.alignment.center!
+			table.alignment.save
+			@copy = table.amoeba_dup
+			@saved = @copy.save
+		end
+
+		it { expect(@saved).to eq true }
+
+		it "copies alignment, doesn't create a new one" do
+			expect(@copy.alignment.side).to eq "center"
+		end
+
+		it "copies projections" do
+			expect(@copy.projections.count).to eq 2
+		end
 	end
 	
 end
