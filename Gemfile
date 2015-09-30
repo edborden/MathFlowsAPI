@@ -12,6 +12,7 @@ gem 'google-api-client'
 gem 'amoeba'
 gem 'cloudinary'
 gem 'puma', platforms: :ruby
+gem 'math-to-itex'
 
 ##USERVOICE
 gem 'uservoice-ruby'

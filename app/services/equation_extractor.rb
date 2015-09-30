@@ -1,10 +1,12 @@
+require 'math-to-itex'
+
 class EquationExtractor
 	attr_reader :array
 
 	def initialize string,styles
-		@string = string
+		@string = MathToItex(string).convert { |string| "EQUATION_SPLIT" + string + "EQUATION_SPLIT" }
 		@styles = styles
-		@array = convert_to_content_objects @string.split
+		@array = convert_to_content_objects @string.split "EQUATION_SPLIT"
 	end
 
 	def convert_to_content_objects string_array
