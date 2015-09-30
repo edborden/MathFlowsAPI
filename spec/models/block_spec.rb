@@ -101,4 +101,23 @@ describe Block do
 
 	end
 
+	describe "#amoeba" do
+
+		let(:block) { create :block }
+
+		it { expect(block.amoeba_dup.save).to be_truthy }
+
+		context "when has children" do
+
+			before { create :image,block:block }
+
+			it "saves" do
+				copy = block.amoeba_dup
+				expect(copy.save).to eq true
+			end
+
+		end
+
+	end
+
 end

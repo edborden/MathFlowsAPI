@@ -18,7 +18,12 @@ class Block < ActiveRecord::Base
 	scope :valid_question, -> { question.valid }
 	scope :header, -> { where(kind:2) }
 
-	amoeba {enable}
+	amoeba do
+		exclude_association :tables
+		customize(lambda { |original_block,new_block|
+			original_block.tables.each {|table| TableCopy.new(table,new_block) }
+		})
+	end
 
 	def children
 		unsorted = tables + images

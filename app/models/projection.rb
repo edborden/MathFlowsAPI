@@ -6,7 +6,7 @@ class Projection < ActiveRecord::Base
 
 	enum axis: [:row,:col]
 
-	validates_presence_of :table_id,:axis,:position
+	validates_presence_of :axis,:position
 
 	def cells
 		row? ? row_cells : col_cells

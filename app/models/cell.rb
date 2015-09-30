@@ -5,7 +5,7 @@ class Cell < ActiveRecord::Base
 	belongs_to :col, class_name:"Projection", inverse_of: :col_cells
 	has_many :lines, -> { order(:position) }, as: :lineable, dependent: :destroy
 
-	validates_presence_of :table_id,:row_id,:col_id
+	validates_presence_of :row_id,:col_id
 
 	amoeba {enable}
 

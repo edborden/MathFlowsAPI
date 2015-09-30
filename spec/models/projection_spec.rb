@@ -23,7 +23,7 @@ describe Projection do
 
 	describe "validations" do 
 
-		it { should validate_presence_of :table_id }
+		#it { should validate_presence_of :table_id } #breaks amoeba
 		it { should validate_presence_of :axis }
 		it { should validate_presence_of :position }
 

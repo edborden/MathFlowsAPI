@@ -2,12 +2,12 @@ require 'open-uri'
 
 class Image < ActiveRecord::Base
 	before_destroy :delete_cloudinary
-	after_create :create_alignment
+	after_create :create_alignment, unless: :alignment
 
 	belongs_to :block
 	has_one :alignment, as: :alignable, dependent: :destroy
 
-	validates_presence_of :width,:height,:cloudinary_id,:block_id,:block_position
+	validates_presence_of :width,:height,:cloudinary_id,:block_position #:block_id
 	
 	amoeba {enable}
 

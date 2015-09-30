@@ -19,7 +19,7 @@ describe Plan do
 	describe "validations" do
 
 		subject { create(:user).plan }
-		it { should validate_uniqueness_of :user_id }
+		it { should validate_uniqueness_of(:user_id).on(:create) }
 		it { should validate_presence_of :user_id }
 		it { should validate_presence_of :level }
 

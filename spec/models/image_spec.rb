@@ -21,7 +21,7 @@ describe Image do
 
 	describe "validations" do
 
-		it { should validate_presence_of :block_id }
+		#it { should validate_presence_of :block_id } #breaks amoeba
 		it { should validate_presence_of :width }
 		it { should validate_presence_of :height }
 		it { should validate_presence_of :cloudinary_id }
@@ -37,6 +37,17 @@ describe Image do
 			expect(image.alignment).to be_truthy
 		end
 
+	end
+
+	describe "#amoeba" do
+
+		it "copies alignment, doesn't create a new one" do
+			image.alignment.center!
+			image.alignment.save
+			copy = image.amoeba_dup
+			copy.save
+			expect(copy.alignment.side).to eq "center"
+		end
 	end
 
 end
