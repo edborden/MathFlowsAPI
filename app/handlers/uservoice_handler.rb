@@ -5,9 +5,9 @@ class UservoiceHandler
 
 	def initialize user
 		@subdomain_name = 'mathflows'
-		@api_key = 'Jpvk0JiwiGTm3sECPFd5A'
-		@api_secret = '4bSZ9xGVigK58HSORzMqgsXdRcLe8HTsakEVSq7IY6Y'
-		@sso_key = '5c727936a338efa1c54e702afb1d0b55'
+		@api_key = 'KsLaQgwhEO1aI4ubTF2ylg'
+		@api_secret = 'vcTmPbPHHPtSGCKf6I2w4BIQwTQcvYAULDs13qq9Hs'
+		@sso_key = 'c0b60e22e361162f5afacc4ba804477f'
 		@user = user
 	end
 
