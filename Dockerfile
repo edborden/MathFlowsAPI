@@ -39,7 +39,7 @@ ADD . /app/user
 # How to conditionally `rake assets:precompile`?
 ENV RAILS_ENV production
 ENV SECRET_KEY_BASE $(openssl rand -base64 32)
-RUN bundle exec rake assets:precompile
+RUN bundle exec rake DATABASE_URL=postgresql://user:pass@127.0.0.1/dbname assets:precompile
 
 # export env vars during run time
 RUN mkdir -p /app/.profile.d/
