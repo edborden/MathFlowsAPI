@@ -40,15 +40,15 @@ class Equation
 	end
 
 	def width
-		render.width
+		render[:width]
 	end
 
 	def height
-		render.height
+		render[:height]
 	end
 
 	def svg
-		render.data
+		render[:data]
 	end
 
 end
