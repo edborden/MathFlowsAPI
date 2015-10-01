@@ -9,6 +9,6 @@ deployment:
     branch: master
     commands:
       - rm Gemfile.lock
-      - rm vendor
+      - rm -r vendor
       - heroku plugins:install heroku-docker
       - heroku docker:release --app mathflows
