@@ -1,0 +1,12 @@
+machine:
+  services:
+    - docker
+dependencies:
+  pre:
+    - sudo pip install docker-compose==1.3.3
+deployment:
+  production:
+    branch: master
+    commands:
+      - heroku plugins:install heroku-docker
+      - heroku docker:release --app mathflows

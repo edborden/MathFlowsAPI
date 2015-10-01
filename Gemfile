@@ -27,20 +27,16 @@ gem 'image_size'
 gem 'mandrill_mailer'
 gem 'mailchimp-api', require: 'mailchimp'
 
-group :development,:test do
-	gem 'rspec-rails'
-	gem 'factory_girl_rails'
-end
-
 group :test do
 	gem "faker"
 	gem "shoulda"
 	gem "database_cleaner"
+	gem 'rspec-rails'
+	gem 'factory_girl_rails'
 end
 
 group :production do
 	gem 'rails_12factor'
 	gem 'newrelic_rpm'
-	#gem 'unicorn', platforms: :ruby
-	#gem 'le'
+	gem 'mathematical'
 end
