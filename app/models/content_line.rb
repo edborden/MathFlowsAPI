@@ -1,5 +1,5 @@
 class ContentLine
-	attr_reader :unused_content_array,:line_items,:height
+	attr_reader :unused_content_array,:line_items,:height,:width
 
 	##TAKES AN ARRAY OF CONTENT, SPITS OUT ARRAY OF CONTENT IT DIDN'T USE
 	def initialize unused_content_array,element_width,styles
