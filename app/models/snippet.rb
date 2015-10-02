@@ -5,12 +5,19 @@ class Snippet
 		@styles = styles
 		if string
 			@string = clean string
-			apply_styles
 		end
 	end
 
 	def width
-		@width ||= @string ? width_of(@string,inline_format:true).round+3 : 5
+		@width ||= begin
+			if @string
+				width = width_of(pdf_string,inline_format:true).round
+				width += 5 if ends_in_space?
+				width
+			else
+				5
+			end
+		end
 	end
 
 	def height
@@ -18,23 +25,32 @@ class Snippet
 	end
 
 	def string
-		@string ? @string : Prawn::Text::NBSP
+		@string ? @string : " "
+	end
+
+	def pdf_string
+		@string ? apply_styles(@string) : Prawn::Text::NBSP
 	end
 
 	def clean string
 		string.gsub "\\$","$"
 	end
 
+	def ends_in_space?
+		@string[@string.length-1] == " "
+	end
+
 	def alignment
 		OpenStruct.new side: "left", left?:true
 	end
 
-	def apply_styles
-		@styles.each { |style| @string = style.open_tag + @string + style.close_tag }
+	def apply_styles string
+		@styles.each { |style| string = style.open_tag + string + style.close_tag }
+		return string
 	end
 
 	def write_to_pdf pdf
-		pdf.text string, valign: :center, inline_format:true
+		pdf.text pdf_string, valign: :center, inline_format:true
 	end
 
 end

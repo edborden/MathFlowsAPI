@@ -26,6 +26,7 @@ class ContentLine
 			end
 		end
 
+		# snippet joiner
 		snippet_string = ""
 		unconsolidated_line_items.each do |item|
 			if item.is_a? Equation
@@ -45,6 +46,7 @@ class ContentLine
 			@line_items.push Snippet.new(snippet_string,@styles)
 		end	
 
+		p @line_items
 		format_line_items
 		set_height
 	end

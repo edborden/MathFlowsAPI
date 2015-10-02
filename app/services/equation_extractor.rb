@@ -17,7 +17,8 @@ class EquationExtractor
 				converted_array.push Snippet.new
 			else
 				string.split(" ").each do |word|
-					converted_array.push Snippet.new(word+" ",@styles)
+					converted_array.push Snippet.new(word,@styles)
+					converted_array.push Snippet.new
 				end
 			end
 		end
