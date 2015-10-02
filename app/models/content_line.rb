@@ -46,7 +46,6 @@ class ContentLine
 			@line_items.push Snippet.new(snippet_string,@styles)
 		end	
 
-		p @line_items
 		format_line_items
 		set_height
 	end

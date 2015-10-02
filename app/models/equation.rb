@@ -1,22 +1,14 @@
 require 'open-uri'
 
 class Equation
-	attr_reader :file,:width,:height
 
 	def initialize latex
-		latex.chop!.slice! 0 #remove $
 		@latex = latex
-		set_dimensions
 	end
 
 	def url
-		@url ||= URI.encode("http://latex.codecogs.com/png.latex?\\dpi{300}" + @latex)
-	end	
-
-	def set_dimensions
-		size = ImageSize.new(file).size
-		@width = size[0] * 0.25
-		@height = size[1] * 0.25
+		#@url ||= URI.encode("http://mathflows-latex.herokuapp.com/render?math=" + @latex)
+		@url ||= URI.encode("http://latex.codecogs.com/svg.latex?\\dpi{300}" + @latex)
 	end	
 
 	def alignment
@@ -24,11 +16,31 @@ class Equation
 	end
 
 	def write_to_pdf pdf
-		pdf.image file, vposition: 2, scale: 0.25
+		pdf.svg file#, vposition: 2, scale: 0.25
 	end
 
 	def file
 		@file ||= open url
+	end
+
+	def file_hash
+		@hash ||= begin
+			read = file.read
+			file.rewind
+			Hash.from_xml(read)["svg"]
+		end
+	end
+
+	def width
+		@width ||= strip file_hash["width"]
+	end
+
+	def height
+		@height ||= strip file_hash["height"]
+	end
+
+	def strip string
+		string.chomp("pt").to_f
 	end
 
 end
