@@ -19,13 +19,16 @@ class Cell < ActiveRecord::Base
 
 	def write_to_pdf pdf
 		y = 0
+
+		lines = self.lines.present? ? self.lines : [Line.new]
 						
 		lines.each do |line|
 
-			lines_box = pdf.bounding_box [0,pdf.bounds.top-y],width:pdf.bounds.right do
+			y += 5 # top padding
 
+			lines_box = pdf.bounding_box [1,pdf.bounds.top-y],width:pdf.bounds.right do
 				line.write_to_pdf pdf
-
+				pdf.move_down 5 #bottom padding
 			end
 
 			y += lines_box.height
