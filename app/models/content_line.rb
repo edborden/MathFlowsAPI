@@ -47,7 +47,6 @@ class ContentLine
 		end	
 
 		format_line_items
-		set_height
 	end
 
 	def format_line_items
@@ -91,16 +90,20 @@ class ContentLine
 
 	end
 
-	def set_height
-		@height = 0
-		@line_items.each do |item|
-			@height = item.object.height if item.object.height > @height
+	def height
+		@height ||= begin
+			height = 0
+			@line_items.each do |item|
+				p item.height
+				height = item.height if item.height > height
+			end
+			height += 4 if height > 18# allow for 2px buffer on top and bottom for images
+			height
 		end
-		@height += 4 if @height > 18# allow for 2px buffer on top and bottom for images
 	end
 
 	def write_to_pdf pdf
-		pdf.bounding_box [2,pdf.bounds.top],width:@width, height:@height do				
+		pdf.bounding_box [2,pdf.bounds.top],width:@width, height:height do				
 			@line_items.each do |item|
 				pdf.float do
 					pdf.bounding_box [item.indentation,pdf.bounds.top], width: item.width,height:pdf.bounds.top do

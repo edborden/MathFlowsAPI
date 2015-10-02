@@ -25,10 +25,10 @@ module ProcessedContent
 		content_lines = processed_content_lines pdf.bounds.right
 
 		content_lines.each do |content_line|
-			pdf.bounding_box [0,pdf.bounds.top-y],width:pdf.bounds.right do
+			content_line_box = pdf.bounding_box [0,pdf.bounds.top-y],width:pdf.bounds.right do
 				content_line.write_to_pdf pdf
 			end
-			y += content_line.height
+			y += content_line_box.height
 		end
 	end
 

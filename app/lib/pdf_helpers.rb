@@ -40,7 +40,7 @@ module PdfHelpers
 
 			## BLOCK CHILDREN
 
-			bounding_box [0,bounds.top-y],width:bounds.right do
+			children_box = bounding_box [0,bounds.top-y],width:bounds.right do
 
 				block.write_to_pdf(self)
 
