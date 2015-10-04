@@ -1,21 +1,26 @@
-development:
+default: &default
   adapter: postgresql
+  encoding: unicode
+  timeout: 5000
+
+development:
+  <<: *default
   host: localhost
   username: postgres
   password: bonebreak1
   database: math_flows_development
-  encoding: UTF8
+  pool: 5
 
 test:
+  <<: *default
   adapter: postgresql
   host: localhost
   username: postgres
   password: bonebreak1
-  database: test        # or whatever the name is
-  encoding: UTF8
+  database: test
+  pool: 5
 
 production:
-  default: &default
-    adapter: postgresql
-    encoding: unicode
-    pool: 5
+  <<: *default
+  url:  <%= ENV["DATABASE_URL"] %>
+  pool: <%= ENV["DB_POOL"] || 5 %>
