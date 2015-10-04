@@ -1,7 +1,8 @@
 deployment:
   production:
     branch: master
+    heroku:
+      appname: mathflows
     commands:
-      - heroku git:remote -a mathflows
       - git push heroku master
       - heroku run rake db:migrate
