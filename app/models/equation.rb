@@ -4,11 +4,12 @@ class Equation
 
 	def initialize latex
 		@latex = latex
+		p latex
 	end
 
 	def url
-		#@url ||= URI.encode("http://mathflows-latex.herokuapp.com/render?math=" + @latex)
-		@url ||= URI.encode("http://latex.codecogs.com/svg.latex?\\dpi{300}" + @latex)
+		@url ||= URI.encode("http://mathflows-latex.herokuapp.com/render?math=%24%24" + @latex + "%24%24")
+		#@url ||= URI.encode("http://latex.codecogs.com/svg.latex?\\dpi{300}" + @latex)
 	end	
 
 	def alignment
