@@ -4,7 +4,7 @@ class MailchimpHandler
 	include Handler
 
 	def client
-		@client ||= Mailchimp::API.new "1bc69f45ba857110dbc2d35c00350611-us10"
+		@client ||= Mailchimp::API.new ENV['MAILCHIMP_KEY']
 	end
 
 	def subscribe user
