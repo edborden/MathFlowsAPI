@@ -5,9 +5,9 @@ class UservoiceHandler
 
 	def initialize user
 		@subdomain_name = 'mathflows'
-		@api_key = ENV['uservoice_key']
-		@api_secret = ENV['uservoice_secret']
-		@sso_key = ENV['uservoice_sso']
+		@api_key = ENV['USERVOICE_KEY']
+		@api_secret = ENV['USERVOICE_SECRET']
+		@sso_key = ENV['USERVOICE_SSO']
 		@user = user
 	end
 
