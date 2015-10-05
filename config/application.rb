@@ -16,10 +16,6 @@ module MathFlows
 				resource '*', :headers => :any, :methods => [:get, :post, :put, :patch, :options, :delete]
 			end
 		end
-		
-		MandrillMailer.configure do |config|
-			config.api_key = "05AGnHwxdAK5OVfFd6Ev_g"
-		end
 
 		config.generators do |g|
 			g.test_framework :rspec,
