@@ -1,3 +1,5 @@
+require 'mailchimp'
+
 class MailchimpHandler
 	include Handler
 

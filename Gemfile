@@ -15,7 +15,10 @@ gem 'cloudinary'
 gem 'puma', platforms: :ruby
 gem 'math-to-itex'
 
-##USERVOICE
+## ENV MANAGEMENT
+gem 'figaro'
+
+## USERVOICE
 gem 'uservoice-ruby'
 
 ## ANALYTICS
@@ -26,7 +29,7 @@ gem 'image_size'
 
 ## EMAIL
 gem 'mandrill_mailer'
-gem 'mailchimp-api', require: 'mailchimp'
+gem 'mailchimp-api'
 
 group :test do
 	gem "faker"

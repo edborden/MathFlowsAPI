@@ -35,10 +35,4 @@ Rails.application.configure do
   config.active_support.deprecation = :stderr
   
   config.active_support.test_order = :random
-
-  #require 'pusher'
-
-  #Pusher.app_id = '71489'
-  #Pusher.key    = '920f77cedd553842882b'
-  #Pusher.secret = '4325b6be5578e4345a68'
 end
