@@ -1,9 +1,9 @@
 class Join
-	
-	def initialize user,group
+  
+  def initialize user,group
 
-		group.users<<user
+    group.users<<user
 
-	end
+  end
 
 end

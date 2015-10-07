@@ -1,50 +1,50 @@
 describe Cell do
 
-	describe "db" do
+  describe "db" do
 
-		it { should have_db_column(:table_id).of_type(:integer).with_options null:false }
-		it { should have_db_column(:row_id).of_type(:integer).with_options null:false }
-		it { should have_db_column(:col_id).of_type(:integer).with_options null:false }
+    it { should have_db_column(:table_id).of_type(:integer).with_options null:false }
+    it { should have_db_column(:row_id).of_type(:integer).with_options null:false }
+    it { should have_db_column(:col_id).of_type(:integer).with_options null:false }
 
-		it { should have_db_index :table_id }
-		it { should have_db_index :row_id }
-		it { should have_db_index :col_id }
+    it { should have_db_index :table_id }
+    it { should have_db_index :row_id }
+    it { should have_db_index :col_id }
 
-	end
+  end
 
-	describe "associations" do
+  describe "associations" do
 
-		it { should belong_to :table }
-		it { should belong_to(:row).class_name("Projection").inverse_of :row_cells }
-		it { should belong_to(:col).class_name("Projection").inverse_of :col_cells }
-		it { should have_many(:lines).order(:position).dependent :destroy }
+    it { should belong_to :table }
+    it { should belong_to(:row).class_name("Projection").inverse_of :row_cells }
+    it { should belong_to(:col).class_name("Projection").inverse_of :col_cells }
+    it { should have_many(:lines).order(:position).dependent :destroy }
 
-	end
+  end
 
-	describe "validations" do 
+  describe "validations" do 
 
-		#it { should validate_presence_of :table_id } #breaks amoeba
-		it { should validate_presence_of :row_id }
-		it { should validate_presence_of :col_id }
+    #it { should validate_presence_of :table_id } #breaks amoeba
+    it { should validate_presence_of :row_id }
+    it { should validate_presence_of :col_id }
 
-	end
+  end
 
-	let(:cell) { create :cell }
+  let(:cell) { create :cell }
 
-	describe "#row" do
+  describe "#row" do
 
-		it "returns projection from row_id" do
-			expect(cell.row).to be_truthy
-		end
+    it "returns projection from row_id" do
+      expect(cell.row).to be_truthy
+    end
 
-	end
+  end
 
-	describe "#col" do
+  describe "#col" do
 
-		it "returns projection from col_id" do
-			expect(cell.col).to be_truthy
-		end
+    it "returns projection from col_id" do
+      expect(cell.col).to be_truthy
+    end
 
-	end
+  end
 
 end

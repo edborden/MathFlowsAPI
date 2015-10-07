@@ -1,9 +1,9 @@
 FactoryGirl.define do
 
-	factory :cell do
-		row
-		col
-		table
-	end
+  factory :cell do
+    row
+    col
+    table
+  end
 
 end

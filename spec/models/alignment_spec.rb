@@ -1,29 +1,29 @@
 describe Alignment do
 
-	describe "db" do
+  describe "db" do
 
-		it { should have_db_column(:alignable_id).of_type(:integer).with_options null:false }
-		it { should have_db_column(:alignable_type).of_type(:string).with_options null:false }
-		it { should have_db_column(:side).of_type(:integer).with_options null:false,default:0 }
+    it { should have_db_column(:alignable_id).of_type(:integer).with_options null:false }
+    it { should have_db_column(:alignable_type).of_type(:string).with_options null:false }
+    it { should have_db_column(:side).of_type(:integer).with_options null:false,default:0 }
 
-		it { should have_db_index([:alignable_type,:alignable_id]).unique }
+    it { should have_db_index([:alignable_type,:alignable_id]).unique }
 
-		it { should define_enum_for(:side).with [:left,:right,:center]}
+    it { should define_enum_for(:side).with [:left,:right,:center]}
 
-	end
+  end
 
-	describe "associations" do
+  describe "associations" do
 
-		it { should belong_to :alignable }
+    it { should belong_to :alignable }
 
-	end
+  end
 
-	describe "validations" do
+  describe "validations" do
 
-		it { should validate_presence_of :alignable_id }
-		it { should validate_presence_of :alignable_type }
-		it { should validate_presence_of :side }
+    it { should validate_presence_of :alignable_id }
+    it { should validate_presence_of :alignable_type }
+    it { should validate_presence_of :side }
 
-	end
+  end
 
 end

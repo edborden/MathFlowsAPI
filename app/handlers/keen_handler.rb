@@ -1,8 +1,8 @@
 class KeenHandler
-	include Handler
+  include Handler
 
-	def publish event,object
-		Keen.publish event, object.as_json
-	end
+  def publish event,object
+    Keen.publish event, object.as_json
+  end
 
 end

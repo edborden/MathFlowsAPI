@@ -1,4 +1,4 @@
 class ApplicationSerializer < ActiveModel::Serializer
-	attributes :id
-	embed :ids
+  attributes :id
+  embed :ids
 end

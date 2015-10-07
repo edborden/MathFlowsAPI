@@ -1,11 +1,11 @@
 class Visit
 
-	def initialize invitation
+  def initialize invitation
 
-		invitation.visited!
-		invitation.save
-		KeenHandler.new.handle :publish,:invitation_visit, invitation
+    invitation.visited!
+    invitation.save
+    KeenHandler.new.handle :publish,:invitation_visit, invitation
 
-	end
+  end
 
 end

@@ -1,3 +1,3 @@
 class AlignmentSerializer < ApplicationSerializer
-	attributes :side
+  attributes :side
 end

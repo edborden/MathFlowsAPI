@@ -1,23 +1,23 @@
 describe Accept do
 
-	let(:sender) { create :user_with_group }
-	let(:receiver) { create :user }
-	let(:groupvitation) { create :groupvitation, sender:sender,receiver:receiver,receiver_email:receiver.email }
+  let(:sender) { create :user_with_group }
+  let(:receiver) { create :user }
+  let(:groupvitation) { create :groupvitation, sender:sender,receiver:receiver,receiver_email:receiver.email }
 
-	let!(:accept) { Accept.new receiver,groupvitation }
+  let!(:accept) { Accept.new receiver,groupvitation }
 
-	it { expect(groupvitation.accepted?).to be true }
+  it { expect(groupvitation.accepted?).to be true }
 
-	it "runs Join"
+  it "runs Join"
 
-	context "When receiver is already in a group" do
+  context "When receiver is already in a group" do
 
-		it "runs Unjoin"
+    it "runs Unjoin"
 
-	end
+  end
 
-	describe "#group" do
-		it { expect(accept.group).to eq sender.group }
-	end
+  describe "#group" do
+    it { expect(accept.group).to eq sender.group }
+  end
 
 end

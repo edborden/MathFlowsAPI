@@ -1,29 +1,29 @@
 class Pdf
-	include Prawn::View
-	include PdfHelpers
+  include Prawn::View
+  include PdfHelpers
 
-	def initialize test
-		@test = test
-		generate_pdf
-	end
+  def initialize test
+    @test = test
+    generate_pdf
+  end
 
-	def generate_pdf
+  def generate_pdf
 
-		first_page = true
+    first_page = true
 
-		borders = @test.folder.user.preference.borders
-	
-		@test.pages.each do |page|
+    borders = @test.folder.user.preference.borders
+  
+    @test.pages.each do |page|
 
-			if first_page
-				first_page = false
-			else
-				start_new_page
-			end
+      if first_page
+        first_page = false
+      else
+        start_new_page
+      end
 
-			page.blocks.each { |block| write_block(block,borders) }
+      page.blocks.each { |block| write_block(block,borders) }
 
-		end
-	end
+    end
+  end
 
 end

@@ -1,8 +1,8 @@
 FactoryGirl.define do
 
-	factory :test do
-		folder
-		user
-	end
+  factory :test do
+    folder
+    user
+  end
 
 end

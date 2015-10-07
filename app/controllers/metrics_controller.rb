@@ -1,13 +1,13 @@
 class MetricsController < ApplicationController
 
-	def index
+  def index
 
-		metrics = {
-			users_count: Plan.not_guest.count
-		}
+    metrics = {
+      users_count: Plan.not_guest.count
+    }
 
-		render json: metrics
+    render json: metrics
 
-	end
+  end
 
 end
