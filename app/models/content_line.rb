@@ -82,7 +82,7 @@ class ContentLine
     indentation += left_space
 
     center_aligned_items.each do |item|
-      line_items << OpenStruct.new(indentation:indentation,object:item,width:item.width,height:item.height)
+      line_items << OpenStruct.new( indentation: indentation, object: item, width: item.width, height: item.height )
       indentation += item.width
     end 
 
@@ -94,7 +94,6 @@ class ContentLine
     @height ||= begin
       height = 0
       @line_items.each do |item|
-        p item.height
         height = item.height if item.height > height
       end
       height += 4 if height > 18# allow for 2px buffer on top and bottom for images
@@ -103,12 +102,10 @@ class ContentLine
   end
 
   def write_to_pdf pdf
-    pdf.bounding_box [2,pdf.bounds.top],width:@width, height:height do        
+    pdf.bounding_box [ 2, pdf.bounds.top ], width: @width, height: height do    
       @line_items.each do |item|
-        pdf.float do
-          pdf.bounding_box [item.indentation,pdf.bounds.top], width: item.width,height:pdf.bounds.top do
-            item.object.write_to_pdf(pdf)
-          end
+        pdf.bounding_box [ item.indentation, pdf.bounds.top ], width: item.width, height: pdf.bounds.top do
+          item.object.write_to_pdf(pdf)
         end
       end
     end

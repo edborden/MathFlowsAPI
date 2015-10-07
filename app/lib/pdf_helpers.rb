@@ -28,7 +28,7 @@ module PdfHelpers
             
       block.lines.each do |line|
 
-        lines_box = bounding_box [number_indentation,bounds.top-y],width:bounds.right do
+        lines_box = bounding_box [number_indentation,bounds.top-y],width:bounds.right-number_indentation do
 
           line.write_to_pdf self
 
@@ -40,7 +40,7 @@ module PdfHelpers
 
       ## BLOCK CHILDREN
 
-      children_box = bounding_box [0,bounds.top-y],width:bounds.right do
+      children_box = bounding_box [0,bounds.top-y],width:bounds.right,height:bounds.top - y do
 
         block.write_to_pdf(self)
 

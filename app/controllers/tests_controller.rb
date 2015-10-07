@@ -31,7 +31,10 @@ class TestsController < ResourceController
 
       format.pdf do
         pdf = Pdf.new @resource 
-        send_data pdf.render, filename: "#{@resource.name}.pdf", type: "application/pdf"
+        #send_data pdf.render, filename: "#{@resource.name}.pdf", type: "application/pdf"
+        table = Table.find 14
+        table.write_to_pdf table
+        send_data table.render, filename: "#{@resource.name}.pdf", type: "application/pdf"
       end
 
       format.html do

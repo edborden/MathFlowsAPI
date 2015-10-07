@@ -36,7 +36,7 @@ class Table < ActiveRecord::Base
 
   def create_projections
     (@rows_count || 0).times { |index| Projection.create axis:0,table_id:self.id,position:index+1 }
-    (@cols_count || 0).times { |index| Projection.create axis:1,table_id:self.id,position:index+1 }
+    (@cols_count || 0).times { |index| Projection.create axis:1,table_id:self.id,position:index+1,size:24 }
   end
 
   def cell_at row,col
@@ -44,49 +44,56 @@ class Table < ActiveRecord::Base
   end
 
   def height
-    write_to_pdf(self).height
+    height = write_to_pdf(self).height
+    p height,"table height"
+    return height
   end
 
-  def write_to_pdf pdf
-    table_box = pdf.bounding_box( [0,pdf.bounds.top], width: pdf.bounds.right ) do
+  def write_to_pdf pdf 
 
-      y = 0
+    y = 0
 
+    pdf.bounding_box( [ 0, pdf.bounds.top ], width: pdf.bounds.right ) do
+  
       rows.each do |row|
 
         x = 0
 
-        row_box = pdf.bounding_box([0,pdf.bounds.top - y], width: pdf.bounds.right ) do
+        row_box = pdf.bounding_box( [ 0, pdf.bounds.top - y], width: pdf.bounds.right ) do
 
           cols.each do |col|
 
-            pdf.bounding_box([x,pdf.bounds.top],width:col.size) do
+            cell_box = pdf.bounding_box( [ x, pdf.bounds.top ], width: col.size ) do
 
-              cell = cell_at(row,col) || Cell.new(row_id:row.id,col_id:col.id)
+              cell = cell_at( row, col ) || Cell.new( row_id: row.id, col_id: col.id )
               cell.write_to_pdf pdf
 
             end
 
             x += col.size
 
+            p cell_box.height,"cell_box_height"
+
           end
 
         end
 
-        pdf.stroke { pdf.rectangle [0,pdf.bounds.top-y],x,row_box.height }
+        pdf.stroke { pdf.rectangle [ 0, pdf.bounds.top - y ], x, row_box.height }
 
         y += row_box.height
+
+        p row_box.height,"row_box_height"
 
       end 
 
     end
-      
+
     #stroke each col
     x = 0
     cols.each do |col|
       x += col.size
-      pdf.stroke { pdf.vertical_line pdf.bounds.top, pdf.bounds.top - table_box.height, at: x }
+      pdf.stroke { pdf.vertical_line( pdf.bounds.top, pdf.bounds.top - y, at: x ) }
     end
-    return table_box
+    return OpenStruct.new( height: y )  #table bounding_box height is unreliable if cell heights are mixed, so height is calculated internally
   end
 end
