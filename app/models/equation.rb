@@ -1,4 +1,5 @@
 require 'open-uri'
+require 'cgi'
 
 class Equation
 
@@ -8,7 +9,7 @@ class Equation
   end
 
   def url
-    @url ||= URI.encode("http://mathflows-latex.herokuapp.com/render?math=%24%24" + @latex + "%24%24")
+    @url ||= "http://mathflows-latex.herokuapp.com/render?math=%24" + CGI.escape(@latex) + "%24"
     #@url ||= URI.encode("http://latex.codecogs.com/svg.latex?\\dpi{300}" + @latex)
   end 
 

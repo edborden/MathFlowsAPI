@@ -44,9 +44,7 @@ class Table < ActiveRecord::Base
   end
 
   def height
-    height = write_to_pdf(self).height
-    p height,"table height"
-    return height
+    @height ||= write_to_pdf(self).height
   end
 
   def write_to_pdf pdf 
@@ -72,8 +70,6 @@ class Table < ActiveRecord::Base
 
             x += col.size
 
-            p cell_box.height,"cell_box_height"
-
           end
 
         end
@@ -81,8 +77,6 @@ class Table < ActiveRecord::Base
         pdf.stroke { pdf.rectangle [ 0, pdf.bounds.top - y ], x, row_box.height }
 
         y += row_box.height
-
-        p row_box.height,"row_box_height"
 
       end 
 
