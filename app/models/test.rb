@@ -7,7 +7,7 @@ class Test < ActiveRecord::Base
   belongs_to :user, counter_cache: true
   has_many :blocks, through: :pages
 
-  validates_presence_of :user_id,:folder_id,:name
+  validates_presence_of :user_id,:name
 
   amoeba do
     include_association :pages

@@ -22,7 +22,6 @@ describe Test do
   describe "validations" do
 
     it { should validate_presence_of :user_id }
-    it { should validate_presence_of :folder_id }
     it { should validate_presence_of :name }
 
   end
