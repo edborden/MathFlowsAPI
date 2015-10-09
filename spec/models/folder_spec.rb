@@ -29,7 +29,7 @@ describe Folder do
 
     it { should validate_presence_of :user_id }
     it { should validate_presence_of :name }
-    it { should validate_presence_of :open }
+    #it { should validate_presence_of :open } can't validate boolean
     it { should validate_presence_of :contents }
 
   end

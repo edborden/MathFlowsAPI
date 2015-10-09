@@ -6,7 +6,7 @@ class Folder < ActiveRecord::Base
 
   enum contents: [:tests]
 
-  validates_presence_of :user_id,:name,:open,:contents
+  validates_presence_of :user_id,:name,:contents
 
   def has_write_access? user
     user == self.user

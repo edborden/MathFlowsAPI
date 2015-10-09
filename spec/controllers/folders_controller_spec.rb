@@ -16,7 +16,7 @@ describe FoldersController do
   describe "PUT to #update" do
 
     it "updates" do
-      expect { authenticated_req :put,:update,{id:folder.id,folder:{name:"New Name"}},user }
+      expect { authenticated_req :put,:update,{id:folder.id,folder:{name:"New Name",open:false}},user }
         .to change { folder.reload.name }
         .to "New Name"
     end
