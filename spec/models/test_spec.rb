@@ -3,7 +3,7 @@ describe Test do
   describe "db" do
 
     it { should have_db_column(:name).of_type(:string).with_options default:"New Test",null:false }
-    it { should have_db_column(:folder_id).of_type(:integer).with_options null:false }
+    it { should have_db_column(:folder_id).of_type :integer }
     it { should have_db_column(:user_id).of_type(:integer).with_options null:false }
 
     it { should have_db_index(:folder_id) }

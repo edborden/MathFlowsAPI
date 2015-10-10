@@ -1,5 +1,4 @@
 class BlocksController < ResourceController
-  skip_before_action :current_user_authorized?, only: :copy
 
   def create
       @resource = model.new resource_params

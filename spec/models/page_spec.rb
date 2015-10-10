@@ -14,12 +14,6 @@ describe Page do
 
   end
 
-  describe "validations" do
-
-    it { should validate_presence_of :test_id }
-
-  end
-
   context "when destroyed" do
 
     let(:page) { create :page }

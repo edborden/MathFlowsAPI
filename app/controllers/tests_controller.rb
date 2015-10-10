@@ -2,28 +2,21 @@ class TestsController < ResourceController
   include ActionController::MimeResponds
 
   def create
-    if params[:test][:copy_from_id]
-      copy_from = Test.find params[:test][:copy_from_id]
-      @resource = copy_from.amoeba_dup
-      @resource.save
-      @resource.pages.each do |page|
-        page.blocks.each do |block|
-          block.user_id = current_user.id
-          block.save
-        end
-      end
-    else
-      @resource = Test.create folder_id: params[:test][:folder_id], user_id:current_user.id
-      page = Page.create test_id:@resource.id
-      current_user.headers.each do |block| 
-        block = block.amoeba_dup
-        block.page_id = page.id
-        block.user_id = current_user.id
-        block.directions!
-        block.save
-      end
+    @resource = Test.create folder_id: params[:test][:folder_id], user_id:current_user.id
+    page = Page.create test_id:@resource.id
+    current_user.headers.each do |block| 
+      block = block.amoeba_dup
+      block.page_id = page.id
+      block.user_id = current_user.id
+      block.directions!
+      block.save
     end
     render_resource
+  end
+
+  def copy
+    @resource = TestCopy.new(@resource,current_user).test
+    render_resource    
   end
 
   def show

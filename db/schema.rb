@@ -131,7 +131,7 @@ ActiveRecord::Schema.define(version: 20150718222534) do
 
   create_table "tests", force: true do |t|
     t.string  "name", default: "New Test", null:false
-    t.integer "folder_id", null:false
+    t.integer "folder_id"
     t.integer "user_id", null:false
   end
 
