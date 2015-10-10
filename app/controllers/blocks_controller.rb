@@ -1,11 +1,7 @@
 class BlocksController < ResourceController
+  skip_before_action :current_user_authorized?, only: :copy
 
   def create
-    copy_from = params[:block][:copy_from_id]
-    if copy_from
-      @resource = BlockCopy.new(copy_from,current_user).block
-      render_resource
-    else
       @resource = model.new resource_params
       resource_params[:page_id] = nil if header?
       if header? || @resource.has_write_access?(current_user)
@@ -19,8 +15,11 @@ class BlocksController < ResourceController
       else
         head :forbidden
       end
+  end
 
-    end
+  def copy
+    @resource = BlockCopy.new(@resource,current_user).block
+    render_resource    
   end
 
   def validate

@@ -1,9 +1,8 @@
 class BlockCopy
   attr_accessor :block
 
-  def initialize copy_from_id,user
+  def initialize copy_from,user
 
-    copy_from = Block.find copy_from_id
     @block = copy_from.amoeba_dup
     @block.user_id = user.id
     @block.page_id = nil

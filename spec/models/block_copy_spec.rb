@@ -7,7 +7,7 @@ describe BlockCopy do
     before do
       @other_user = create :user
       create :line, lineable:block
-      @copy = BlockCopy.new block.id,@other_user
+      @copy = BlockCopy.new block,@other_user
     end
 
     it "creates a new block" do
@@ -36,7 +36,7 @@ describe BlockCopy do
     before do
       create :image, block:block
       @other_user = create :user
-      @copy = BlockCopy.new block.id,@other_user
+      @copy = BlockCopy.new block,@other_user
     end
 
     it "saves block" do
@@ -54,7 +54,7 @@ describe BlockCopy do
     before do
       create :table_with_content, block:block
       @other_user = create :user
-      @copy = BlockCopy.new block.id,@other_user
+      @copy = BlockCopy.new block,@other_user
     end
 
     it "saves block" do

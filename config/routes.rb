@@ -3,6 +3,7 @@ Rails.application.routes.draw do
   resources :sessions, only: [:create, :index, :destroy]
   resources :blocks, only: [:create,:update,:destroy]
   post 'blocks/:id/validate', to: 'blocks#validate'
+  post 'block/:id/copy', to: 'blocks#copy'
   resources :images, only: [:create, :update, :destroy]
   resources :pages, only: [:create,:show,:destroy]
   resources :folders, only: [:create,:update,:destroy]

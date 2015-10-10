@@ -12,19 +12,6 @@ describe BlocksController do
 
     end
 
-    context "with copy_from_id" do
-
-      it "runs BlockCopy" do
-
-        expect(BlockCopy).to receive(:new).with(block.id.to_s,user).and_return double(block: create(:block,user:user))
-        authenticated_req :post,:create,{block:{copy_from_id:block.id}},user
-        should respond_with :ok
-        expect(json_response["block"]["user_id"].to_i).to eq user.id
-
-      end
-
-    end
-
     context "when user isnt owner of page" do
 
       before { authenticated_req :post,:create,{block:{page_id:page.id}}, create(:user_with_session) }
@@ -32,6 +19,19 @@ describe BlocksController do
       it "should not create a block" do
         expect(Block.count).to eq 1
       end
+
+    end
+
+  end
+
+  describe "POST to #copy" do
+
+    it "runs BlockCopy" do
+
+      expect(BlockCopy).to receive(:new).with(block,user).and_return double(block: create(:block,user:user))
+      authenticated_req :post,:copy,{id:block.id},user
+      should respond_with :ok
+      expect(json_response["block"]["user_id"].to_i).to eq user.id
 
     end
 
