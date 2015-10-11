@@ -20,7 +20,6 @@ describe Style do
   describe "validations" do
   
     it { should validate_presence_of :effect }
-    it { should validate_presence_of :line_id }
 
   end
 
