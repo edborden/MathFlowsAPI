@@ -3,4 +3,5 @@ class TestSerializer < ApplicationSerializer
   has_many :pages, embed: :ids, include: :true
   has_one :folder
   has_many :blocks
+  has_one :user
 end
