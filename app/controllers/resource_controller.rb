@@ -66,6 +66,14 @@ class ResourceController < AuthenticatedController
     end
   end
 
+  def render_resource_or_errors
+    if @resource.errors.empty?
+      render_resource
+    else
+      render_errors
+    end
+  end
+
   def render_resource
     render json: resource
   end

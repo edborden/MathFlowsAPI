@@ -18,7 +18,7 @@ class BlocksController < ResourceController
 
   def copy
     @resource = BlockCopy.new(@resource,current_user).block
-    render_resource    
+    render_resource_or_errors    
   end
 
   def validate

@@ -16,7 +16,7 @@ class TestsController < ResourceController
 
   def copy
     @resource = TestCopy.new(@resource,current_user).test
-    render_resource    
+    render_resource_or_errors
   end
 
   def show
