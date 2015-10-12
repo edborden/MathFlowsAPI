@@ -11,7 +11,7 @@ class Pdf
 
     first_page = true
 
-    borders = @test.folder.user.preference.borders
+    borders = @test.user.preference.borders
   
     @test.pages.each do |page|
 
