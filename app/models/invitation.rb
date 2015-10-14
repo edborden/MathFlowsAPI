@@ -22,6 +22,7 @@ class Invitation < ActiveRecord::Base
     referrer.tests_quota += 5
     referrer.save
 
+    referral.invitation_id = id
     referral.referred_by = referrer.name
     referral.tests_quota += 5
     referral.save
