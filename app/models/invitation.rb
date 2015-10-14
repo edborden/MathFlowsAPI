@@ -11,7 +11,7 @@ class Invitation < ActiveRecord::Base
 
   def send_invitation_email
     MailHandler.new.handle :invitation, self
-    KeenHandler.new.handle :publish,:invitation, self   
+    KeenHandler.new.handle :publish,:invitation, { self, referrer: referrer }   
   end
 
   def set_signup referral
@@ -27,7 +27,7 @@ class Invitation < ActiveRecord::Base
     referral.save
 
     MailHandler.new.handle :invitation_signup, self
-    KeenHandler.new.handle :publish,:invitation_signup, self
+    KeenHandler.new.handle :publish,:invitation_signup, { self, referrer: referrer, referral:referral}
   end
 
   def set_owner user
