@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151014204907) do
+ActiveRecord::Schema.define(version: 20151015161754) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -189,10 +189,9 @@ ActiveRecord::Schema.define(version: 20151014204907) do
     t.integer  "gender"
     t.datetime "created_at"
     t.integer  "group_id"
-    t.boolean  "guest",           default: true, null: false
     t.string   "uservoice_token"
-    t.integer  "tests_count",     default: 0,    null: false
-    t.integer  "tests_quota",     default: 25,   null: false
+    t.integer  "tests_count",     default: 0,  null: false
+    t.integer  "tests_quota",     default: 25, null: false
     t.string   "referred_by"
     t.integer  "invitation_id"
   end
