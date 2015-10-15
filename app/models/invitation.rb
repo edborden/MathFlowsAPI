@@ -16,7 +16,7 @@ class Invitation < ActiveRecord::Base
 
   def set_signup referral
     self.referral_id = referral.id
-    signed_up!
+    self.status = "signed_up"
     save
 
     referrer.tests_quota += 5

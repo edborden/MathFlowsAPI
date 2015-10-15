@@ -2,7 +2,7 @@ class Visit
 
   def initialize invitation
 
-    invitation.visited!
+    invitation.status = "visited"
     invitation.save
     KeenHandler.new.handle :publish,:invitation_visit, invitation
 

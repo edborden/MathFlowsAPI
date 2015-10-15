@@ -44,9 +44,7 @@ class UserConverter
   end
 
   def adjust_plan
-    plan = @user.plan
-    plan.basic!
-    plan.save
+    @user.plan.basic!
   end
 
 end
