@@ -5,11 +5,10 @@ class Equation
 
   def initialize latex
     @latex = latex
-    p latex
   end
 
   def url
-    @url ||= "http://mathflows-latex.herokuapp.com/render?math=%24" + CGI.escape(@latex) + "%24"
+    @url ||= "http://mathflows-latex.herokuapp.com/render?math=" + CGI.escape(@latex)
     #@url ||= URI.encode("http://latex.codecogs.com/svg.latex?\\dpi{300}" + @latex)
   end 
 
