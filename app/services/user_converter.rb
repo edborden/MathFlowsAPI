@@ -22,7 +22,7 @@ class UserConverter
   def set_user_attrs
     userinfo = @google.userinfo
     @user.name = userinfo.name
-    @user.email = userinfo.email
+    @user.email = userinfo.email.downcase
     @user.gender = userinfo.gender
     @user.pic = userinfo.picture
   end
