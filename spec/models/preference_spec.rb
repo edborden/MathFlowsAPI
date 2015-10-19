@@ -6,6 +6,7 @@ describe Preference do
     it { should have_db_column(:directions).of_type(:boolean).with_options default:false,null:false }
     it { should have_db_column(:tour).of_type(:boolean).with_options default:true,null:false }
     it { should have_db_column(:user_id).of_type(:integer).with_options null:false }
+    it { should have_db_column(:borders).of_type(:boolean).with_options default:false,null:false }
 
     it { should have_db_index(:user_id).unique }
 

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151015161754) do
+ActiveRecord::Schema.define(version: 20151019205054) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -139,6 +139,7 @@ ActiveRecord::Schema.define(version: 20151015161754) do
     t.boolean "tour",       default: true,  null: false
     t.boolean "directions", default: false, null: false
     t.integer "user_id",                    null: false
+    t.boolean "group_help", default: true,  null: false
   end
 
   add_index "preferences", ["user_id"], name: "index_preferences_on_user_id", unique: true, using: :btree
