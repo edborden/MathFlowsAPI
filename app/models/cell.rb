@@ -13,8 +13,8 @@ class Cell < ActiveRecord::Base
     table.block.user
   end
 
-  def has_write_access? user
-    self.user == user
+  def has_write_access? test_user
+    user.id == test_id.id
   end
 
   def write_to_pdf pdf

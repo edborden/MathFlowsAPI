@@ -27,7 +27,7 @@ class Test < ActiveRecord::Base
   end
 
   def has_write_access? test_user
-    test_user == user
+    test_user.id == user.id
   end
 
 end

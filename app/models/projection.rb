@@ -16,6 +16,6 @@ class Projection < ActiveRecord::Base
   scope :col, -> { where(axis:1) }
 
   def has_write_access? user
-    table.block.user == user
+    table.block.user_id == user.id
   end
 end

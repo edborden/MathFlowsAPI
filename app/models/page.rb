@@ -5,6 +5,6 @@ class Page < ActiveRecord::Base
   amoeba {enable}
 
   def has_write_access? user
-    test.user == user
+    test.user_id == user.id
   end
 end

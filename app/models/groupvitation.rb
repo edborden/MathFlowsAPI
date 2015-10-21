@@ -25,7 +25,7 @@ class Groupvitation < ActiveRecord::Base
   end
 
   def has_write_access? user
-    [sender,receiver].include? user
+    [sender_id,receiver_id].include? user.id
   end
 
   def set_owner user

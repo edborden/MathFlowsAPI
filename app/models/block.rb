@@ -31,7 +31,7 @@ class Block < ActiveRecord::Base
   end
 
   def has_write_access? test_user
-    [page.try(:test).try(:user),user].include? test_user
+    [page.try(:test).try(:user_id),user_id].include? test_user.id
   end
 
   def set_owner user

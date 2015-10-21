@@ -20,7 +20,7 @@ class Image < ActiveRecord::Base
   end
 
   def has_write_access? user
-    block.user == user
+    block.user_id == user.id
   end
 
   def write_to_pdf pdf

@@ -3,6 +3,6 @@ class Preference < ActiveRecord::Base
   validates_presence_of :user_id
 
   def has_write_access? test_user
-    test_user == user
+    user_id == test_user.id
   end
 end
