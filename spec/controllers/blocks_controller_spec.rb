@@ -26,12 +26,16 @@ describe BlocksController do
 
   describe "POST to #copy" do
 
-    it "runs BlockCopy" do
+    context "as anyone" do
 
-      expect(BlockCopy).to receive(:new).with(block,user).and_return double(block: create(:block,user:user))
-      authenticated_req :post,:copy,{id:block.id},user
-      should respond_with :ok
-      expect(json_response["block"]["user_id"].to_i).to eq user.id
+      it "runs BlockCopy" do
+
+        expect(BlockCopy).to receive(:new).with(block,user).and_return double(block: create(:block,user:user))
+        authenticated_req :post,:copy,{id:block.id},user
+        should respond_with :ok
+        expect(json_response["block"]["user_id"].to_i).to eq user.id
+
+      end
 
     end
 
