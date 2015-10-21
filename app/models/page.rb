@@ -4,7 +4,16 @@ class Page < ActiveRecord::Base
 
   amoeba {enable}
 
-  def has_write_access? user
-    test.user_id == user.id
+  def has_write_access? test_user
+    test.user_id == test_user.id
   end
+
+  def has_read_access? test_user
+    if test.user.group_id
+        test.user.group.users.include? test_user
+    else
+      false
+    end
+  end
+
 end

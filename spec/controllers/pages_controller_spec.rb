@@ -44,6 +44,10 @@ describe PagesController do
 
     end
 
+    context "while in the same group" do
+
+    end
+
   end 
 
   describe "DELETE to #destroy" do
