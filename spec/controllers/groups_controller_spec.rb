@@ -6,7 +6,7 @@ describe GroupsController do
 
     it "returns group which contains current user" do
       authenticated_req :post, :create, {group:{name:"Test Group"}}, user
-      expect(json_response["users"][0]["id"]).to eq user.id
+      expect(json_response["group"]).to be_truthy
     end
 
   end

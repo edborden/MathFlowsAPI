@@ -4,5 +4,4 @@ class ColleagueSerializer < ApplicationSerializer
   has_many :folders, embed: :ids, include: :true
   has_many :blocks, embed: :ids, include: :true
   has_one :group
-
 end
