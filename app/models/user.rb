@@ -38,7 +38,7 @@ class User < ActiveRecord::Base
 
   def destroy_headers_and_clips
     headers.each { |block| block.destroy }
-    clipboard.each { |block| block.destroy }
+    clips.each { |block| block.destroy }
   end
 
 end

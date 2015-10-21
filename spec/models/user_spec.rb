@@ -137,7 +137,7 @@ describe User do
     it "destroys headers and blocks in clipboard" do
       create :header,user:user
       create :block,user:user
-      expect(user.clipboard.count).to eq 1
+      expect(user.clips.count).to eq 1
       expect(user.headers.count).to eq 1
       expect { user.destroy }.to change { Block.count }.by(-2)
     end
