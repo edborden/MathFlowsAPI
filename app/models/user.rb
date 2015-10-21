@@ -3,7 +3,7 @@ class User < ActiveRecord::Base
   # CALLBACKS
 
   after_create :create_preference,:create_plan
-  before_destroy :destroy_headers_and_clipboard
+  before_destroy :destroy_headers_and_clips
 
   # ASSOCIATIONS
 
@@ -32,11 +32,11 @@ class User < ActiveRecord::Base
     blocks.header
   end
 
-  def clipboard
+  def clips
     blocks.where(page_id:nil).where.not(kind:2)
   end
 
-  def destroy_headers_and_clipboard
+  def destroy_headers_and_clips
     headers.each { |block| block.destroy }
     clipboard.each { |block| block.destroy }
   end
