@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151019205054) do
+ActiveRecord::Schema.define(version: 20151021153328) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -140,6 +140,8 @@ ActiveRecord::Schema.define(version: 20151019205054) do
     t.boolean "directions", default: false, null: false
     t.integer "user_id",                    null: false
     t.boolean "group_help", default: true,  null: false
+    t.boolean  "me_group_help",   default: true, null: false
+    t.boolean  "me_test_help",    default: true, null: false
   end
 
   add_index "preferences", ["user_id"], name: "index_preferences_on_user_id", unique: true, using: :btree
@@ -191,8 +193,8 @@ ActiveRecord::Schema.define(version: 20151019205054) do
     t.datetime "created_at"
     t.integer  "group_id"
     t.string   "uservoice_token"
-    t.integer  "tests_count",     default: 0,  null: false
-    t.integer  "tests_quota",     default: 25, null: false
+    t.integer  "tests_count",     default: 0,    null: false
+    t.integer  "tests_quota",     default: 25,   null: false
     t.string   "referred_by"
     t.integer  "invitation_id"
   end
