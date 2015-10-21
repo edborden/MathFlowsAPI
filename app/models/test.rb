@@ -30,4 +30,12 @@ class Test < ActiveRecord::Base
     test_user.id == user.id
   end
 
+  def has_read_access? test_user
+    if user.group_id
+        user.group.users.include? test_user
+    else
+      false
+    end
+  end
+
 end

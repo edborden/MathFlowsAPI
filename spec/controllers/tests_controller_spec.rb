@@ -36,25 +36,35 @@ describe TestsController do
 
   describe "POST to #copy" do
 
-    before do
-      authenticated_req :post, :copy, {id:test.id}, user
+    context "as owner" do
+
+      before do
+        authenticated_req :post, :copy, {id:test.id}, user
+      end
+
+      it { should respond_with :ok }
+
+      it "creates a test" do
+        expect(Test.count).to eq 2
+      end
+
+      it "has a page" do
+        expect(Page.count).to eq 2
+        expect(Test.last.pages.first).to be_truthy
+      end
+
+      it "has a block" do
+        expect(Test.last.pages.first.blocks.first).to be_truthy
+      end
+
     end
 
-    it { should respond_with :ok }
-
-    it "creates a test" do
-      expect(Test.count).to eq 2
+    context "as colleague of owner" do
     end
 
-    it "has a page" do
-      expect(Page.count).to eq 2
-      expect(Test.last.pages.first).to be_truthy
+    context "without read authorization" do
     end
-
-    it "has a block" do
-      expect(Test.last.pages.first.blocks.first).to be_truthy
-    end
-
+    
   end
 
   describe "GET to #show" do
