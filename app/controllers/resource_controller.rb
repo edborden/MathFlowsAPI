@@ -1,10 +1,14 @@
 class ResourceController < AuthenticatedController
   before_action :resource_exists?, except: :create
-  before_action :current_user_authorized?, except: :create
-  skip_before_action :current_user_authorized?, only: :copy
+  before_action :current_user_write_authorized?, except: [:create,:show]
+  before_action :current_user_read_authorized?, only: [:show,:copy]
 
-  def current_user_authorized?
+  def current_user_write_authorized?
     head :forbidden unless resource.has_write_access? current_user
+  end
+
+  def current_user_read_authorized?
+    head :forbidden unless resource.has_write_access?(current_user) || resource.try(:has_read_access?,current_user)
   end
 
   def resource_exists?

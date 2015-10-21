@@ -1,6 +1,6 @@
 class GroupsController < ResourceController
   skip_before_action :resource_exists?, only: :unjoin
-  skip_before_action :current_user_authorized?, only: :unjoin
+  skip_before_action :current_user_write_authorized?, only: :unjoin
 
   def create
     group = Group.create resource_params

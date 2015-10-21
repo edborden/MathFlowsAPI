@@ -1,6 +1,6 @@
 class InvitationsController < ResourceController
   skip_before_action :ensure_authenticated_user, only: :visit
-  skip_before_action :current_user_authorized?, only: :visit
+  skip_before_action :current_user_write_authorized?, only: :visit
 
   def create
     if User.find_by_email new_resource.referral_email
