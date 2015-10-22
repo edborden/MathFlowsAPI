@@ -47,4 +47,15 @@ class MailHandler < MandrillMailer::TemplateMailer
     ).deliver
   end
 
+  def tips1 user
+    mandrill_mail( template: 'tips1',
+      subject: "Writing math inline is super easy",
+      to: user.email,
+      important: true,
+      inline_css: true,
+      async: true,
+      send_at: Time.now + 30.seconds
+    ).deliver
+  end
+
 end
