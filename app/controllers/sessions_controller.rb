@@ -4,6 +4,9 @@ class SessionsController < AuthenticatedController
   def create
     if params[:session][:token] == "issue"
       user = GuestUser.new.user
+      user.facebook_referrer = params[:session][:facebook_referrer]
+      user.google_referrer = params[:session][:google_referrer]
+      user.save
     else 
       google = GoogleHandler.new.user_authorized(params[:session][:token],params[:session][:redirect_uri])
       user = GoogleAuth.find_by_google_id(google.userinfo.id).try :user

@@ -12,6 +12,8 @@ describe User do
     it { should have_db_column(:tests_count).of_type(:integer).with_options default: 0, null:false }
     it { should have_db_column(:tests_quota).of_type(:integer).with_options default: 25, null:false }
     it { should have_db_column(:referred_by).of_type :string }
+    it { should have_db_column(:google_referrer).of_type :string }
+    it { should have_db_column(:facebook_referrer).of_type :string }
     
     it { should have_db_index(:email).unique }
     it { should have_db_index :group_id }
