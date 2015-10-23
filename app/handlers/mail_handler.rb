@@ -54,7 +54,7 @@ class MailHandler < MandrillMailer::TemplateMailer
       important: true,
       inline_css: true,
       async: true,
-      send_at: Time.now + 30.seconds
+      send_at: (Time.now + 30.seconds).utc
     ).deliver
   end
 
