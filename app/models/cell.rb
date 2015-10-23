@@ -14,7 +14,7 @@ class Cell < ActiveRecord::Base
   end
 
   def has_write_access? test_user
-    user.id == test_id.id
+    user.id == test_user.id
   end
 
   def write_to_pdf pdf
