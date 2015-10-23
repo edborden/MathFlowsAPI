@@ -14,6 +14,7 @@ class UserConverter
     adjust_plan
     MailchimpHandler.new.handle :subscribe, @user
     MailHandler.new.handle :welcome, @user
+    MailHandler.new.handle :tips1, @user
     KeenHandler.new.handle :publish,:signup, {user:@user,invitation:invitation}
     send_all_groupvitations
     return @user
