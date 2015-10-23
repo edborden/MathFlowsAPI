@@ -17,7 +17,7 @@ class Equation
   end
 
   def write_to_pdf pdf
-    pdf.svg file#, vposition: 2, scale: 0.25
+    pdf.svg file, vposition: :center# scale: 0.25
   end
 
   def file
