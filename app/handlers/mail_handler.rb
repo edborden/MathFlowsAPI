@@ -49,7 +49,7 @@ class MailHandler < MandrillMailer::TemplateMailer
 
   def tips1 user
     mandrill_mail( template: 'tips1',
-      subject: "Writing math inline is super easy",
+      subject: "Type math inline as easy as text",
       to: user.email,
       important: true,
       inline_css: true,
