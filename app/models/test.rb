@@ -2,7 +2,7 @@ class Test < ActiveRecord::Base
 
   before_destroy :save_valid_question_blocks
 
-  has_many :pages, dependent: :destroy
+  has_many :pages, -> { order(:id) }, dependent: :destroy
   belongs_to :folder
   belongs_to :user, counter_cache: true
   has_many :blocks, through: :pages
