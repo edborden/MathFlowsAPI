@@ -16,6 +16,7 @@ class SessionsController < AuthenticatedController
       end
       user.session.try :destroy
     end
+    @current_user = user #make scope available to serializers
     render json: user.create_session
   end
 
