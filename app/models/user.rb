@@ -24,6 +24,10 @@ class User < ActiveRecord::Base
   has_many :groupvitations_sent, class_name: "Groupvitation", foreign_key: "sender_id", dependent: :destroy
   has_many :groupvitations, -> { where(status:1) }, foreign_key: "receiver_id", dependent: :destroy
 
+  # SCOPES
+
+  scope :made_content, -> {where("tests_count > 1")}
+
   # VALIDATIONS
 
   validates_uniqueness_of :email,allow_nil:true
