@@ -7,7 +7,8 @@ class MetricsController < ApplicationController
       questions_count: Block.question.count,
       tests_count: Test.count,
       groups_count: Group.with_multiple_users.count,
-      users_made_content_count: User.made_content.count
+      users_made_content_count: User.made_content.count,
+      users_made_more_content_count: User.made_more_content.count
     }
 
     render json: metrics

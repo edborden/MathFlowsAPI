@@ -27,6 +27,7 @@ class User < ActiveRecord::Base
   # SCOPES
 
   scope :made_content, -> {where("tests_count > 1")}
+  scope :made_more_content, -> {where("tests_count > 2")}
 
   # VALIDATIONS
 
