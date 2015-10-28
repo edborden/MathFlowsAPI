@@ -41,4 +41,9 @@ class User < ActiveRecord::Base
     clips.each { |block| block.destroy }
   end
 
+  def destroy_blocks_then_destroy
+    blocks.each { |block| block.destroy }
+    destroy
+  end
+
 end
