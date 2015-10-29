@@ -15,4 +15,11 @@ class MetricsController < ApplicationController
 
   end
 
+  def ten
+
+    users = User.find params[:ids]
+    render json: users, serializer: ColleageSerializer, root: "users"
+
+  end
+
 end

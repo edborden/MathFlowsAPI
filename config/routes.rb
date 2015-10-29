@@ -14,6 +14,7 @@ Rails.application.routes.draw do
   post 'invitations/:id/visit', to: 'invitations#visit'
   resources :lines, only: [:create,:update,:destroy]
   resources :metrics, only: :index
+  get 'metrics/ten', to: 'metrics#ten'
   resources :preferences, only: :update
   resources :groupvitations, only: [:create,:destroy]
   post 'groupvitations/:id/accept', to: 'groupvitations#accept'
