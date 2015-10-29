@@ -17,7 +17,7 @@ class MetricsController < ApplicationController
 
   def ten
 
-    users = User.find params[:ids]
+    users = User.includes(:session).find params[:ids]
     render json: users, each_serializer: TenSerializer, root: "users"
 
   end
