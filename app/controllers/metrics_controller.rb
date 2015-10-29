@@ -18,7 +18,7 @@ class MetricsController < ApplicationController
   def ten
 
     users = User.find params[:ids]
-    render json: users, serializer: TenSerializer, root: "users"
+    render json: users, each_serializer: TenSerializer, root: "users"
 
   end
 
