@@ -1,6 +1,8 @@
 require 'open-uri'
 
 class Image < ActiveRecord::Base
+  include NormalizeImage
+
   before_destroy :delete_cloudinary
   after_create :create_alignment, unless: :alignment
 
@@ -24,6 +26,12 @@ class Image < ActiveRecord::Base
   end
 
   def write_to_pdf pdf
-    pdf.image file, width: width, height: height
+    filetype = file.meta["content-type"]
+    image_for_prawn = if file.is_a? Tempfile #over 10kb
+      fileimage(file.path)
+    else #StringIO
+      base64image(filetype,file.read)
+    end
+    pdf.image image_for_prawn, width: width, height: height
   end
 end

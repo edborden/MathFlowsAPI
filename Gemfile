@@ -37,6 +37,7 @@ gem 'keen'
 
 ## IMAGE UTILS
 gem 'image_size'
+gem 'chunky_png'
 
 ## EMAIL
 gem 'mandrill_mailer'
