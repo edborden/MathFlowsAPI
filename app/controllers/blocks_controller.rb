@@ -6,12 +6,7 @@ class BlocksController < ResourceController
       resource_params[:page_id] = nil if header?
       if header? || @resource.has_write_access?(current_user)
         @resource.try :set_owner,current_user
-        if @resource.save
-          Line.create position:1,lineable_id:@resource.id,lineable_type:"Block"
-          render_resource
-        else
-          render_errors
-        end
+        super
       else
         head :forbidden
       end

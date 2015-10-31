@@ -4,11 +4,10 @@ describe BlocksController do
 
   describe "POST to #create" do
 
-    it "creates new block with default line" do
+    it "creates new block" do
 
       authenticated_req :post,:create,{block:{page_id:page.id}},user
       expect(Block.last.user).to eq user
-      expect(json_response["lines"][0]).to be_truthy
 
     end
 
