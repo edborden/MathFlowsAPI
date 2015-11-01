@@ -1,11 +1,13 @@
 class Snippet
   include Prawn::View
+  attr_reader :styles
 
-  def initialize string=nil,styles=nil
+  def initialize string=nil,styles=[],valign=:center
     @styles = styles
     if string
       @string = clean string
     end
+    @valign = valign
   end
 
   def width
@@ -29,7 +31,7 @@ class Snippet
   end
 
   def pdf_string
-    @string ? apply_styles(@string) : Prawn::Text::NBSP
+    @pdf_string ||= @string ? apply_styles(@string) : Prawn::Text::NBSP
   end
 
   def clean string
@@ -41,7 +43,7 @@ class Snippet
   end
 
   def alignment
-    OpenStruct.new side: "left", left?:true
+    @alignment ||= OpenStruct.new side: "left", left?:true
   end
 
   def apply_styles string
@@ -50,7 +52,7 @@ class Snippet
   end
 
   def write_to_pdf pdf
-    pdf.text pdf_string, valign: :center, inline_format:true
+    pdf.text pdf_string, valign: @valign, inline_format:true
   end
 
 end

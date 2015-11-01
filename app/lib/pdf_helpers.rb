@@ -19,7 +19,7 @@ module PdfHelpers
         move_down 3.5
         question_number = QuestionNumber.new(block)
         float do
-          text question_number.formatted, {style: :bold}
+          text question_number.string, {style: :bold}
         end
         number_indentation = question_number.width
       end
