@@ -25,11 +25,6 @@ class Block < ActiveRecord::Base
     })
   end
 
-  def children
-    unsorted = tables + images
-    unsorted.sort { |child1,child2| child1.block_position <=> child2.block_position }
-  end
-
   def has_write_access? test_user
     [page.try(:test).try(:user_id),user_id].include? test_user.id
   end
@@ -67,7 +62,10 @@ class Block < ActiveRecord::Base
   end
 
   def processed_content
-    children
+    unsorted = tables + images
+    sorted = unsorted.sort { |child1,child2| child1.block_position <=> child2.block_position }
+
+    return sorted
   end
 
 end

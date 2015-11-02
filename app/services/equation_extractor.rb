@@ -14,11 +14,11 @@ class EquationExtractor
     string_array.each do |string|
       if string[0] == "$" && string[string.length-1] == "$" #is an equation
         converted_array.push Equation.new(string)
-        converted_array.push Snippet.new
+        converted_array.push Snippet.new(nil,@styles)
       else
         string.split(" ").each do |word|
           converted_array.push Snippet.new(word,@styles)
-          converted_array.push Snippet.new
+          converted_array.push Snippet.new(nil,@styles)
         end
       end
     end

@@ -2,10 +2,9 @@ class ContentLine
   attr_reader :unused_content_array,:line_items,:height,:width
 
   ##TAKES AN ARRAY OF CONTENT, SPITS OUT ARRAY OF CONTENT IT DIDN'T USE
-  def initialize unused_content_array,element_width,styles
+  def initialize unused_content_array,element_width
     @width = element_width
     @unused_content_array = unused_content_array
-    @styles = styles
     @line_items = []
     unconsolidated_line_items = []
     line_width = 0
@@ -28,22 +27,26 @@ class ContentLine
 
     # snippet joiner
     snippet_string = ""
+    snippet_styles = []
     unconsolidated_line_items.each do |item|
       if item.is_a? Equation
         if snippet_string.length > 0
-          @line_items.push Snippet.new(snippet_string,@styles)
+          @line_items.push Snippet.new(snippet_string,snippet_styles)
           snippet_string = "" 
         end     
         @line_items.push item
         @line_items.push Snippet.new
+      elsif item.is_a? QuestionNumber
+        @line_items.push item
       elsif item.is_a? Snippet
         snippet_string += item.string
+        snippet_styles = item.styles
       else
         @line_items.push item
       end
     end
     if snippet_string.length > 0
-      @line_items.push Snippet.new(snippet_string,@styles)
+      @line_items.push Snippet.new(snippet_string,snippet_styles)
     end 
 
     format_line_items
@@ -102,9 +105,10 @@ class ContentLine
   end
 
   def write_to_pdf pdf
-    pdf.bounding_box [ 2, pdf.bounds.top ], width: @width, height: height do    
+    pdf.bounding_box [ 2, pdf.bounds.top ], width: @width, height: height do
       @line_items.each do |item|
         pdf.bounding_box [ item.indentation, pdf.bounds.top ], width: item.width, height: pdf.bounds.top do
+          p item.object.class
           item.object.write_to_pdf(pdf)
         end
       end
