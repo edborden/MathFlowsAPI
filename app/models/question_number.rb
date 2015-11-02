@@ -5,6 +5,7 @@ class QuestionNumber < Snippet
     @page = block.page
     @test = @page.try :test
     styles = [Style.new(effect: :bold)]
+    string = index.to_s + ") "
     super string,styles,:top
   end
 
@@ -18,10 +19,6 @@ class QuestionNumber < Snippet
     end
   end
 
-  def string
-    index.to_s + ")  "
-  end
-
   def question_blocks page
     page.blocks.order("row ASC, col ASC").select {|block| block.question?}
   end
@@ -32,6 +29,11 @@ class QuestionNumber < Snippet
       ar.push question_blocks(page)
     end
     ar.flatten
+  end
+
+  def write_to_pdf pdf
+    pdf.move_down 4
+    super pdf
   end
 
 end

@@ -15,7 +15,7 @@ class LinesGroup
 
       @lines.each do |line|
 
-        lines_box = pdf.bounding_box [0,pdf.bounds.top-y],width:pdf.bounds.right do
+        lines_box = pdf.bounding_box [ 0, pdf.bounds.top - y ], width: pdf.bounds.right do
 
           line.write_to_pdf pdf
 
