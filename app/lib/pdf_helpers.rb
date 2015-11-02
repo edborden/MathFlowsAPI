@@ -25,17 +25,10 @@ module PdfHelpers
       end
 
       y = 0
-            
-      block.lines.each do |line|
 
-        lines_box = bounding_box [number_indentation,bounds.top-y],width:bounds.right-number_indentation do
-
-          line.write_to_pdf self
-
-        end
-
-        y += lines_box.height
-
+      indent number_indentation do
+        lines_group = LinesGroup.new(block.lines,bounds.right)
+        y += lines_group.write_to_pdf(self).height
       end
 
       ## BLOCK CHILDREN

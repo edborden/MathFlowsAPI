@@ -21,16 +21,21 @@ module ProcessedContent
 
   def write_to_pdf pdf
 
-    y = 0
-
     content_lines = processed_content_lines pdf.bounds.right
 
-    content_lines.each do |content_line|
-      content_line_box = pdf.bounding_box [ 0, pdf.bounds.top - y ], width: pdf.bounds.right, height: content_line.height do
-        content_line.write_to_pdf pdf
+    pdf.bounding_box [ 0, pdf.bounds.top ], width: pdf.bounds.right do
+      
+      y = 0
+
+      content_lines.each do |content_line|
+        content_line_box = pdf.bounding_box [ 0, pdf.bounds.top - y ], width: pdf.bounds.right, height: content_line.height do
+          content_line.write_to_pdf pdf
+        end
+        y += content_line_box.height
       end
-      y += content_line_box.height
+
     end
+
   end
 
 end

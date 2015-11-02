@@ -64,6 +64,14 @@ class Block < ActiveRecord::Base
   def processed_content
     unsorted = tables + images
     sorted = unsorted.sort { |child1,child2| child1.block_position <=> child2.block_position }
+    #if question?
+      #questionNumber = QuestionNumber.new(self)
+      #p questionNumber.width
+      #sorted.unshift LinesGroup.new(lines,width-questionNumber.width) if lines.present?
+      #sorted.unshift questionNumber
+    #else
+      #sorted.unshift LinesGroup.new(lines,0) if lines.present?
+    #end
 
     return sorted
   end
