@@ -65,7 +65,7 @@ describe Block do
 
   end
 
-  describe "#children" do
+  describe "#processed_content" do
 
     context "when has children" do
 
@@ -73,7 +73,7 @@ describe Block do
 
       it "returns images and tables ordered by block_position" do
 
-        expect(block_with_children.children).to eq [block_with_children.tables.first,block_with_children.images.first]
+        expect(block_with_children.processed_content.last(2)).to eq [block_with_children.tables.first,block_with_children.images.first]
 
       end
 
