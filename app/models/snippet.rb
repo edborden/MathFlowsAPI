@@ -23,7 +23,7 @@ class Snippet
   end
 
   def height
-    18
+    ROW_HEIGHT
   end
 
   def string
