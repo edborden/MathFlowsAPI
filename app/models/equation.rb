@@ -4,7 +4,7 @@ require 'cgi'
 class Equation
 
   def initialize latex
-    @latex = latex
+    @latex = "$#{latex}$" #add $ for display math mode
   end
 
   def url
