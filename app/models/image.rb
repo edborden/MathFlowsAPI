@@ -3,7 +3,6 @@ require 'open-uri'
 class Image < ActiveRecord::Base
   include NormalizeImage
 
-  #before_destroy :delete_cloudinary
   after_create :create_alignment, unless: :alignment
 
   belongs_to :block
@@ -16,10 +15,6 @@ class Image < ActiveRecord::Base
   def file    
     @file ||= open "http://res.cloudinary.com/hmb9zxcjb/image/upload/" + cloudinary_id
   end
-
-  #def delete_cloudinary
-  #  CloudinaryHandler.new.handle :delete_resource, cloudinary_id
-  #end
 
   def has_write_access? user
     block.user_id == user.id
