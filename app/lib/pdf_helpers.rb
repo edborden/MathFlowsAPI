@@ -10,6 +10,7 @@ module PdfHelpers
 
   def pdf_block block,block_height,borders=false
 
+    p bounds.top,block.y,block.row,block.col
     bounding_box [block.x, bounds.top - block.y], width: block.width,height:block_height do
 
       block.write_to_pdf(self)

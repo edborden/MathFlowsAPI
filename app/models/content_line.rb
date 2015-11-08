@@ -108,7 +108,6 @@ class ContentLine
     pdf.bounding_box [ 2, pdf.bounds.top ], width: @width, height: height do
       @line_items.each do |item|
         pdf.bounding_box [ item.indentation, pdf.bounds.top ], width: item.width, height: pdf.bounds.top do
-          p item.object.class
           item.object.write_to_pdf(pdf)
         end
       end
