@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151023040507) do
+ActiveRecord::Schema.define(version: 20151110221303) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -193,12 +193,13 @@ ActiveRecord::Schema.define(version: 20151023040507) do
     t.datetime "created_at"
     t.integer  "group_id"
     t.string   "uservoice_token"
-    t.integer  "tests_count",       default: 0,  null: false
-    t.integer  "tests_quota",       default: 25, null: false
+    t.integer  "tests_count",          default: 0,  null: false
+    t.integer  "tests_quota",          default: 25, null: false
     t.string   "referred_by"
     t.integer  "invitation_id"
     t.string   "facebook_referrer"
     t.string   "google_referrer"
+    t.string   "kickstarter_referrer"
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree

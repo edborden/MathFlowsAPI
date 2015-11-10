@@ -6,6 +6,7 @@ class SessionsController < AuthenticatedController
       user = GuestUser.new.user
       user.facebook_referrer = params[:session][:facebook_referrer]
       user.google_referrer = params[:session][:google_referrer]
+      user.kickstarter_referrer = params[:session][:kickstarter_referrer]
       user.save
     else 
       google = GoogleHandler.new.user_authorized(params[:session][:token],params[:session][:redirect_uri])
