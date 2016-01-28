@@ -10,7 +10,7 @@ gem 'pg'
 gem 'rack-cors', require: 'rack/cors'
 
 ## GOOGLE
-gem 'google-api-client'
+gem 'google-api-client', "0.9.pre3"
 
 ## MODEL CLONING
 gem 'amoeba'
