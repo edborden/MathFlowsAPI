@@ -8,7 +8,6 @@ gem 'active_model_serializers',"0.8.3"
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw]
 gem 'pg'
 gem 'rack-cors', require: 'rack/cors'
-gem 'puma', platforms: :ruby
 
 ## GOOGLE
 gem 'google-api-client'
