@@ -1,8 +1,11 @@
 class MailHandler < MandrillMailer::TemplateMailer
-  include Handler
   
   default from: "support@mathflows.com"
   default from_name: "MathFlows"
+
+  def handle command,*args
+    return
+  end
 
   def welcome user
     mandrill_mail( template: 'welcome',
