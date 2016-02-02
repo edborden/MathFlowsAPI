@@ -241,14 +241,14 @@ PLATFORMS
 
 DEPENDENCIES
   active_model_serializers (= 0.8.3)
-  amoeba
+  amoeba (= 3.0.0)
   chunky_png
   cloudinary
   database_cleaner
   factory_girl_rails
   faker
   figaro
-  google-api-client
+  google-api-client (= 0.8.6)
   image_size
   keen
   mailchimp-api
@@ -258,7 +258,6 @@ DEPENDENCIES
   pg
   prawn
   prawn-svg
-  puma
   rack-cors
   rails (= 4.2.4)
   rails-api (= 0.4.0)
